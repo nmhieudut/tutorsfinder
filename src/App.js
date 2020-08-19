@@ -1,24 +1,15 @@
 import React from 'react';
 // import logo from './logo.svg';
 // import { Counter } from './features/counter/Counter';
-import Sider from './components/Sider'
+import Layouts from './components/layouts'
 import './App.css';
-import { Layout,Menu, Switch } from 'antd';
-
-const { Header, Footer, Content } = Layout;
-
 
 function App() {
-  return (
-    <Layout>
-      <Sider>Sider</Sider>
-      <Layout>
-        <Header>Header</Header>
-        <Content>Content</Content>
-        <Footer>Footer</Footer>
-      </Layout>
-    </Layout>
-  );
+    return (
+        <div className="App">
+            <Layouts />
+        </div>
+    );
 }
 
 export default App;
