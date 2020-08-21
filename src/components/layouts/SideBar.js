@@ -17,7 +17,7 @@ export default function SideBar({ props }) {
             <Menu
                 defaultSelectedKeys={['1']}
                 mode='inline'
-                theme='dark'
+                theme='light'
                 style={{ height: "100%" }}
             >
                 <Menu.Item key="1" icon={<DashboardOutlined />}>
