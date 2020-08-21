@@ -6,9 +6,11 @@ import './App.css';
 
 function App() {
     return (
-        <div className="App">
-            <Layouts />
-        </div>
+        <React.StrictMode>
+            <div className="App">
+                <Layouts />
+            </div>
+        </React.StrictMode>
     );
 }
 

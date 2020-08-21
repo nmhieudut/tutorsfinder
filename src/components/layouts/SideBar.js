@@ -12,17 +12,19 @@ const { SubMenu } = Menu;
 
 export default function SideBar({ props }) {
 
+
     return (
         <div className="sidebar-layout-content">
             <Menu
+                defaultSelectedKeys={["1"]}
                 mode='inline'
                 theme='light'
                 style={{ height: "100%" }}
             >
-                <Menu.Item key="1" icon={<DashboardOutlined />}>
+                <Menu.Item key="1" icon={<DashboardOutlined />} >
                     <Link to="/">Dashboard</Link>
                 </Menu.Item>
-                <Menu.Item key="2" icon={<CalendarOutlined />}>
+                <Menu.Item key="2" icon={<CalendarOutlined />} >
                     Navigation Two
                     </Menu.Item>
                 <SubMenu key="sub1" icon={<AuditOutlined />} title="Teachers">
@@ -35,10 +37,10 @@ export default function SideBar({ props }) {
                     </SubMenu> */}
                 </SubMenu>
                 <SubMenu key="sub2" icon={<UserOutlined />} title="Students">
-                    <Menu.Item key="7"><Link to='/students'>List</Link></Menu.Item>
-                    <Menu.Item key="8">Management</Menu.Item>
+                    <Menu.Item key="5" ><Link to='/students'>List</Link></Menu.Item>
+                    <Menu.Item key="6" >Management</Menu.Item>
                 </SubMenu>
             </Menu>
-        </div>
+        </div >
     );
 }
