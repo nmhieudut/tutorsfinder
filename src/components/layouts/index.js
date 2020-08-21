@@ -1,8 +1,9 @@
 import React from 'react'
 import './index.css'
-import { Layout } from 'antd';
+import { Layout, BackTop } from 'antd';
 import SideBar from './SideBar'
 import HeaderNav from './HeaderNav'
+import { VerticalAlignTopOutlined } from '@ant-design/icons';
 import {
     BrowserRouter as Router,
     Switch,
@@ -35,6 +36,9 @@ export default function index() {
                                     <Route path="/tutors/:id" exact component={TutorsList} />
                                     <Route path="/students/:id" exact component={StudentsList} />
                                 </Switch>
+                                <BackTop>
+                                    <div className='back-top-button'><VerticalAlignTopOutlined /></div>
+                                </BackTop>
                             </div>
                         </Content>
                     </Layout>

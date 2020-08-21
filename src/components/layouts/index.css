@@ -19,3 +19,14 @@
   min-width: 100%;
   min-height: 560px;
 }
+
+.back-top-button {
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  border-radius: 100%;
+  background-color: #1088e9;
+  color: #fff;
+  text-align: center;
+  font-size: 24px
+}
