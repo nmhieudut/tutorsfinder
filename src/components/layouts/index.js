@@ -8,8 +8,8 @@ import {
     Switch,
     Route
 } from "react-router-dom";
-import Students from '../users/Students'
-import Tutors from '../users/Tutors'
+import StudentsList from '../users/StudentsList'
+import TutorsList from '../users/TutorsList'
 import Dashboard from '../dashboard'
 
 const { Header, Footer, Content, Sider } = Layout;
@@ -30,10 +30,10 @@ export default function index() {
                             <div className="site-layout-content">
                                 <Switch>
                                     <Route path="/" exact component={Dashboard} />
-                                    <Route path="/tutors" exact component={Tutors} />
-                                    <Route path="/students" exact component={Students} />
-                                    <Route path="/tutors/:id" exact component={Tutors} />
-                                    <Route path="/students/:id" exact component={Students} />
+                                    <Route path="/tutors" exact component={TutorsList} />
+                                    <Route path="/students" exact component={StudentsList} />
+                                    <Route path="/tutors/:id" exact component={TutorsList} />
+                                    <Route path="/students/:id" exact component={StudentsList} />
                                 </Switch>
                             </div>
                         </Content>
