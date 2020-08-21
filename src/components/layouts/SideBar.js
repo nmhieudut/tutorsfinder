@@ -15,7 +15,6 @@ export default function SideBar({ props }) {
     return (
         <div className="sidebar-layout-content">
             <Menu
-                defaultSelectedKeys={['1']}
                 mode='inline'
                 theme='light'
                 style={{ height: "100%" }}
