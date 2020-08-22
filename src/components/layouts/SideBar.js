@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-    AuditOutlined,
     DashboardOutlined,
     UserOutlined,
     CalendarOutlined,
@@ -10,37 +9,29 @@ import { Menu } from 'antd';
 
 const { SubMenu } = Menu;
 
-export default function SideBar({ props }) {
-
-
+export default function SideBar() {
+    
     return (
         <div className="sidebar-layout-content">
             <Menu
-                defaultSelectedKeys={["1"]}
                 mode='inline'
                 theme='light'
-                style={{ height: "100%" }}
-            >
+                style={{ height: "100%" }}>
                 <Menu.Item key="1" icon={<DashboardOutlined />} >
                     <Link to="/">Dashboard</Link>
                 </Menu.Item>
                 <Menu.Item key="2" icon={<CalendarOutlined />} >
                     Navigation Two
                     </Menu.Item>
-                <SubMenu key="sub1" icon={<AuditOutlined />} title="Teachers">
-                    <Menu.Item key="3"><Link to='/tutors'>List</Link></Menu.Item>
-
-                    <Menu.Item key="4">Management</Menu.Item>
+                <SubMenu key="sub1" icon={<UserOutlined />} title="Management">
+                    <Menu.Item key="3"><Link to='/tutors'>Tutors</Link></Menu.Item>
+                    <Menu.Item key="4"><Link to='/students'>Students</Link></Menu.Item>
                     {/* <SubMenu key="sub1-2" title="Submenu">
                         <Menu.Item key="5">Option 5</Menu.Item>
                         <Menu.Item key="6">Option 6</Menu.Item>
                     </SubMenu> */}
                 </SubMenu>
-                <SubMenu key="sub2" icon={<UserOutlined />} title="Students">
-                    <Menu.Item key="5" ><Link to='/students'>List</Link></Menu.Item>
-                    <Menu.Item key="6" >Management</Menu.Item>
-                </SubMenu>
             </Menu>
-        </div >
+        </div>
     );
 }

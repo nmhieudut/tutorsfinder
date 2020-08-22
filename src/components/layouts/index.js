@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './index.css'
 import { Layout, BackTop } from 'antd';
 import SideBar from './SideBar'
@@ -15,7 +15,12 @@ import Dashboard from '../dashboard'
 
 const { Header, Footer, Content, Sider } = Layout;
 
-export default function index() {
+export default function Layouts() {
+    const [collapsed, setCollapsed] = useState(false);
+
+    const onCollapse = collapsed => {
+        setCollapsed(collapsed)
+    }
     return (
         <div>
             <Router>
@@ -24,10 +29,10 @@ export default function index() {
                         <HeaderNav />
                     </Header>
                     <Layout>
-                        <Sider theme="light">
+                        <Sider collapsible collapsed={collapsed} onCollapse={onCollapse} theme="light">
                             <SideBar />
                         </Sider>
-                        <Content>
+                        <Content style={{ padding: '50px' }}>
                             <div className="site-layout-content">
                                 <Switch>
                                     <Route path="/" exact component={Dashboard} />
@@ -42,7 +47,7 @@ export default function index() {
                             </div>
                         </Content>
                     </Layout>
-                    <Footer>Footer</Footer>
+                    <Footer style={{ textAlign: 'center' }}>Hieu US/UK ©2020 Created by Hieu Hoa Hong</Footer>
                 </Layout>
             </Router>
         </div>

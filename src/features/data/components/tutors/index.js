@@ -5,17 +5,19 @@ import { List } from 'antd';
 import { useDispatch, useSelector } from 'react-redux'
 import { loadDataAction } from '../../actions'
 
-export default function Tutors() {
+function Tutors() {
     const dispatch = useDispatch();
+    //State-redux
     const data = useSelector(state => state.tutorsReducer.data);
-    console.log("data", data)
     const loading = useSelector(state => state.tutorsReducer.loading);
 
-    useEffect(() => loadData(), [])
+    console.log("data", data)
 
     const loadData = () => {
         dispatch(loadDataAction())
     }
+
+    useEffect(loadData, []);
 
     const renderItem = (item) => {
         return (
@@ -45,3 +47,4 @@ export default function Tutors() {
     )
 }
 
+export default React.memo(Tutors)
