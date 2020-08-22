@@ -10,12 +10,12 @@ import { Menu } from 'antd';
 const { SubMenu } = Menu;
 
 export default function SideBar() {
-    
+
     return (
         <div className="sidebar-layout-content">
             <Menu
                 mode='inline'
-                theme='light'
+                theme='dark'
                 style={{ height: "100%" }}>
                 <Menu.Item key="1" icon={<DashboardOutlined />} >
                     <Link to="/">Dashboard</Link>

@@ -29,7 +29,12 @@ export default function Layouts() {
                         <HeaderNav />
                     </Header>
                     <Layout>
-                        <Sider collapsible collapsed={collapsed} onCollapse={onCollapse} theme="light">
+                        <Sider
+                            breakpoint="lg"
+                            collapsible
+                            collapsed={collapsed}
+                            onCollapse={onCollapse}
+                            theme="dark">
                             <SideBar />
                         </Sider>
                         <Content style={{ padding: '50px' }}>
