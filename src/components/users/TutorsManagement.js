@@ -1,5 +1,5 @@
 import React from 'react'
-import { Drawer, Form, Button, Col, Row, Input, Select, DatePicker } from 'antd';
+import { Drawer, Form, Button, Col, Row, Input, Select, DatePicker, Divider } from 'antd';
 
 const { Option } = Select;
 
@@ -8,25 +8,23 @@ export default function TutorsManagement(props) {
         <div>
             <Drawer
                 title="Create a new account"
-                width={720}
+                width={640}
                 onClose={props.onClose}
                 visible={props.visible}
                 bodyStyle={{ paddingBottom: 80 }}
                 footer={
-                    <div
-                        style={{
-                            textAlign: 'right',
-                        }}
-                    >
-                        <Button onClick={props.onClose} style={{ marginRight: 8 }}>
-                            Cancel
-              </Button>
+                    <div style={{
+                        textAlign: 'right',
+                    }}>
                         <Button onClick={props.onClose} type="primary">
                             Submit
-              </Button>
+                         </Button>
+                        <Divider type="vertical" />
+                        <Button onClick={props.onClose} type="primary" danger style={{ marginRight: 8 }}>
+                            Cancel
+                        </Button>
                     </div>
-                }
-            >
+                }>
                 <Form layout="vertical" hideRequiredMark>
                     <Row gutter={16}>
                         <Col span={12}>
@@ -40,15 +38,14 @@ export default function TutorsManagement(props) {
                         </Col>
                         <Col span={12}>
                             <Form.Item
-                                name="url"
-                                label="Url"
-                                rules={[{ required: true, message: 'Please enter url' }]}
+                                name="email"
+                                label="Email"
+                                rules={[{ required: true, message: 'Please enter email' }]}
                             >
                                 <Input
                                     style={{ width: '100%' }}
-                                    addonBefore="http://"
-                                    addonAfter=".com"
-                                    placeholder="Please enter url"
+                                    addonAfter="@gmail.com"
+                                    placeholder="Please enter email"
                                 />
                             </Form.Item>
                         </Col>
@@ -123,6 +120,6 @@ export default function TutorsManagement(props) {
                     </Row>
                 </Form>
             </Drawer>
-        </div>
+        </div >
     )
 }

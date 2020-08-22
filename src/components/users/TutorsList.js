@@ -19,7 +19,7 @@ export default function TutorsList() {
             <div style={{ textAlign: 'right', padding: '30px' }}>
                 <Button type="primary" onClick={showDrawer}>
                     <PlusOutlined /> New account
-            </Button>
+                </Button>
             </div>
             <Tutors />
             <TutorsManagement visible={visible} showDrawer={showDrawer} onClose={onClose} />

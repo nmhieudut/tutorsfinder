@@ -4,11 +4,12 @@ import Details from '../../../../components/users/Details'
 const { Meta } = Card;
 
 function Tutor(props) {
-    const { item } = props;
-    console.log("item:", item)
     const [selectedUser, setSelectedUser] = useState([]);
     const [visible, setVisible] = useState(false);
+    const { item } = props;
+    console.log("item:", item)
 
+    
     const onSelect = (item) => {
         setSelectedUser(item);
         setVisible(true);

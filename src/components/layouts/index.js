@@ -30,11 +30,12 @@ export default function Layouts() {
                     </Header>
                     <Layout>
                         <Sider
+                            className="sider-layout"
                             breakpoint="lg"
                             collapsible
                             collapsed={collapsed}
                             onCollapse={onCollapse}
-                            theme="dark">
+                            theme="light">
                             <SideBar />
                         </Sider>
                         <Content style={{ padding: '50px' }}>
@@ -55,6 +56,6 @@ export default function Layouts() {
                     <Footer style={{ textAlign: 'center' }}>Hieu US/UK ©2020 Created by Hieu Hoa Hong</Footer>
                 </Layout>
             </Router>
-        </div>
+        </div >
     )
 }

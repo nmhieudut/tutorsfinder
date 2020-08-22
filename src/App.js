@@ -8,7 +8,7 @@ import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import './App.css';
+import './App.less';
 // Root Saga
 import rootSagas from './app/rootSaga'
 
