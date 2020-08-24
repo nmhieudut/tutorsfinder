@@ -1,9 +1,9 @@
 import React from 'react';
 import './details.css'
-import { Drawer, Divider, Col, Row } from 'antd';
+import { Drawer, Divider, Col, Row, Avatar } from 'antd';
 
 export default function Details(props) {
-    console.log("props:", props.user)
+    //console.log("props:", props.user)
     const DescriptionItem = ({ title, content }) => (
         <div className="site-description-item-profile-wrapper">
             <p className="site-description-item-profile-p-label">{title}:</p>
@@ -15,7 +15,11 @@ export default function Details(props) {
         <div>
             <Drawer
                 width={640}
-                title={props.user.name}
+                title={
+                    <div>
+                        <Avatar src={props.user.avatar} /> &nbsp;{props.user.name}
+                    </div>
+                }
                 placement="right"
                 closable={false}
                 onClose={props.onClose}
@@ -27,33 +31,27 @@ export default function Details(props) {
                 </Row>
                 <Row>
                     <Col span={12}>
-                        <DescriptionItem title="City" content="HangZhou" />
+                        <DescriptionItem title="Gender" content={props.user.gender} />
                     </Col>
                     <Col span={12}>
-                        <DescriptionItem title="Country" content="China🇨🇳" />
+                        <DescriptionItem title="Age" content={props.user.age} />
                     </Col>
                 </Row>
                 <Row>
-                    <Col span={12}>
+                    <Col>
                         <DescriptionItem title="Birthday" content="February 2,1900" />
-                    </Col>
-                    <Col span={12}>
-                        <DescriptionItem title="Website" content="-" />
                     </Col>
                 </Row>
                 <Divider />
-                <p className="site-description-item-profile-p">Company</p>
+                <p className="site-description-item-profile-p">Introduction</p>
                 <Row>
-                    <Col span={12}>
-                        <DescriptionItem title="Position" content="Programmer" />
-                    </Col>
-                    <Col span={12}>
-                        <DescriptionItem title="Responsibilities" content="Coding" />
+                    <Col>
+                        <DescriptionItem title="Career" content="Teacher" />
                     </Col>
                 </Row>
                 <Row>
                     <Col span={12}>
-                        <DescriptionItem title="Department" content="XTech" />
+                        <DescriptionItem title="Department" content="Math,Chemistry" />
                     </Col>
                 </Row>
                 <Row>
@@ -77,12 +75,8 @@ export default function Details(props) {
                 <Row>
                     <Col span={24}>
                         <DescriptionItem
-                            title="Github"
-                            content={
-                                <a href="http://github.com/ant-design/ant-design/">
-                                    github.com/ant-design/ant-design/
-                  </a>
-                            }
+                            title="Address"
+                            content={props.user.address}
                         />
                     </Col>
                 </Row>

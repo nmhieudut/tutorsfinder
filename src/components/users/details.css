@@ -15,7 +15,6 @@
     margin-bottom: 16px;
     color: rgba(0, 0, 0, 0.85);
     font-size: 16px;
-    line-height: 1.5715;
 }
 
 [data-theme='compact'] .ant-drawer-body p.site-description-item-profile-p {

@@ -3,7 +3,7 @@ import { Drawer, Form, Button, Col, Row, Input, Select, DatePicker, Divider } fr
 
 const { Option } = Select;
 
-export default function TutorsManagement(props) {
+export default function TutorsCreate(props) {
     return (
         <div>
             <Drawer

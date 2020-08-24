@@ -9,8 +9,9 @@ import {
     Switch,
     Route
 } from "react-router-dom";
-import StudentsList from '../users/StudentsList'
-import TutorsList from '../users/TutorsList'
+import StudentsList from '../users/StudentsManagement/StudentsList'
+import TutorsList from '../users/TutorsManagement/TutorsList'
+import TutorsUpdate from '../users/TutorsManagement/Tutors-Update'
 import Dashboard from '../dashboard'
 
 const { Header, Footer, Content, Sider } = Layout;
@@ -38,14 +39,14 @@ export default function Layouts() {
                             theme="light">
                             <SideBar />
                         </Sider>
-                        <Content style={{ padding: '50px' }}>
+                        <Content>
                             <div className="site-layout-content">
                                 <Switch>
                                     <Route path="/" exact component={Dashboard} />
                                     <Route path="/tutors" exact component={TutorsList} />
                                     <Route path="/students" exact component={StudentsList} />
-                                    <Route path="/tutors/:id" exact component={TutorsList} />
-                                    <Route path="/students/:id" exact component={StudentsList} />
+                                    <Route path="/tutors/:id/edit" exact component={TutorsUpdate} />
+                                    <Route path="/students/:id/edit" exact component={StudentsList} />
                                 </Switch>
                                 <BackTop>
                                     <div className='back-top-button'><VerticalAlignTopOutlined /></div>

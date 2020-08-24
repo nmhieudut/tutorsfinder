@@ -24,6 +24,42 @@ export default function (state = defaultState, action) {
                 ...state,
                 data: null,
                 error: action.error
+            };
+        case ActionTypes.CREATE_TUTOR:
+            return {
+                ...state,
+                loading: true
+            };
+        case ActionTypes.CREATE_TUTOR_SUCCESS:
+            return {
+                ...state,
+                data: action.data,
+                loading: false,
+            };
+        case ActionTypes.CREATE_TUTOR_FAILED:
+            return {
+                ...state,
+                data: null,
+                error: action.error
+            };
+        case ActionTypes.DELETE_TUTOR:
+            return {
+                ...state,
+                loading: true
+            };
+        case ActionTypes.DELETE_TUTOR_SUCCESS:
+            var newData = [...state.data].filter(
+                (e) => e.id !== action.data.id,
+            );
+            return {
+                ...state,
+                data: newData,
+                loading: false,
+            };
+        case ActionTypes.DELETE_TUTOR_FAILED:
+            return {
+                ...state,
+                error: action.error
             }
         default:
             return state
