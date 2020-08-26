@@ -15,11 +15,7 @@ export default function Details(props) {
         <div>
             <Drawer
                 width={640}
-                title={
-                    <div>
-                        <Avatar src={props.user.avatar} /> &nbsp;{props.user.name}
-                    </div>
-                }
+                title={<div><Avatar src={props.user.avatar} /> &nbsp;{props.user.name}</div>}
                 placement="right"
                 closable={false}
                 onClose={props.onClose}
@@ -31,7 +27,7 @@ export default function Details(props) {
                 </Row>
                 <Row>
                     <Col span={12}>
-                        <DescriptionItem title="Gender" content={props.user.gender} />
+                        <DescriptionItem title="Gender" content={`${props.user.gender ? "Male" : "Female"}`} />
                     </Col>
                     <Col span={12}>
                         <DescriptionItem title="Age" content={props.user.age} />

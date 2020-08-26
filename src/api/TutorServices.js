@@ -1,8 +1,24 @@
 import axios from 'axios';
+
 function getTutors() {
     return new Promise((resolve, reject) => {
-        axios
-            .get('https://5f4229f8d4b4790016fd7741.mockapi.io/tutors')
+        axios.get('https://5f4229f8d4b4790016fd7741.mockapi.io/tutors')
+            .then(res => {
+                const data = [];
+                data.push(res);
+                resolve(data);
+                //console.log("Data:", data);
+            })
+            .catch(error => {
+                console.log(error);
+                reject(error);
+            })
+    })
+}
+
+function getDetailTutor(id){
+    return new Promise((resolve, reject) => {
+        axios.get(`https://5f4229f8d4b4790016fd7741.mockapi.io/tutors/${id}`)
             .then(res => {
                 const data = [];
                 data.push(res);
@@ -31,10 +47,21 @@ function getTutors() {
 //             })
 //     })
 // }
+function updateTutor(id) {
+    return new Promise((resolve, reject) => {
+        axios.put(`https://5f4229f8d4b4790016fd7741.mockapi.io/tutors/${id}`)
+            .then(res => {
+                resolve(res);
+                console.log(res);
+            }).catch(error => {
+                reject(error);
+                console.log(error)
+            })
+    })
+}
 function deleteTutor(id) {
     return new Promise((resolve, reject) => {
-        axios
-            .delete(`https://5f4229f8d4b4790016fd7741.mockapi.io/tutors/${id}`)
+        axios.delete(`https://5f4229f8d4b4790016fd7741.mockapi.io/tutors/${id}`)
             .then(res => {
                 resolve(res)
             })
@@ -46,5 +73,7 @@ function deleteTutor(id) {
 }
 export default {
     getTutors,
+    getDetailTutor,
+    updateTutor,
     deleteTutor
 }

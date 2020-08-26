@@ -25,6 +25,23 @@ export default function (state = defaultState, action) {
                 data: null,
                 error: action.error
             };
+        case ActionTypes.LOAD_DATA_DETAIL:
+            return {
+                ...state,
+                loading: true
+            };
+        case ActionTypes.LOAD_DATA_DETAIL_SUCCESS:
+            return {
+                ...state,
+                data: action.data,
+                loading: false,
+            };
+        case ActionTypes.LOAD_DATA_DETAIL_FAILED:
+            return {
+                ...state,
+                data: null,
+                error: action.error
+            };
         case ActionTypes.CREATE_TUTOR:
             return {
                 ...state,
@@ -37,6 +54,23 @@ export default function (state = defaultState, action) {
                 loading: false,
             };
         case ActionTypes.CREATE_TUTOR_FAILED:
+            return {
+                ...state,
+                data: null,
+                error: action.error
+            };
+        case ActionTypes.UPDATE_TUTOR:
+            return {
+                ...state,
+                loading: true
+            };
+        case ActionTypes.UPDATE_TUTOR_SUCCESS:
+            return {
+                ...state,
+                data: action.data,
+                loading: false,
+            };
+        case ActionTypes.UPDATE_TUTOR_FAILED:
             return {
                 ...state,
                 data: null,

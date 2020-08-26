@@ -20,13 +20,11 @@ function Tutors() {
     const loading = useSelector(state => state.tutorsReducer.loading);
     // console.log("data", data)
 
+    const loadData = () => {
+        dispatch(loadDataAction())
+    }
     //Load data effect
-    useEffect(() => {
-        function loadData() {
-            dispatch(loadDataAction())
-        }
-        loadData()
-    }, []);
+    useEffect(loadData, []);
 
     const onSelect = (item) => {
         setSelectedUser(item);
@@ -52,7 +50,7 @@ function Tutors() {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
-            render: (name) => (<div><Avatar src={record.avatar} />&nbsp;{name}</div>),
+            render: (name, record) => (<div><Avatar src={record.avatar} />&nbsp;{name}</div>),
             sorter: {
                 compare: (a, b) => a.name.length - b.name.length,
             },
@@ -103,7 +101,7 @@ function Tutors() {
                         onClick={() => onSelect(record)}>
                         {`View more >>`}
                     </Button>
-                    <Link to={`/tutors/${record.id}/edit`}>
+                    <Link target="_top" to={`/tutors/${record.id}/edit`}>
                         <Button
                             icon={<EditOutlined />}>
                             Edit

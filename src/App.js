@@ -11,8 +11,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import './App.less';
 // Root Saga
 import rootSagas from './app/rootSaga'
-
-
+//root reducer
 const rootReducer = combineReducers({
     tutorsReducer
 });

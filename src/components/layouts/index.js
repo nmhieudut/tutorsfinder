@@ -12,6 +12,7 @@ import {
 import StudentsList from '../users/StudentsManagement/StudentsList'
 import TutorsList from '../users/TutorsManagement/TutorsList'
 import TutorsUpdate from '../users/TutorsManagement/Tutors-Update'
+import StudentsUpdate from '../users/TutorsManagement/Students-Update'
 import Dashboard from '../dashboard'
 
 const { Header, Footer, Content, Sider } = Layout;
@@ -46,7 +47,7 @@ export default function Layouts() {
                                     <Route path="/tutors" exact component={TutorsList} />
                                     <Route path="/students" exact component={StudentsList} />
                                     <Route path="/tutors/:id/edit" exact component={TutorsUpdate} />
-                                    <Route path="/students/:id/edit" exact component={StudentsList} />
+                                    <Route path="/students/:id/edit" exact component={StudentsUpdate} />
                                 </Switch>
                                 <BackTop>
                                     <div className='back-top-button'><VerticalAlignTopOutlined /></div>
@@ -57,6 +58,6 @@ export default function Layouts() {
                     <Footer style={{ textAlign: 'center' }}>Hieu US/UK ©2020 Created by Hieu Hoa Hong</Footer>
                 </Layout>
             </Router>
-        </div >
+        </div>
     )
 }
