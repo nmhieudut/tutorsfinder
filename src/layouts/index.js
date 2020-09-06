@@ -9,11 +9,11 @@ import {
     Switch,
     Route
 } from "react-router-dom";
-import StudentsList from '../users/StudentsManagement/StudentsList'
-import TutorsList from '../users/TutorsManagement/TutorsList'
-import TutorsUpdate from '../users/TutorsManagement/Tutors-Update'
-import StudentsUpdate from '../users/TutorsManagement/Students-Update'
-import Dashboard from '../dashboard'
+import StudentsList from '../pages/users/StudentsManagement/StudentsList'
+import TutorsList from '../pages/users/TutorsManagement/TutorsList'
+import TutorsUpdate from '../pages/users/TutorsManagement/TutorsUpdate'
+import StudentsUpdate from '../pages/users/StudentsManagement/StudentsUpdate'
+import Dashboard from '../pages/dashboard'
 
 const { Header, Footer, Content, Sider } = Layout;
 
