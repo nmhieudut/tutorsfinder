@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Details from "../../../pages/users/Details";
 import { Link } from "react-router-dom";
-import { Table, Space, Button, Tag } from "antd";
+import { Table, Space, Button, Tag, notification } from "antd";
 import moment from "moment";
 import {
   FolderViewOutlined,
@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadDataAction, deleteTutorAction } from "../actions";
 
 function Tutors() {
+  console.log("Loaded");
   //local state
   const [selectedUser, setSelectedUser] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -22,6 +23,8 @@ function Tutors() {
   //State redux
   const data = useSelector((state) => state.tutorsReducer.data);
   const loading = useSelector((state) => state.tutorsReducer.loading);
+  const success = useSelector((state) => state.tutorsReducer.success);
+  const error = useSelector((state) => state.tutorsReducer.error);
   console.log("data", data);
 
   const loadData = () => {
@@ -30,6 +33,13 @@ function Tutors() {
   //Load data effect
   useEffect(loadData, []);
 
+  const openNotificationWithIcon = (type, message, description) => {
+    notification[type]({
+      message: message,
+      description: description,
+      duration: 2,
+    });
+  };
   const onSelect = (item) => {
     setSelectedUser(item);
     setVisible(true);
@@ -66,16 +76,6 @@ function Tutors() {
       render: (gender) => `${gender ? "Male" : "Female"}`,
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
-      render: (age) => `${age}`,
-      sorter: {
-        compare: (a, b) => a.age - b.age,
-        multiple: 3,
-      },
-    },
-    {
       title: "Email",
       dataIndex: "email",
       key: "email",
@@ -94,14 +94,16 @@ function Tutors() {
       render: (phoneNumber) => `${phoneNumber}`,
     },
     {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      render: (status) => {
-        let activeStatus = status ? "ACTIVE" : "INACTIVE";
+      title: "Role",
+      dataIndex: "authority",
+      key: "authority",
+      render: (authority) => {
         let color = "green";
-        if (activeStatus === "INACTIVE") {
-          color = "volcano";
+        const activeStatus = authority ? "ADMIN" : "TUTOR";
+        if (activeStatus === "ADMIN") {
+          color = "red";
+        } else if (activeStatus === "TUTOR") {
+          color = "#0288d1";
         }
         return (
           <Tag color={color} key={activeStatus}>
@@ -124,7 +126,7 @@ function Tutors() {
           >
             More
           </Button>
-          <Link target="_top" to={`/tutors/${record.id}/edit`}>
+          <Link target="_top" to={`/home/tutors/${record.id}/edit`}>
             <Button icon={<EditOutlined />}>Edit</Button>
           </Link>
           <Button
@@ -137,12 +139,18 @@ function Tutors() {
           >
             Delete
           </Button>
+          <Button style={{ backgroundColor: "#1976d2", color: "white" }}>
+            {record.activation ? "Active" : "Inactive"}
+          </Button>
         </Space>
       ),
     },
   ];
   return (
     <>
+      {success === "DELETE" &&
+        openNotificationWithIcon("success", "Success!", "Remove successfully")}
+      {error && openNotificationWithIcon("error", "Error!", "Remove failed")}
       <Table
         loading={loading}
         dataSource={data}

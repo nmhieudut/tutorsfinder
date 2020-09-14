@@ -3,6 +3,7 @@ import * as ActionTypes from "../actions/types";
 const defaultState = {
   data: [],
   loading: false,
+  success: null,
   error: null,
 };
 
@@ -45,6 +46,8 @@ export default function (state = defaultState, action) {
     case ActionTypes.CREATE_TUTOR:
       return {
         ...state,
+        success: null,
+        error: null,
         loading: true,
       };
     case ActionTypes.CREATE_TUTOR_SUCCESS:
@@ -53,6 +56,7 @@ export default function (state = defaultState, action) {
       return {
         ...state,
         data: newCreatedData,
+        success: "CREATE",
         loading: false,
       };
     case ActionTypes.CREATE_TUTOR_FAILED:
@@ -64,12 +68,15 @@ export default function (state = defaultState, action) {
     case ActionTypes.UPDATE_TUTOR:
       return {
         ...state,
+        success: null,
+        error: null,
         loading: true,
       };
     case ActionTypes.UPDATE_TUTOR_SUCCESS:
       return {
         ...state,
         data: action.data,
+        success: "UPDATE",
         loading: false,
       };
     case ActionTypes.UPDATE_TUTOR_FAILED:
@@ -81,6 +88,8 @@ export default function (state = defaultState, action) {
     case ActionTypes.DELETE_TUTOR:
       return {
         ...state,
+        success: null,
+        error: null,
         loading: true,
       };
     case ActionTypes.DELETE_TUTOR_SUCCESS:
@@ -88,6 +97,7 @@ export default function (state = defaultState, action) {
       return {
         ...state,
         data: newData,
+        success: "DELETE",
         loading: false,
       };
     case ActionTypes.DELETE_TUTOR_FAILED:

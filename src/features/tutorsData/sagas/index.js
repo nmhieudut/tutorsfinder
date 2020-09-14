@@ -35,13 +35,11 @@ function* getDetailTutor(action) {
   }
 }
 function* createTutor(action) {
-  //console.log("Action: ", action)
   try {
     const response = yield TutorServices.createTutor(
       action.values,
       action.imageUrl
     );
-    //console.log("res", response)
     yield put({
       type: ActionTypes.CREATE_TUTOR_SUCCESS,
       data: response.data,
@@ -54,15 +52,12 @@ function* createTutor(action) {
   }
 }
 function* updateTutor(action) {
-  //console.log("Action: ", action)
   try {
     const response = yield TutorServices.updateTutor(action.id);
-    //console.log("res", response)
     yield put({
       type: ActionTypes.UPDATE_TUTOR_SUCCESS,
       data: response.data,
     });
-    // console.log("data saga:", response.data)
   } catch (error) {
     yield put({
       type: ActionTypes.UPDATE_TUTOR_FAILED,
@@ -71,15 +66,12 @@ function* updateTutor(action) {
   }
 }
 function* deleteTutor(action) {
-  //console.log("Action: ", action)
   try {
     const response = yield TutorServices.deleteTutor(action.id);
-    //console.log("res", response)
     yield put({
       type: ActionTypes.DELETE_TUTOR_SUCCESS,
       data: response.data,
     });
-    // console.log("data saga:", response.data)
   } catch (error) {
     yield put({
       type: ActionTypes.DELETE_TUTOR_FAILED,

@@ -1,28 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import moment from "moment";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import {
-  Drawer,
   Form,
-  Button,
   Input,
+  Button,
   Radio,
-  InputNumber,
   Upload,
   DatePicker,
   message,
+  Select,
   notification,
-  Space,
 } from "antd";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { createTutorAction } from "../../../features/tutorsData/actions";
+import { loadDetailTutorAction } from "../../../features/tutorsData/actions";
+import { SendOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 
-function getBase64(img, callback) {
+const getBase64 = (img, callback) => {
   const reader = new FileReader();
   reader.addEventListener("load", () => callback(reader.result));
   reader.readAsDataURL(img);
-}
+};
 
-function beforeUpload(file) {
+const beforeUpload = (file) => {
   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
   if (!isJpgOrPng) {
     message.error("You can only upload JPG/PNG file!");
@@ -32,27 +32,41 @@ function beforeUpload(file) {
     message.error("Image must smaller than 2MB!");
   }
   return isJpgOrPng && isLt2M;
-}
+};
+const { Option } = Select;
 
-export default function TutorsCreate(props) {
-  const [loadingImg, setLoadingImg] = useState(false);
-  const [imageUrl, setImageUrl] = useState(null);
-  const loading = useSelector((state) => state.tutorsReducer.loading);
-  const data = useSelector((state) => state.tutorsReducer.data);
-  const error = useSelector((state) => state.tutorsReducer.error);
+function TutorsUpdate(props) {
+  //console.log("param:", props.match.params.id)
+  const [loadingImg, setLoadingImg] = useState(true);
+  const [imgUrl, setImgUrl] = useState();
+  //redux + hooks
   const dispatch = useDispatch();
+  const data = useSelector((state) => state.tutorsReducer.data);
+  const loading = useSelector((state) => state.tutorsReducer.loading);
+  const success = useSelector((state) => state.tutorsReducer.success);
+  console.log(data);
+
+  const uploadButton = () => (
+    <div>
+      {loadingImg ? <LoadingOutlined /> : <PlusOutlined />}
+      <div className="ant-upload-text">Upload</div>
+    </div>
+  );
+  useEffect(() => {
+    dispatch(loadDetailTutorAction(props.match.params.id));
+    setImgUrl(data.photo);
+  }, [data.photo, props.match.params.id]);
 
   const dateFormat = "YYYY/MM/DD";
+  // const openNotificationWithIcon = (type, message) => {
+  //   notification[type]({
+  //     message: message,
+  //   });
+  // };
 
-  const openNotificationWithIcon = (type, error) => {
-    notification[type]({
-      message: type.toUpperCase(),
-      description: error,
-    });
-  };
   const layout = {
-    labelCol: { span: 6 },
-    wrapperCol: { span: 14 },
+    labelCol: { span: 8 },
+    wrapperCol: { span: 8 },
   };
   const validateMessages = {
     required: "${label} is required!",
@@ -64,22 +78,12 @@ export default function TutorsCreate(props) {
       range: "${label} must be between ${min} and ${max}",
     },
   };
-  const onFinish = (values) => {
-    console.log(values);
-    const createdUser = {
-      username: values.username,
-      password: values.password,
-      firstName: values.firstName,
-      lastName: values.lastName,
-      address: values.address,
-      email: values.email,
-      gender: values.gender,
-      photo: imageUrl,
-      introduction: values.introduction,
-      phoneNumber: values.phoneNumber,
-      dateOfBirth: values.dateOfBirth,
-    };
-    dispatch(createTutorAction(createdUser));
+  const normFile = (e) => {
+    console.table("Upload event:", e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
   };
   const handleChange = (info) => {
     if (info.file.status === "uploading") {
@@ -88,32 +92,41 @@ export default function TutorsCreate(props) {
     }
     if (info.file.status === "done") {
       // Get this url from response in real world.
-      getBase64(info.file.originFileObj, (imageUrl) => {
-        setImageUrl(imageUrl);
-        setLoadingImg(false);
-      });
+      getBase64(
+        info.file.originFileObj,
+        (imgUrl) => setImgUrl(imgUrl),
+        setLoadingImg(false)
+      );
     }
   };
-  const uploadButton = (
-    <div>
-      {loadingImg ? <loadingImgOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
+  function handleRoleChange(value) {
+    console.log(`selected ${value}`);
+  }
+  const onFinish = (values) => {
+    console.log(values);
+  };
   return (
     <div>
-      <Drawer
-        title="Create a new account"
-        width={640}
-        onClose={props.onClose}
-        visible={props.visible}
-        bodyStyle={{ paddingBottom: 80 }}
-      >
+      {!loading && (
         <Form
           {...layout}
           name="basic"
           onFinish={onFinish}
           validateMessages={validateMessages}
+          initialValues={{
+            firstName: data.firstName,
+            lastName: data.lastName,
+            username: data.username,
+            password: data.password,
+            email: data.email,
+            gender: data.gender ? "male" : "female",
+            photo: data.photo,
+            dateOfBirth: moment(data.dateOfBirth, "MMM Do YY"),
+            phoneNumber: data.phoneNumber,
+            address: data.address,
+            introduction: data.introduction,
+            authority: data.authority === "ROLE_ADMIN" ? "1" : "0",
+          }}
         >
           <Form.Item
             name="firstName"
@@ -132,7 +145,7 @@ export default function TutorsCreate(props) {
           <Form.Item
             name="username"
             label="User Name"
-            rules={[{ required: true }]}
+            rules={[{ min: 8, required: true }]}
           >
             <Input />
           </Form.Item>
@@ -157,18 +170,14 @@ export default function TutorsCreate(props) {
             </Radio.Group>
           </Form.Item>
           <Form.Item
-            name="age"
-            label="Age"
-            rules={[{ type: "number", min: 0, max: 100, required: true }]}
-          >
-            <InputNumber />
-          </Form.Item>
-          <Form.Item
             name="dateOfBirth"
             label="Birthday"
             rules={[{ required: true }]}
           >
-            <DatePicker format={dateFormat} />
+            <DatePicker
+              onChange={(e) => console.log(e._d)}
+              format={dateFormat}
+            />
           </Form.Item>
           <Form.Item
             name="photo"
@@ -184,8 +193,8 @@ export default function TutorsCreate(props) {
               beforeUpload={beforeUpload}
               onChange={handleChange}
             >
-              {imageUrl ? (
-                <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
+              {imgUrl ? (
+                <img src={imgUrl} alt="avatar" style={{ width: "100%" }} />
               ) : (
                 uploadButton
               )}
@@ -210,18 +219,27 @@ export default function TutorsCreate(props) {
           <Form.Item name="introduction" label="Introduction">
             <Input.TextArea />
           </Form.Item>
-          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
+          <Form.Item name="authority" label="Role">
+            <Select style={{ width: 120 }} onChange={handleRoleChange}>
+              <Option value="0">Tutor</Option>
+              <Option value="1">Admin</Option>
+              {/* <Option value="Yiminghe">yiminghe</Option> */}
+            </Select>
+          </Form.Item>
+          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             <Button
               type="primary"
               htmlType="submit"
               disable={loading}
               loading={loading}
             >
-              {loading ? "Pending..." : "Register"}
+              <SendOutlined />
+              {loading ? "Saving..." : "Save"}
             </Button>
           </Form.Item>
         </Form>
-      </Drawer>
+      )}
     </div>
   );
 }
+export default React.memo(TutorsUpdate);

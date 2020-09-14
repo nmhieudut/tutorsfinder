@@ -22,7 +22,8 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
+    "build": "webpack -p",
+    "watch": "webpack --watch",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
@@ -40,5 +41,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   }
 }

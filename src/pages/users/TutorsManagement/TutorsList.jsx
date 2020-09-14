@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import Tutors from "../../../features/tutorsData/components";
 import TutorsCreate from "./TutorsCreate";
-import { PlusOutlined } from "@ant-design/icons";
+import { UserAddOutlined } from "@ant-design/icons";
 import { Button, Typography } from "antd";
 
 const { Title } = Typography;
 
-export default function TutorsList() {
+function TutorsList() {
   const [visible, setVisible] = useState(false);
-
   const showDrawer = () => {
     setVisible(true);
   };
@@ -30,7 +29,7 @@ export default function TutorsList() {
         </div>
         <div style={{ flex: 1, padding: "30px", textAlign: "right" }}>
           <Button type="primary" onClick={showDrawer}>
-            <PlusOutlined /> New account
+            <UserAddOutlined /> New account
           </Button>
         </div>
       </div>
@@ -45,3 +44,4 @@ export default function TutorsList() {
     </div>
   );
 }
+export default React.memo(TutorsList)

@@ -10,7 +10,12 @@ export const loadDetailTutorAction = (id) => ({
 
 export const createTutorAction = (values) => ({
   type: ActionTypes.CREATE_TUTOR,
-  values
+  values,
+});
+export const updateTutorAction = (id, values) => ({
+  type: ActionTypes.UPDATE_TUTOR,
+  id,
+  values,
 });
 
 export const deleteTutorAction = (id) => ({
