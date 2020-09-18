@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import Details from "../../../pages/users/Details";
 import { Link } from "react-router-dom";
 import { Table, Space, Button, Tag, notification } from "antd";
-import moment from "moment";
+import * as moment from "moment";
 import {
   FolderViewOutlined,
   EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { loadDataAction, deleteTutorAction } from "../actions";
+import { loadDataAction, deleteUserAction } from "../actions";
 
-function Tutors() {
+function Users() {
   console.log("Loaded");
   //local state
   const [selectedUser, setSelectedUser] = useState([]);
@@ -21,10 +21,10 @@ function Tutors() {
   const dispatch = useDispatch();
 
   //State redux
-  const data = useSelector((state) => state.tutorsReducer.data);
-  const loading = useSelector((state) => state.tutorsReducer.loading);
-  const success = useSelector((state) => state.tutorsReducer.success);
-  const error = useSelector((state) => state.tutorsReducer.error);
+  const data = useSelector((state) => state.usersReducers.data);
+  const loading = useSelector((state) => state.usersReducers.loading);
+  const success = useSelector((state) => state.usersReducers.success);
+  const error = useSelector((state) => state.usersReducers.error);
   console.log("data", data);
 
   const loadData = () => {
@@ -50,7 +50,7 @@ function Tutors() {
   };
 
   const onDelete = (id) => {
-    dispatch(deleteTutorAction(id));
+    dispatch(deleteUserAction(id));
   };
 
   const columns = [
@@ -126,7 +126,7 @@ function Tutors() {
           >
             More
           </Button>
-          <Link target="_top" to={`/home/tutors/${record.id}/edit`}>
+          <Link target="_top" to={`/home/users/${record.id}/edit`}>
             <Button icon={<EditOutlined />}>Edit</Button>
           </Link>
           <Button
@@ -163,4 +163,4 @@ function Tutors() {
   );
 }
 
-export default React.memo(Tutors);
+export default React.memo(Users);

@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import {
-  Drawer,
   Form,
-  Button,
   Input,
+  Button,
   Radio,
-  InputNumber,
   Upload,
   DatePicker,
   message,
+  Select,
   notification,
 } from "antd";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { createTutorAction } from "../../../features/tutorsData/actions";
+import { loadDetailUserAction } from "../../../features/userData/actions";
+import { SendOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 
-function getBase64(img, callback) {
+const getBase64 = (img, callback) => {
   const reader = new FileReader();
   reader.addEventListener("load", () => callback(reader.result));
   reader.readAsDataURL(img);
-}
+};
 
-function beforeUpload(file) {
+const beforeUpload = (file) => {
   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
   if (!isJpgOrPng) {
     message.error("You can only upload JPG/PNG file!");
@@ -32,28 +32,41 @@ function beforeUpload(file) {
     message.error("Image must smaller than 2MB!");
   }
   return isJpgOrPng && isLt2M;
-}
+};
+const { Option } = Select;
 
-function TutorsCreate(props) {
-  const [loadingImg, setLoadingImg] = useState(false);
-  const [imageUrl, setImageUrl] = useState(null);
+function UsersUpdate(props) {
+  //console.log("param:", props.match.params.id)
+  const [loadingImg, setLoadingImg] = useState(true);
+  const [imgUrl, setImgUrl] = useState();
   //redux + hooks
-  const loading = useSelector((state) => state.tutorsReducer.loading);
-  const success = useSelector((state) => state.tutorsReducer.success);
-  const error = useSelector((state) => state.tutorsReducer.error);
   const dispatch = useDispatch();
-  const dateFormat = "YYYY/MM/DD";
+  const data = useSelector((state) => state.usersReducers.data);
+  const loading = useSelector((state) => state.usersReducers.loading);
+  const success = useSelector((state) => state.usersReducers.success);
+  console.log(data);
 
-  const openNotificationWithIcon = (type, message, description) => {
-    notification[type]({
-      message: message,
-      description: description,
-      duration: 2,
-    });
-  };
+  const uploadButton = () => (
+    <div>
+      {loadingImg ? <LoadingOutlined /> : <PlusOutlined />}
+      <div className="ant-upload-text">Upload</div>
+    </div>
+  );
+  useEffect(() => {
+    dispatch(loadDetailUserAction(props.match.params.id));
+    setImgUrl(data.photo);
+  }, [props.match.params.id]);
+
+  const dateFormat = "YYYY/MM/DD";
+  // const openNotificationWithIcon = (type, message) => {
+  //   notification[type]({
+  //     message: message,
+  //   });
+  // };
+
   const layout = {
-    labelCol: { span: 6 },
-    wrapperCol: { span: 14 },
+    labelCol: { span: 8 },
+    wrapperCol: { span: 8 },
   };
   const validateMessages = {
     required: "${label} is required!",
@@ -65,22 +78,12 @@ function TutorsCreate(props) {
       range: "${label} must be between ${min} and ${max}",
     },
   };
-  const onFinish = (values) => {
-    console.log(values);
-    const createdUser = {
-      username: values.username,
-      password: values.password,
-      firstName: values.firstName,
-      lastName: values.lastName,
-      address: values.address,
-      email: values.email,
-      gender: values.gender,
-      photo: imageUrl,
-      introduction: values.introduction,
-      phoneNumber: values.phoneNumber,
-      dateOfBirth: moment(values.dateOfBirth, "YYYY/M/D").valueOf(),
-    };
-    dispatch(createTutorAction(createdUser));
+  const normFile = (e) => {
+    console.table("Upload event:", e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
   };
   const handleChange = (info) => {
     if (info.file.status === "uploading") {
@@ -89,39 +92,41 @@ function TutorsCreate(props) {
     }
     if (info.file.status === "done") {
       // Get this url from response in real world.
-      getBase64(info.file.originFileObj, (imageUrl) => {
-        setImageUrl(imageUrl);
-        setLoadingImg(false);
-      });
+      getBase64(
+        info.file.originFileObj,
+        (imgUrl) => setImgUrl(imgUrl),
+        setLoadingImg(false)
+      );
     }
   };
-  const uploadButton = (
-    <div>
-      {loadingImg ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
+  function handleRoleChange(value) {
+    console.log(`selected ${value}`);
+  }
+  const onFinish = (values) => {
+    console.log(values);
+  };
   return (
     <div>
-      {success === "CREATE" &&
-        openNotificationWithIcon(
-          "success",
-          "Success!",
-          "Register successfully"
-        )}
-      {error && openNotificationWithIcon("error", "Error!", "Register failed")}
-      <Drawer
-        title="Create a new account"
-        width={640}
-        onClose={props.onClose}
-        visible={props.visible}
-        bodyStyle={{ paddingBottom: 80 }}
-      >
+      {!loading && (
         <Form
           {...layout}
           name="basic"
           onFinish={onFinish}
           validateMessages={validateMessages}
+          initialValues={{
+            firstName: data.firstName,
+            lastName: data.lastName,
+            username: data.username,
+            password: data.password,
+            email: data.email,
+            gender: data.gender ? "male" : "female",
+            photo: data.photo,
+            dateOfBirth: moment(data.dateOfBirth, "MMM Do YY"),
+            phoneNumber: data.phoneNumber,
+            address: data.address,
+            introduction: data.introduction,
+            authority: data.authority ? "ROLE_ADMIN": "ROLE_USER",
+          }}
         >
           <Form.Item
             name="firstName"
@@ -165,18 +170,14 @@ function TutorsCreate(props) {
             </Radio.Group>
           </Form.Item>
           <Form.Item
-            name="age"
-            label="Age"
-            rules={[{ type: "number", min: 0, max: 100, required: true }]}
-          >
-            <InputNumber />
-          </Form.Item>
-          <Form.Item
             name="dateOfBirth"
             label="Birthday"
             rules={[{ required: true }]}
           >
-            <DatePicker format={dateFormat} />
+            <DatePicker
+              onChange={(e) => console.log(e._d)}
+              format={dateFormat}
+            />
           </Form.Item>
           <Form.Item
             name="photo"
@@ -192,8 +193,8 @@ function TutorsCreate(props) {
               beforeUpload={beforeUpload}
               onChange={handleChange}
             >
-              {imageUrl ? (
-                <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
+              {imgUrl ? (
+                <img src={imgUrl} alt="avatar" style={{ width: "100%" }} />
               ) : (
                 uploadButton
               )}
@@ -218,19 +219,26 @@ function TutorsCreate(props) {
           <Form.Item name="introduction" label="Introduction">
             <Input.TextArea />
           </Form.Item>
-          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 6 }}>
+          <Form.Item name="authority" label="Role">
+            <Select style={{ width: 120 }} onChange={handleRoleChange}>
+              <Option value="ROLE_USER">User</Option>
+              <Option value="ROLE_ADMIN">Admin</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             <Button
               type="primary"
               htmlType="submit"
               disable={loading}
               loading={loading}
             >
-              {loading ? "Registering..." : "Register"}
+              <SendOutlined />
+              {loading ? "Saving..." : "Save"}
             </Button>
           </Form.Item>
         </Form>
-      </Drawer>
+      )}
     </div>
   );
 }
-export default React.memo(TutorsCreate);
+export default React.memo(UsersUpdate);

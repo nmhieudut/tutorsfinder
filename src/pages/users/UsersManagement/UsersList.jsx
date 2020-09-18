@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import Tutors from "../../../features/tutorsData/components";
-import TutorsCreate from "./TutorsCreate";
+import Users from "../../../features/userData/components";
+import UsersCreate from "./UsersCreate";
 import { UserAddOutlined } from "@ant-design/icons";
 import { Button, Typography } from "antd";
 
 const { Title } = Typography;
 
-function TutorsList() {
+function UsersList() {
   const [visible, setVisible] = useState(false);
   const showDrawer = () => {
     setVisible(true);
@@ -16,7 +16,7 @@ function TutorsList() {
     setVisible(false);
   };
   return (
-    <div style={{ padding: 10 }}>
+    <div>
       <div
         style={{
           display: "flex",
@@ -24,8 +24,8 @@ function TutorsList() {
           justifyContent: "space-between",
         }}
       >
-        <div style={{ flex: 1, padding: "30px", textAlign: "left" }}>
-          <Title level={2}>Tutors</Title>
+        <div style={{ flex: 1, padding: "10px", textAlign: "left" }}>
+          <Title level={2}>Users</Title>
         </div>
         <div style={{ flex: 1, padding: "30px", textAlign: "right" }}>
           <Button type="primary" onClick={showDrawer}>
@@ -34,9 +34,9 @@ function TutorsList() {
         </div>
       </div>
       <div>
-        <Tutors />
+        <Users />
       </div>
-      <TutorsCreate
+      <UsersCreate
         visible={visible}
         showDrawer={showDrawer}
         onClose={onClose}
@@ -44,4 +44,4 @@ function TutorsList() {
     </div>
   );
 }
-export default React.memo(TutorsList)
+export default React.memo(UsersList);

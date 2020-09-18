@@ -1,11 +1,11 @@
 import * as ActionTypes from "../actions/types";
 import { put, takeLatest } from "redux-saga/effects";
 
-import TutorServices from "../../../api/TutorServices";
+import UserServices from "../../../api/UsersServices";
 
-function* getTutor() {
+function* getUser() {
   try {
-    const response = yield TutorServices.getTutors();
+    const response = yield UserServices.getUsers();
     yield put({
       type: ActionTypes.LOAD_DATA_SUCCESS,
       data: response[0].data,
@@ -19,13 +19,14 @@ function* getTutor() {
     });
   }
 }
-function* getDetailTutor(action) {
+function* getDetailUser(action) {
   try {
-    const response = yield TutorServices.getDetailTutor(action.id);
+    const response = yield UserServices.getDetailUser(action.id);
     yield put({
       type: ActionTypes.LOAD_DATA_DETAIL_SUCCESS,
       data: response[0].data,
     });
+    console.log("res:",response[0].data)
   } catch (error) {
     console.log("error", error);
     yield put({
@@ -34,58 +35,59 @@ function* getDetailTutor(action) {
     });
   }
 }
-function* createTutor(action) {
+function* createUser(action) {
   try {
-    const response = yield TutorServices.createTutor(
+    const response = yield UserServices.createUser(
       action.values,
       action.imageUrl
     );
     yield put({
-      type: ActionTypes.CREATE_TUTOR_SUCCESS,
+      type: ActionTypes.CREATE_USER_SUCCESS,
       data: response.data,
     });
+    console.log("data create:", response.data);
   } catch (error) {
     yield put({
-      type: ActionTypes.CREATE_TUTOR_FAILED,
+      type: ActionTypes.CREATE_USER_FAILED,
       error: error,
     });
   }
 }
-function* updateTutor(action) {
+function* updateUser(action) {
   try {
-    const response = yield TutorServices.updateTutor(action.id);
+    const response = yield UserServices.updateUser(action.id);
     yield put({
-      type: ActionTypes.UPDATE_TUTOR_SUCCESS,
+      type: ActionTypes.UPDATE_USER_SUCCESS,
       data: response.data,
     });
   } catch (error) {
     yield put({
-      type: ActionTypes.UPDATE_TUTOR_FAILED,
+      type: ActionTypes.UPDATE_USER_FAILED,
       error: error,
     });
   }
 }
-function* deleteTutor(action) {
+function* deleteUser(action) {
   try {
-    const response = yield TutorServices.deleteTutor(action.id);
+    const response = yield UserServices.deleteUser(action.id);
     yield put({
-      type: ActionTypes.DELETE_TUTOR_SUCCESS,
+      type: ActionTypes.DELETE_USER_SUCCESS,
       data: response.data,
     });
   } catch (error) {
     yield put({
-      type: ActionTypes.DELETE_TUTOR_FAILED,
+      type: ActionTypes.DELETE_USER_FAILED,
       error: error,
     });
   }
 }
 
 function* sagas() {
-  yield takeLatest(ActionTypes.LOAD_DATA, getTutor);
-  yield takeLatest(ActionTypes.LOAD_DATA_DETAIL, getDetailTutor);
-  yield takeLatest(ActionTypes.CREATE_TUTOR, createTutor);
-  yield takeLatest(ActionTypes.UPDATE_TUTOR, updateTutor);
-  yield takeLatest(ActionTypes.DELETE_TUTOR, deleteTutor);
+  yield takeLatest(ActionTypes.LOAD_DATA, getUser);
+  yield takeLatest(ActionTypes.LOAD_DATA_DETAIL, getDetailUser);
+  yield takeLatest(ActionTypes.CREATE_USER, createUser);
+  yield takeLatest(ActionTypes.UPDATE_USER, updateUser);
+  yield takeLatest(ActionTypes.DELETE_USER, deleteUser);
 }
 
 export default sagas;

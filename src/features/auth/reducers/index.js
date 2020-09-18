@@ -3,6 +3,7 @@ import * as ActionTypes from "../actions/types";
 const defaultState = {
   loading: false,
   loggedInUser: null,
+  message:null,
   error: null,
 };
 
@@ -18,6 +19,7 @@ export default function (state = defaultState, action) {
         ...state,
         loading: false,
         loggedInUser: action.loggedInUser,
+        message:null,
         error: null,
       };
     case ActionTypes.AUTH_LOGIN_FAILED:
@@ -25,6 +27,7 @@ export default function (state = defaultState, action) {
         ...state,
         loading: false,
         loggedInUser: null,
+        message:action.message,
         error: action.error,
       };
     case ActionTypes.AUTH_LOGOUT:

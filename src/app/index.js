@@ -1,11 +1,11 @@
 import React from "react";
 import Layouts from "../layouts";
 import Login from "../pages/login/Login";
-import ProtectedRoute from "../components/ProtectedRoute";
+import ProtectedRoute from "../guards/ProtectedRoute";
 import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 //Reducers
-import tutorsReducer from "../features/tutorsData/reducers";
+import usersReducers from "../features/userData/reducers";
 import authReducers from "../features/auth/reducers"
 //Saga
 import createSagaMiddleware from "redux-saga";
@@ -17,8 +17,8 @@ import "./App.less";
 import rootSagas from "./rootSaga";
 //root reducer
 const rootReducer = combineReducers({
-  tutorsReducer,
-  authReducers
+  usersReducers,
+  authReducers,
 });
 
 // MIDDLEWARE

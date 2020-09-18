@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Space, Typography } from "antd";
+import { Form, Input, Button, Space, Typography, Image } from "antd";
 import { loginAction } from "../actions";
 import { useHistory, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import logo from "../../../assets/logo.png";
+import Progress from "../../../components/Progress/Progress";
+
 const { Title } = Typography;
 
 export default function Auth() {
@@ -37,7 +40,7 @@ export default function Auth() {
   };
 
   if (loggedInUser || isAuth) {
-    return <Redirect to="/home" />;
+    return <Redirect to="/home" target="_top" />;
   }
   return (
     <div
@@ -49,6 +52,7 @@ export default function Auth() {
         textAlign: "center",
       }}
     >
+      <Progress isAnimating={loading} />
       <div
         style={{
           marginTop: 75,
@@ -60,6 +64,7 @@ export default function Auth() {
       >
         <div>
           <Space direction="vertical">
+            <Image src={logo} />
             <Title>LOGIN</Title>
             <Form
               {...layout}
@@ -99,8 +104,8 @@ export default function Auth() {
                 <Button
                   type="primary"
                   htmlType="submit"
-                  loading={loading}
-                  disable={loading}
+                  loading={loading ? 1 : 0}
+                  disable={loading ? 1 : 0}
                 >
                   {loading ? "Submitting..." : "Submit"}
                 </Button>

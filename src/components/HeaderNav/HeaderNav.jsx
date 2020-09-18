@@ -7,8 +7,9 @@ import {
   NotificationOutlined,
   AudioOutlined,
 } from "@ant-design/icons";
-import avatar from "../assets/avatar.jpg";
-import "../layouts/index.css";
+import logo from "../../assets/logo.png";
+import avatar from "../../assets/avatar.jpg";
+import "../../layouts/index.css";
 
 const { Meta } = Card;
 const { Search } = Input;
@@ -95,13 +96,16 @@ export default function HeaderNav() {
         }}
       >
         <Link to="/" target="_top">
-          <img
-            src="https://blog.flamingtext.com/blog/2020/08/21/flamingtext_com_1597992772_270036763.png"
-            height="23px"
-            width="150px"
-            border="0"
-            alt=""
-          />
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <img src={logo} height="23px" width="23px" border="0" alt="" />
+            <img
+              src="https://blog.flamingtext.com/blog/2020/08/21/flamingtext_com_1597992772_270036763.png"
+              height="23px"
+              width="150px"
+              border="0"
+              alt=""
+            />
+          </div>
         </Link>
       </div>
       <div

@@ -2,7 +2,7 @@ import React from "react";
 import {
   DashboardOutlined,
   UserOutlined,
-  CommentOutlined,
+  FormOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -19,10 +19,10 @@ export default function SideBar() {
         </Menu.Item>
         <SubMenu key="sub1" icon={<UnorderedListOutlined />} title="Management">
           <Menu.Item key="3" icon={<UserOutlined />}>
-            <Link to="/home/tutors">Users</Link>
+            <Link to="/home/users">Users</Link>
           </Menu.Item>
         </SubMenu>
-        <Menu.Item key="5" icon={<CommentOutlined />}>
+        <Menu.Item key="5" icon={<FormOutlined />}>
           Feedback
         </Menu.Item>
       </Menu>

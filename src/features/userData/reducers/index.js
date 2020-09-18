@@ -3,6 +3,9 @@ import * as ActionTypes from "../actions/types";
 const defaultState = {
   data: [],
   loading: false,
+  createLoading: false,
+  deleteLoading: false,
+  updateLoading: false,
   success: null,
   error: null,
 };
@@ -43,67 +46,70 @@ export default function (state = defaultState, action) {
         data: null,
         error: action.error,
       };
-    case ActionTypes.CREATE_TUTOR:
+    case ActionTypes.CREATE_USER:
       return {
         ...state,
         success: null,
         error: null,
-        loading: true,
+        createLoading: true,
       };
-    case ActionTypes.CREATE_TUTOR_SUCCESS:
+    case ActionTypes.CREATE_USER_SUCCESS:
       var newCreatedData = [...state.data];
       newCreatedData.push(action.data);
       return {
         ...state,
         data: newCreatedData,
         success: "CREATE",
-        loading: false,
+        createLoading: false,
       };
-    case ActionTypes.CREATE_TUTOR_FAILED:
+    case ActionTypes.CREATE_USER_FAILED:
       return {
         ...state,
         data: null,
         error: action.error,
+        createLoading: false,
       };
-    case ActionTypes.UPDATE_TUTOR:
+    case ActionTypes.UPDATE_USER:
       return {
         ...state,
         success: null,
         error: null,
-        loading: true,
+        updateLoading: true,
       };
-    case ActionTypes.UPDATE_TUTOR_SUCCESS:
+    case ActionTypes.UPDATE_USER_SUCCESS:
       return {
         ...state,
         data: action.data,
         success: "UPDATE",
-        loading: false,
+        updateLoading: false,
       };
-    case ActionTypes.UPDATE_TUTOR_FAILED:
+    case ActionTypes.UPDATE_USER_FAILED:
       return {
         ...state,
         data: null,
+        updateLoading: false,
         error: action.error,
       };
-    case ActionTypes.DELETE_TUTOR:
+    case ActionTypes.DELETE_USER:
       return {
         ...state,
         success: null,
         error: null,
-        loading: true,
+        deleteLoading: true,
       };
-    case ActionTypes.DELETE_TUTOR_SUCCESS:
+    case ActionTypes.DELETE_USER_SUCCESS:
       var newData = [...state.data].filter((e) => e.id !== action.data.id);
       return {
         ...state,
         data: newData,
         success: "DELETE",
-        loading: false,
+        deleteLoading: false,
       };
-    case ActionTypes.DELETE_TUTOR_FAILED:
+    case ActionTypes.DELETE_USER_FAILED:
       return {
         ...state,
         error: action.error,
+        deleteLoading: false,
       };
     default:
       return state;

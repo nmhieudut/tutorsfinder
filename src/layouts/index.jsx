@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import { Layout, BackTop } from "antd";
-import SideBar from "../components/SideBar";
-import HeaderNav from "../components/HeaderNav";
+import SideBar from "../components/SideBar/SideBar";
+import HeaderNav from "../components/HeaderNav/HeaderNav";
 import { VerticalAlignTopOutlined } from "@ant-design/icons";
 import {
   BrowserRouter as Router,
@@ -11,8 +11,8 @@ import {
   useRouteMatch,
   Redirect,
 } from "react-router-dom";
-import TutorsList from "../pages/users/TutorsManagement/TutorsList";
-import TutorsUpdate from "../pages/users/TutorsManagement/TutorsUpdate";
+import UsersList from "../pages/users/UsersManagement/UsersList";
+import UsersUpdate from "../pages/users/UsersManagement/UsersUpdate";
 import Dashboard from "../pages/dashboard";
 
 const { Header, Footer, Content, Sider } = Layout;
@@ -57,13 +57,13 @@ export default function Layouts() {
                   />
                   <Route
                     exact
-                    path={`${match.url}/tutors`}
-                    component={TutorsList}
+                    path={`${match.url}/users`}
+                    component={UsersList}
                   />
                   <Route
                     exact
-                    path={`${match.url}/tutors/:id/edit`}
-                    component={TutorsUpdate}
+                    path={`${match.url}/users/:id/edit`}
+                    component={UsersUpdate}
                   />
                 </Switch>
                 <BackTop>
