@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Redirect, Route } from "react-router-dom";
 
 function ProtectedRoute({ component: Component, ...rest }) {
-  const [isAuth, setIsAuth] = useState(localStorage.getItem("token"));
+  const [isAuth] = useState(localStorage.getItem("token"));
 
   return (
     <Route

@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const token = JSON.parse(localStorage.getItem("token"));
-
 function getUsers() {
+  const token = JSON.parse(localStorage.getItem("token"));
   console.log(`Bearer ${token}`);
   return new Promise((resolve, reject) => {
     axios
@@ -25,6 +24,7 @@ function getUsers() {
 }
 
 function getDetailUser(id) {
+  const token = JSON.parse(localStorage.getItem("token"));
   return new Promise((resolve, reject) => {
     axios
       .get(`http://haimai.ddns.net:9090/api/edu/v1/user/details/${id}`, {

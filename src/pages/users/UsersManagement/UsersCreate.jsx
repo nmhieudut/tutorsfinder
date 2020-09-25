@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import moment from "moment";
 import {
   Drawer,
@@ -40,9 +40,7 @@ function UsersCreate(props) {
   const [loadingImg, setLoadingImg] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
   //redux + hooks
-  const createLoading = useSelector(
-    (state) => state.usersReducers.createLoading
-  );
+  const createLoading = useSelector((state) => state.usersReducers.createLoading);
   const success = useSelector((state) => state.usersReducers.success);
   const error = useSelector((state) => state.usersReducers.error);
   const dispatch = useDispatch();
@@ -115,7 +113,8 @@ function UsersCreate(props) {
           "Success!",
           "Register successfully"
         )}
-      {/* {error && openNotificationWithIcon("error", "Error!", "Register failed")} */}
+      {error === "CREATE" &&
+        openNotificationWithIcon("error", "Error!", "Register failed")}
       <Drawer
         title="Create a new account"
         width={640}
@@ -172,8 +171,9 @@ function UsersCreate(props) {
           </Form.Item>
           <Form.Item name="authority" label="Role">
             <Select style={{ width: 120 }}>
-              <Option value="ROLE_USER">User</Option>
+              <Option value="ROLE_TUTOR">Tutor</Option>
               <Option value="ROLE_ADMIN">Admin</Option>
+              <Option value="ROLE_STUDENT">Student</Option>
             </Select>
           </Form.Item>
           <Form.Item
@@ -234,8 +234,8 @@ function UsersCreate(props) {
             <Button
               type="primary"
               htmlType="submit"
-              disable={createLoading}
-              loading={createLoading}
+              disable={createLoading ? 1 : 0}
+              loading={createLoading ? 1 : 0}
             >
               {createLoading ? "Registering..." : "Register"}
             </Button>

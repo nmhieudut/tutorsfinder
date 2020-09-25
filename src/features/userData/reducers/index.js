@@ -27,7 +27,7 @@ export default function (state = defaultState, action) {
       return {
         ...state,
         data: null,
-        error: action.error,
+        error: 'LOAD',
       };
     case ActionTypes.LOAD_DATA_DETAIL:
       return {
@@ -44,7 +44,7 @@ export default function (state = defaultState, action) {
       return {
         ...state,
         data: null,
-        error: action.error,
+        error: 'LOAD_DETAIL',
       };
     case ActionTypes.CREATE_USER:
       return {
@@ -66,7 +66,7 @@ export default function (state = defaultState, action) {
       return {
         ...state,
         data: null,
-        error: action.error,
+        error: 'CREATE',
         createLoading: false,
       };
     case ActionTypes.UPDATE_USER:
@@ -88,7 +88,7 @@ export default function (state = defaultState, action) {
         ...state,
         data: null,
         updateLoading: false,
-        error: action.error,
+        error: 'UPDATE',
       };
     case ActionTypes.DELETE_USER:
       return {
@@ -108,7 +108,7 @@ export default function (state = defaultState, action) {
     case ActionTypes.DELETE_USER_FAILED:
       return {
         ...state,
-        error: action.error,
+        error: "DELETE",
         deleteLoading: false,
       };
     default:

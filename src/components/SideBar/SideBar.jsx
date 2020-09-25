@@ -4,6 +4,7 @@ import {
   UserOutlined,
   FormOutlined,
   UnorderedListOutlined,
+  SnippetsOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { Menu } from "antd";
@@ -20,6 +21,9 @@ export default function SideBar() {
         <SubMenu key="sub1" icon={<UnorderedListOutlined />} title="Management">
           <Menu.Item key="3" icon={<UserOutlined />}>
             <Link to="/home/users">Users</Link>
+          </Menu.Item>
+          <Menu.Item key="4" icon={<SnippetsOutlined />}>
+            <Link to="/home/subjects">Subjects</Link>
           </Menu.Item>
         </SubMenu>
         <Menu.Item key="5" icon={<FormOutlined />}>

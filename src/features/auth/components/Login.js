@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Space, Typography, Image } from "antd";
 import { loginAction } from "../actions";
-import { useHistory, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import logo from "../../../assets/logo.png";
 import Progress from "../../../components/Progress/Progress";
@@ -10,10 +10,11 @@ const { Title } = Typography;
 
 export default function Auth() {
   const [isAuth, setIsAuth] = useState(false);
-  const history = useHistory();
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.authReducers.loading);
   const loggedInUser = useSelector((state) => state.authReducers.loggedInUser);
+  const error = useSelector((state) => state.authReducers.error);
+  console.log("err:", error);
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: {
@@ -31,8 +32,10 @@ export default function Auth() {
     const isAuthenticated = localStorage.getItem("token") ? true : false;
     setIsAuth(isAuthenticated);
   }, []);
+
   const onFinish = (values) => {
     console.log(values);
+    setIsAuth(true);
     dispatch(loginAction(values.username, values.password));
   };
   const onFinishFailed = (errorInfo) => {

@@ -8,11 +8,11 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  useRouteMatch,
-  Redirect,
+  useRouteMatch
 } from "react-router-dom";
-import UsersList from "../pages/users/UsersManagement/UsersList";
+import Users from "../pages/users/UsersManagement/Users";
 import UsersUpdate from "../pages/users/UsersManagement/UsersUpdate";
+import Subjects from "../pages/subjects/Subjects"
 import Dashboard from "../pages/dashboard";
 
 const { Header, Footer, Content, Sider } = Layout;
@@ -20,10 +20,11 @@ const { Header, Footer, Content, Sider } = Layout;
 export default function Layouts() {
   const [collapsed, setCollapsed] = useState(false);
   const match = useRouteMatch();
-  console.log("match:", { match });
+
   useEffect(() => {
     document.title = "Home";
   }, []);
+  
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
   };
@@ -55,16 +56,13 @@ export default function Layouts() {
                     path={`${match.url}/dashboard`}
                     component={Dashboard}
                   />
-                  <Route
-                    exact
-                    path={`${match.url}/users`}
-                    component={UsersList}
-                  />
+                  <Route exact path={`${match.url}/users`} component={Users} />
                   <Route
                     exact
                     path={`${match.url}/users/:id/edit`}
                     component={UsersUpdate}
                   />
+                  <Route exact path={`${match.url}/subjects`} component={Subjects} />
                 </Switch>
                 <BackTop>
                   <div className="back-top-button">
@@ -75,7 +73,7 @@ export default function Layouts() {
             </Content>
           </Layout>
           <Footer style={{ textAlign: "center" }}>
-            Hieu US/UK ©2020 Created by Hieu Hoa Hong
+            Created by Hieu Hoa Hong
           </Footer>
         </Layout>
       </Router>

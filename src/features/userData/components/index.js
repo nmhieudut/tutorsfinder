@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadDataAction, deleteUserAction } from "../actions";
 
 function Users() {
-  console.log("Loaded");
   //local state
   const [selectedUser, setSelectedUser] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -150,17 +149,19 @@ function Users() {
     <>
       {success === "DELETE" &&
         openNotificationWithIcon("success", "Success!", "Remove successfully")}
-      {error && openNotificationWithIcon("error", "Error!", "Remove failed")}
+      {error === "DELETE" &&
+        openNotificationWithIcon("error", "Error!", "Remove failed")}
       <Table
         loading={loading}
         dataSource={data}
         columns={columns}
         size="small"
         bordered
+        rowKey={(record) => `${record.id}`}
       />
       <Details user={selectedUser} visible={visible} onClose={onClose} />
     </>
   );
 }
 
-export default React.memo(Users);
+export default Users;

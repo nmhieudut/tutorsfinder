@@ -44,6 +44,7 @@ function UsersUpdate(props) {
   const data = useSelector((state) => state.usersReducers.data);
   const loading = useSelector((state) => state.usersReducers.loading);
   const success = useSelector((state) => state.usersReducers.success);
+  const error = useSelector((state) => state.usersReducers.error);
   console.log(data);
 
   const uploadButton = () => (
@@ -55,15 +56,16 @@ function UsersUpdate(props) {
   useEffect(() => {
     dispatch(loadDetailUserAction(props.match.params.id));
     setImgUrl(data.photo);
-  }, [props.match.params.id]);
+  }, []);
 
   const dateFormat = "YYYY/MM/DD";
-  // const openNotificationWithIcon = (type, message) => {
-  //   notification[type]({
-  //     message: message,
-  //   });
-  // };
-
+  const openNotificationWithIcon = (type, message, description) => {
+    notification[type]({
+      message: message,
+      description: description,
+      duration: 2,
+    });
+  };
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 8 },
@@ -77,13 +79,6 @@ function UsersUpdate(props) {
     number: {
       range: "${label} must be between ${min} and ${max}",
     },
-  };
-  const normFile = (e) => {
-    console.table("Upload event:", e);
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e && e.fileList;
   };
   const handleChange = (info) => {
     if (info.file.status === "uploading") {
@@ -107,6 +102,10 @@ function UsersUpdate(props) {
   };
   return (
     <div>
+      {success === "UPDATE" &&
+        openNotificationWithIcon("success", "Success!", "Update successfully")}
+      {error === "UPDATE" &&
+        openNotificationWithIcon("error", "Error!", "Update failed")}
       {!loading && (
         <Form
           {...layout}
@@ -125,7 +124,7 @@ function UsersUpdate(props) {
             phoneNumber: data.phoneNumber,
             address: data.address,
             introduction: data.introduction,
-            authority: data.authority ? "ROLE_ADMIN": "ROLE_USER",
+            authority: data.authority ? "ROLE_ADMIN" : "ROLE_USER",
           }}
         >
           <Form.Item
@@ -229,7 +228,7 @@ function UsersUpdate(props) {
             <Button
               type="primary"
               htmlType="submit"
-              disable={loading}
+              disable={loading ? 1 : 0}
               loading={loading}
             >
               <SendOutlined />
