@@ -8,13 +8,29 @@ import {
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { Menu } from "antd";
-
+import "../../layouts/index.css";
+import logo from "../../assets/logo.png";
 const { SubMenu } = Menu;
 
 export default function SideBar() {
   return (
-    <div className="sidebar-layout-content">
-      <Menu mode="inline" theme="light" style={{ height: "100%" }}>
+    <>
+      <div
+        style={{
+          height: "20vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Link to="/" target="_top">
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <img src={logo} height="50px" width="50px" border="0" alt="" />
+          </div>
+        </Link>
+      </div>
+
+      <Menu className="sidebar-layout-content" mode="inline" theme="dark">
         <Menu.Item key="1" icon={<DashboardOutlined />}>
           <Link to="/home/dashboard">Dashboard</Link>
         </Menu.Item>
@@ -30,6 +46,6 @@ export default function SideBar() {
           Feedback
         </Menu.Item>
       </Menu>
-    </div>
+    </>
   );
 }

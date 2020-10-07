@@ -8,23 +8,23 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  useRouteMatch
+  useRouteMatch,
 } from "react-router-dom";
 import Users from "../pages/users/UsersManagement/Users";
 import UsersUpdate from "../pages/users/UsersManagement/UsersUpdate";
-import Subjects from "../pages/subjects/Subjects"
+import Subjects from "../pages/subjects/Subjects";
 import Dashboard from "../pages/dashboard";
 
 const { Header, Footer, Content, Sider } = Layout;
 
-export default function Layouts() {
+function Layouts() {
   const [collapsed, setCollapsed] = useState(false);
   const match = useRouteMatch();
 
   useEffect(() => {
     document.title = "Home";
   }, []);
-  
+
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
   };
@@ -32,22 +32,36 @@ export default function Layouts() {
     <div>
       <Router>
         <Layout>
-          <Header
-            style={{ padding: 0, width: "100%", backgroundColor: "white" }}
+          <Sider
+            className="sider-layout"
+            breakpoint="lg"
+            theme="dark"
+            collapsible
+            reverseArrow
+            collapsed={collapsed}
+            onCollapse={onCollapse}
+            style={{
+              overflow: "auto",
+              height: "100vh",
+              position: "fixed",
+              left: 0,
+              overflowY: "hidden",
+            }}
           >
-            <HeaderNav />
-          </Header>
-          <Layout>
-            <Sider
-              className="sider-layout"
-              breakpoint="lg"
-              collapsible
-              collapsed={collapsed}
-              onCollapse={onCollapse}
-              theme="light"
+            <SideBar />
+          </Sider>
+
+          <Layout
+            style={{
+              marginLeft: !collapsed ? 200 : 80,
+              transition: "margin-left 0.2s",
+            }}
+          >
+            <Header
+              style={{ padding: 0, width: "100%", backgroundColor: "white" }}
             >
-              <SideBar />
-            </Sider>
+              <HeaderNav />
+            </Header>
             <Content>
               <div className="site-layout-content">
                 <Switch>
@@ -62,7 +76,11 @@ export default function Layouts() {
                     path={`${match.url}/users/:id/edit`}
                     component={UsersUpdate}
                   />
-                  <Route exact path={`${match.url}/subjects`} component={Subjects} />
+                  <Route
+                    exact
+                    path={`${match.url}/subjects`}
+                    component={Subjects}
+                  />
                 </Switch>
                 <BackTop>
                   <div className="back-top-button">
@@ -71,12 +89,13 @@ export default function Layouts() {
                 </BackTop>
               </div>
             </Content>
+            <Footer style={{ textAlign: "center" }}>
+              Created by Hieu Hoa Hong
+            </Footer>
           </Layout>
-          <Footer style={{ textAlign: "center" }}>
-            Created by Hieu Hoa Hong
-          </Footer>
         </Layout>
       </Router>
     </div>
   );
 }
+export default React.memo(Layouts);

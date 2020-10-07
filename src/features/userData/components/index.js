@@ -98,12 +98,17 @@ function Users() {
       key: "authority",
       render: (authority) => {
         let color = "green";
-        const activeStatus = authority ? "ADMIN" : "TUTOR";
+        const activeStatus =
+          authority[0] === "ROLE_ADMIN"
+            ? "ADMIN"
+            : authority[0] === "ROLE_TUTOR"
+            ? "TUTOR"
+            : "STUDENT";
         if (activeStatus === "ADMIN") {
-          color = "red";
+          color = "#f44336";
         } else if (activeStatus === "TUTOR") {
           color = "#0288d1";
-        }
+        } else color = "#ffc400";
         return (
           <Tag color={color} key={activeStatus}>
             {activeStatus.toUpperCase()}

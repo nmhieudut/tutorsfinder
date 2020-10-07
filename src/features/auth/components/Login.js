@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import logo from "../../../assets/logo.png";
 import Progress from "../../../components/Progress/Progress";
+import jwt_decode from "jwt-decode";
 
 const { Title } = Typography;
 
@@ -14,6 +15,11 @@ export default function Auth() {
   const loading = useSelector((state) => state.authReducers.loading);
   const loggedInUser = useSelector((state) => state.authReducers.loggedInUser);
   const error = useSelector((state) => state.authReducers.error);
+  var decoded = jwt_decode(
+    "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjEiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjAyMzM2MTgzfQ.L1puNvKEXG26PfD1o_Yw_KXRiObOmUSz0seqpwX3FwvvXdNTgJxqHQAdRIEzSIdiLMUMKyzaCC7cJ-9zHSL8SA"
+  );
+  console.log("logged:", loggedInUser);
+  console.log("decode", decoded);
   console.log("err:", error);
   const layout = {
     labelCol: { span: 8 },

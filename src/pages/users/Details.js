@@ -1,9 +1,9 @@
 import React from "react";
 import "./details.css";
 import { Drawer, Divider, Col, Row, Avatar } from "antd";
-
+import { UserOutlined } from "@ant-design/icons";
 export default function Details(props) {
-  //console.log("props:", props.user)
+  console.log("props:", props.user);
   const DescriptionItem = ({ title, content }) => (
     <div className="site-description-item-profile-wrapper">
       <p className="site-description-item-profile-p-label">{title}:</p>
@@ -17,7 +17,12 @@ export default function Details(props) {
         width={640}
         title={
           <div>
-            <Avatar src={props.user.photo} /> &nbsp;{props.user.username}
+            <Avatar
+              src={props.user.photo}
+              icon={props.user.photo === "photo not found" && <UserOutlined />}
+            />{" "}
+            &nbsp;
+            {props.user.username}
           </div>
         }
         placement="right"

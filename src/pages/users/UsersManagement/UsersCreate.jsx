@@ -7,7 +7,6 @@ import {
   Input,
   Radio,
   InputNumber,
-  Upload,
   DatePicker,
   message,
   Select,
@@ -17,30 +16,13 @@ import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { createUserAction } from "../../../features/userData/actions";
 import { useDispatch, useSelector } from "react-redux";
 
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener("load", () => callback(reader.result));
-  reader.readAsDataURL(img);
-}
-
-function beforeUpload(file) {
-  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-  if (!isJpgOrPng) {
-    message.error("You can only upload JPG/PNG file!");
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
-  }
-  return isJpgOrPng && isLt2M;
-}
 const { Option } = Select;
 
 function UsersCreate(props) {
-  const [loadingImg, setLoadingImg] = useState(false);
-  const [imageUrl, setImageUrl] = useState(null);
   //redux + hooks
-  const createLoading = useSelector((state) => state.usersReducers.createLoading);
+  const createLoading = useSelector(
+    (state) => state.usersReducers.createLoading
+  );
   const success = useSelector((state) => state.usersReducers.success);
   const error = useSelector((state) => state.usersReducers.error);
   const dispatch = useDispatch();
@@ -77,7 +59,6 @@ function UsersCreate(props) {
       address: values.address,
       email: values.email,
       gender: values.gender,
-      photo: imageUrl,
       introduction: values.introduction,
       phoneNumber: values.phoneNumber,
       dateOfBirth: moment(values.dateOfBirth, "YYYY/M/D"),
@@ -86,25 +67,7 @@ function UsersCreate(props) {
     dispatch(createUserAction(createdUser));
     console.log("created:", createdUser);
   };
-  const handleChange = (info) => {
-    if (info.file.status === "uploading") {
-      setLoadingImg(true);
-      return;
-    }
-    if (info.file.status === "done") {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, (imageUrl) => {
-        setImageUrl(imageUrl);
-        setLoadingImg(false);
-      });
-    }
-  };
-  const uploadButton = (
-    <div>
-      {loadingImg ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
+
   return (
     <div>
       {success === "CREATE" &&
@@ -190,27 +153,7 @@ function UsersCreate(props) {
           >
             <DatePicker format={dateFormat} />
           </Form.Item>
-          <Form.Item
-            name="photo"
-            label="Image profile"
-            rules={[{ required: true }]}
-          >
-            <Upload
-              name="avatar"
-              listType="picture-card"
-              className="avatar-uploader"
-              showUploadList={false}
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              beforeUpload={beforeUpload}
-              onChange={handleChange}
-            >
-              {imageUrl ? (
-                <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
-              ) : (
-                uploadButton
-              )}
-            </Upload>
-          </Form.Item>
+
           <Form.Item
             name="phoneNumber"
             label="Phone"
