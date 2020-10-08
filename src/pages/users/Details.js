@@ -2,6 +2,7 @@ import React from "react";
 import "./details.css";
 import { Drawer, Divider, Col, Row, Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import * as moment from "moment";
 export default function Details(props) {
   console.log("props:", props.user);
   const DescriptionItem = ({ title, content }) => (
@@ -46,31 +47,17 @@ export default function Details(props) {
             />
           </Col>
           <Col span={12}>
-            <DescriptionItem title="Age" content={props.user.age} />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <DescriptionItem title="Birthday" content="February 2,1900" />
-          </Col>
-        </Row>
-        <Divider />
-        <p className="site-description-item-profile-p">Introduction</p>
-        <Row>
-          <Col>
-            <DescriptionItem title="Career" content="Teacher" />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12}>
-            <DescriptionItem title="Department" content="Math,Chemistry" />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
             <DescriptionItem
-              title="Skills"
-              content="C / C + +, data structures, software engineering, operating systems, computer networks, databases, compiler theory, computer architecture, Microcomputer Principle and Interface Technology, Computer English, Java, ASP, etc."
+              title="Age"
+              content={2020 - moment(props.user.dateOfBirth).format("YYYY")}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <DescriptionItem
+              title="Birthday"
+              content={props.user.dateOfBirth}
             />
           </Col>
         </Row>

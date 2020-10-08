@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import moment from "moment";
 import {
   Drawer,
@@ -12,7 +12,6 @@ import {
   Select,
   notification,
 } from "antd";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { createUserAction } from "../../../features/userData/actions";
 import { useDispatch, useSelector } from "react-redux";
 

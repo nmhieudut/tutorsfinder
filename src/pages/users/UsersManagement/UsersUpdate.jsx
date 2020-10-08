@@ -16,29 +16,10 @@ import { loadDetailUserAction } from "../../../features/userData/actions";
 import { SendOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 
-const getBase64 = (img, callback) => {
-  const reader = new FileReader();
-  reader.addEventListener("load", () => callback(reader.result));
-  reader.readAsDataURL(img);
-};
-
-const beforeUpload = (file) => {
-  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-  if (!isJpgOrPng) {
-    message.error("You can only upload JPG/PNG file!");
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
-  }
-  return isJpgOrPng && isLt2M;
-};
 const { Option } = Select;
 
 function UsersUpdate(props) {
   //console.log("param:", props.match.params.id)
-  const [loadingImg, setLoadingImg] = useState(true);
-  const [imgUrl, setImgUrl] = useState();
   //redux + hooks
   const dispatch = useDispatch();
   const data = useSelector((state) => state.usersReducers.data);
@@ -47,15 +28,8 @@ function UsersUpdate(props) {
   const error = useSelector((state) => state.usersReducers.error);
   console.log(data);
 
-  const uploadButton = () => (
-    <div>
-      {loadingImg ? <LoadingOutlined /> : <PlusOutlined />}
-      <div className="ant-upload-text">Upload</div>
-    </div>
-  );
   useEffect(() => {
     dispatch(loadDetailUserAction(props.match.params.id));
-    setImgUrl(data.photo);
   }, []);
 
   const dateFormat = "YYYY/MM/DD";
@@ -80,20 +54,7 @@ function UsersUpdate(props) {
       range: "${label} must be between ${min} and ${max}",
     },
   };
-  const handleChange = (info) => {
-    if (info.file.status === "uploading") {
-      setLoadingImg(true);
-      return;
-    }
-    if (info.file.status === "done") {
-      // Get this url from response in real world.
-      getBase64(
-        info.file.originFileObj,
-        (imgUrl) => setImgUrl(imgUrl),
-        setLoadingImg(false)
-      );
-    }
-  };
+
   function handleRoleChange(value) {
     console.log(`selected ${value}`);
   }
@@ -116,7 +77,6 @@ function UsersUpdate(props) {
             firstName: data.firstName,
             lastName: data.lastName,
             username: data.username,
-            password: data.password,
             email: data.email,
             gender: data.gender ? "male" : "female",
             photo: data.photo,
@@ -124,7 +84,7 @@ function UsersUpdate(props) {
             phoneNumber: data.phoneNumber,
             address: data.address,
             introduction: data.introduction,
-            authority: data.authority ? "ROLE_ADMIN" : "ROLE_USER",
+            authority: data.authority,
           }}
         >
           <Form.Item
@@ -147,13 +107,6 @@ function UsersUpdate(props) {
             rules={[{ min: 8, required: true }]}
           >
             <Input />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            label="Password"
-            rules={[{ min: 8, required: true }]}
-          >
-            <Input.Password />
           </Form.Item>
           <Form.Item
             name="email"
@@ -179,27 +132,6 @@ function UsersUpdate(props) {
             />
           </Form.Item>
           <Form.Item
-            name="photo"
-            label="Image profile"
-            rules={[{ required: true }]}
-          >
-            <Upload
-              name="avatar"
-              listType="picture-card"
-              className="avatar-uploader"
-              showUploadList={false}
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              beforeUpload={beforeUpload}
-              onChange={handleChange}
-            >
-              {imgUrl ? (
-                <img src={imgUrl} alt="avatar" style={{ width: "100%" }} />
-              ) : (
-                uploadButton
-              )}
-            </Upload>
-          </Form.Item>
-          <Form.Item
             name="phoneNumber"
             label="Phone"
             rules={[
@@ -222,6 +154,7 @@ function UsersUpdate(props) {
             <Select style={{ width: 120 }} onChange={handleRoleChange}>
               <Option value="ROLE_USER">User</Option>
               <Option value="ROLE_ADMIN">Admin</Option>
+              <Option value="ROLE_STUDENT">Student</Option>
             </Select>
           </Form.Item>
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>

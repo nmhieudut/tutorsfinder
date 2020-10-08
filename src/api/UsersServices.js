@@ -65,7 +65,10 @@ function createUser(createdUser) {
 function updateUser(id, updatedUser) {
   return new Promise((resolve, reject) => {
     axios
-      .put(`https://5f4229f8d4b4790016fd7741.mockapi.io/tutors/${id}`)
+      .put(
+        `https://5f4229f8d4b4790016fd7741.mockapi.io/tutors/${id}`,
+        updatedUser
+      )
       .then((res) => {
         resolve(res);
         console.log(res);
