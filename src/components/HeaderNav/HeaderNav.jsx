@@ -1,18 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Avatar, Dropdown, Card, Button, Badge, List, Input } from "antd";
+import { Avatar, Dropdown, Card, Button, Badge, List } from "antd";
 import {
   DownOutlined,
   LogoutOutlined,
   NotificationOutlined,
-  AudioOutlined,
 } from "@ant-design/icons";
 
 import avatar from "../../assets/avatar.jpg";
 import "../../layouts/index.css";
 
 const { Meta } = Card;
-const { Search } = Input;
+
 export default function HeaderNav() {
   const data = [
     {
@@ -28,14 +27,7 @@ export default function HeaderNav() {
       title: "Ant Design Title 4",
     },
   ];
-  const suffix = (
-    <AudioOutlined
-      style={{
-        fontSize: 16,
-        color: "#1890ff",
-      }}
-    />
-  );
+ 
   const logOut = () => {
     localStorage.clear();
   };
@@ -94,33 +86,7 @@ export default function HeaderNav() {
           justifyContent: "center",
           alignItems: "center",
         }}
-      >
-      </div>
-      <div
-        style={{
-          flex: 4,
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "flex-end",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            marginRight: 40,
-          }}
-        >
-          <Search
-            placeholder="search something..."
-            enterButton="Search"
-            suffix={suffix}
-            onSearch={(value) => console.log(value)}
-          />
-        </div>
-      </div>
+      ></div>
       <div
         style={{
           flex: 6,

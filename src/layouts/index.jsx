@@ -8,6 +8,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
   useRouteMatch,
 } from "react-router-dom";
 import Users from "../pages/users/UsersManagement/Users";
@@ -20,6 +21,7 @@ const { Header, Footer, Content, Sider } = Layout;
 function Layouts() {
   const [collapsed, setCollapsed] = useState(false);
   const match = useRouteMatch();
+  console.log("match", match);
 
   useEffect(() => {
     document.title = "Home";
@@ -50,7 +52,6 @@ function Layouts() {
           >
             <SideBar />
           </Sider>
-
           <Layout
             style={{
               marginLeft: !collapsed ? 200 : 80,
@@ -65,6 +66,7 @@ function Layouts() {
             <Content>
               <div className="site-layout-content">
                 <Switch>
+                  <Redirect exact from="/home" to={`${match.url}/dashboard`} />
                   <Route
                     exact
                     path={`${match.url}/dashboard`}

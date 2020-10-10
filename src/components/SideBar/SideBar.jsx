@@ -17,7 +17,7 @@ export default function SideBar() {
     <>
       <div
         style={{
-          height: "20vh",
+          height: "64px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -30,7 +30,12 @@ export default function SideBar() {
         </Link>
       </div>
 
-      <Menu className="sidebar-layout-content" mode="inline" theme="dark">
+      <Menu
+        style={{ marginTop: 60 }}
+        className="sidebar-layout-content"
+        mode="inline"
+        theme="dark"
+      >
         <Menu.Item key="1" icon={<DashboardOutlined />}>
           <Link to="/home/dashboard">Dashboard</Link>
         </Menu.Item>

@@ -22,12 +22,14 @@ export default function (state = defaultState, action) {
         ...state,
         data: action.data,
         loading: false,
+        error: null,
       };
     case ActionTypes.LOAD_DATA_FAILED:
       return {
         ...state,
         data: null,
-        error: 'LOAD',
+        success: null,
+        error: "LOAD",
       };
     case ActionTypes.LOAD_DATA_DETAIL:
       return {
@@ -39,12 +41,15 @@ export default function (state = defaultState, action) {
         ...state,
         data: action.data,
         loading: false,
+        error: null,
+        success: "LOAD_DETAIL",
       };
     case ActionTypes.LOAD_DATA_DETAIL_FAILED:
       return {
         ...state,
         data: null,
-        error: 'LOAD_DETAIL',
+        success: null,
+        error: "LOAD_DETAIL",
       };
     case ActionTypes.CREATE_USER:
       return {
@@ -60,13 +65,15 @@ export default function (state = defaultState, action) {
         ...state,
         data: newCreatedData,
         success: "CREATE",
+        error: null,
         createLoading: false,
       };
     case ActionTypes.CREATE_USER_FAILED:
       return {
         ...state,
-        data: null,
-        error: 'CREATE',
+        data: [...state.data],
+        success: null,
+        error: "CREATE",
         createLoading: false,
       };
     case ActionTypes.UPDATE_USER:
@@ -82,13 +89,15 @@ export default function (state = defaultState, action) {
         data: action.data,
         success: "UPDATE",
         updateLoading: false,
+        error: null,
       };
     case ActionTypes.UPDATE_USER_FAILED:
       return {
         ...state,
         data: null,
         updateLoading: false,
-        error: 'UPDATE',
+        success: null,
+        error: "UPDATE",
       };
     case ActionTypes.DELETE_USER:
       return {
@@ -98,17 +107,19 @@ export default function (state = defaultState, action) {
         deleteLoading: true,
       };
     case ActionTypes.DELETE_USER_SUCCESS:
-      var newData = [...state.data].filter((e) => e.id !== action.data.id);
+      var newData = [...state.data].filter((e) => e.id !== action.data);
       return {
         ...state,
         data: newData,
         success: "DELETE",
+        error: null,
         deleteLoading: false,
       };
     case ActionTypes.DELETE_USER_FAILED:
       return {
         ...state,
         error: "DELETE",
+        success: null,
         deleteLoading: false,
       };
     default:

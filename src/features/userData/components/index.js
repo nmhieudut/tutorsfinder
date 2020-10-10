@@ -22,6 +22,9 @@ function Users() {
   //State redux
   const data = useSelector((state) => state.usersReducers.data);
   const loading = useSelector((state) => state.usersReducers.loading);
+  const deleteLoading = useSelector(
+    (state) => state.usersReducers.deleteLoading
+  );
   const success = useSelector((state) => state.usersReducers.success);
   const error = useSelector((state) => state.usersReducers.error);
   console.log("data", data);
@@ -50,6 +53,13 @@ function Users() {
 
   const onDelete = (id) => {
     dispatch(deleteUserAction(id));
+    console.log("success", success);
+    if (success === "DELETE") {
+      openNotificationWithIcon("success", "Success!", "Remove successfully");
+      dispatch(loadDataAction());
+    } else if (error === "DELETE") {
+      openNotificationWithIcon("error", "Error!", "Remove failed");
+    }
   };
 
   const columns = [
@@ -99,9 +109,9 @@ function Users() {
       render: (authority) => {
         let color = "green";
         const activeStatus =
-          authority[0] === "ROLE_ADMIN"
+          authority === "ROLE_ADMIN"
             ? "ADMIN"
-            : authority[0] === "ROLE_TUTOR"
+            : authority === "ROLE_TUTOR"
             ? "TUTOR"
             : "STUDENT";
         if (activeStatus === "ADMIN") {
@@ -136,6 +146,7 @@ function Users() {
           <Button
             danger
             icon={<DeleteOutlined />}
+            loading={deleteLoading}
             type="primary"
             onClick={() => {
               onDelete(record.id);
@@ -152,10 +163,10 @@ function Users() {
   ];
   return (
     <>
-      {success === "DELETE" &&
+      {/* {success === "DELETE" &&
         openNotificationWithIcon("success", "Success!", "Remove successfully")}
       {error === "DELETE" &&
-        openNotificationWithIcon("error", "Error!", "Remove failed")}
+        openNotificationWithIcon("error", "Error!", "Remove failed")} */}
       <Table
         loading={loading}
         dataSource={data}

@@ -26,7 +26,7 @@ function* getDetailUser(action) {
       type: ActionTypes.LOAD_DATA_DETAIL_SUCCESS,
       data: response[0].data,
     });
-    console.log("res:",response[0].data)
+    console.log("res:", response[0].data);
   } catch (error) {
     console.log("error", error);
     yield put({
@@ -37,15 +37,12 @@ function* getDetailUser(action) {
 }
 function* createUser(action) {
   try {
-    const response = yield UserServices.createUser(
-      action.values,
-      action.imageUrl
-    );
+    const response = yield UserServices.createUser(action.values);
     yield put({
       type: ActionTypes.CREATE_USER_SUCCESS,
       data: response.data,
     });
-    console.log("data create:", response.data);
+    console.log("data create:", response);
   } catch (error) {
     yield put({
       type: ActionTypes.CREATE_USER_FAILED,
@@ -55,11 +52,12 @@ function* createUser(action) {
 }
 function* updateUser(action) {
   try {
-    const response = yield UserServices.updateUser(action.id);
+    const response = yield UserServices.updateUser(action.id, action.values);
     yield put({
       type: ActionTypes.UPDATE_USER_SUCCESS,
       data: response.data,
     });
+    console.log("update", response);
   } catch (error) {
     yield put({
       type: ActionTypes.UPDATE_USER_FAILED,
@@ -74,6 +72,7 @@ function* deleteUser(action) {
       type: ActionTypes.DELETE_USER_SUCCESS,
       data: response.data,
     });
+    console.log("delete", response);
   } catch (error) {
     yield put({
       type: ActionTypes.DELETE_USER_FAILED,

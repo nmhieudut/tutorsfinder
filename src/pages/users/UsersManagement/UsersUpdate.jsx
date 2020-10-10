@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import moment from "moment";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import {
   Form,
   Input,
   Button,
   Radio,
-  Upload,
   DatePicker,
   message,
   Select,
   notification,
 } from "antd";
-import { loadDetailUserAction } from "../../../features/userData/actions";
+import {
+  loadDetailUserAction,
+  updateUserAction,
+} from "../../../features/userData/actions";
 import { SendOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -24,9 +25,12 @@ function UsersUpdate(props) {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.usersReducers.data);
   const loading = useSelector((state) => state.usersReducers.loading);
+  const updateLoading = useSelector(
+    (state) => state.usersReducers.updateLoading
+  );
   const success = useSelector((state) => state.usersReducers.success);
   const error = useSelector((state) => state.usersReducers.error);
-  console.log(data);
+  console.log("data", data);
 
   useEffect(() => {
     dispatch(loadDetailUserAction(props.match.params.id));
@@ -54,20 +58,34 @@ function UsersUpdate(props) {
       range: "${label} must be between ${min} and ${max}",
     },
   };
-
-  function handleRoleChange(value) {
-    console.log(`selected ${value}`);
-  }
   const onFinish = (values) => {
     console.log(values);
+    const updatedUser = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      address: values.address,
+      email: values.email,
+      gender: values.gender === "male" ? 1 : 0,
+      introduction: values.introduction,
+      phoneNumber: values.phoneNumber,
+      dateOfBirth: moment(values.dateOfBirth, "YYYY/M/D"),
+    };
+    if (data) {
+      dispatch(updateUserAction(data.id, updatedUser));
+      if (success === "UPDATE") {
+        openNotificationWithIcon("success", "Success!", "Update successfully");
+      } else {
+        openNotificationWithIcon("error", "Error!", "Update failed");
+      }
+    }
   };
   return (
     <div>
-      {success === "UPDATE" &&
+      {/* {success === "UPDATE" &&
         openNotificationWithIcon("success", "Success!", "Update successfully")}
       {error === "UPDATE" &&
-        openNotificationWithIcon("error", "Error!", "Update failed")}
-      {!loading && (
+        openNotificationWithIcon("error", "Error!", "Update failed")} */}
+      {!loading && data && (
         <Form
           {...layout}
           name="basic"
@@ -76,15 +94,12 @@ function UsersUpdate(props) {
           initialValues={{
             firstName: data.firstName,
             lastName: data.lastName,
-            username: data.username,
             email: data.email,
             gender: data.gender ? "male" : "female",
-            photo: data.photo,
             dateOfBirth: moment(data.dateOfBirth, "MMM Do YY"),
             phoneNumber: data.phoneNumber,
             address: data.address,
             introduction: data.introduction,
-            authority: data.authority,
           }}
         >
           <Form.Item
@@ -98,13 +113,6 @@ function UsersUpdate(props) {
             name="lastName"
             label="Last Name"
             rules={[{ required: true }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="username"
-            label="User Name"
-            rules={[{ min: 8, required: true }]}
           >
             <Input />
           </Form.Item>
@@ -150,22 +158,15 @@ function UsersUpdate(props) {
           <Form.Item name="introduction" label="Introduction">
             <Input.TextArea />
           </Form.Item>
-          <Form.Item name="authority" label="Role">
-            <Select style={{ width: 120 }} onChange={handleRoleChange}>
-              <Option value="ROLE_USER">User</Option>
-              <Option value="ROLE_ADMIN">Admin</Option>
-              <Option value="ROLE_STUDENT">Student</Option>
-            </Select>
-          </Form.Item>
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             <Button
               type="primary"
               htmlType="submit"
-              disable={loading ? 1 : 0}
-              loading={loading}
+              disable={updateLoading ? 1 : 0}
+              loading={updateLoading}
             >
               <SendOutlined />
-              {loading ? "Saving..." : "Save"}
+              {updateLoading ? "Saving..." : "Save"}
             </Button>
           </Form.Item>
         </Form>

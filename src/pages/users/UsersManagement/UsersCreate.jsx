@@ -12,7 +12,10 @@ import {
   Select,
   notification,
 } from "antd";
-import { createUserAction } from "../../../features/userData/actions";
+import {
+  loadDataAction,
+  createUserAction,
+} from "../../../features/userData/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 const { Option } = Select;
@@ -64,19 +67,17 @@ function UsersCreate(props) {
       authority: values.authority,
     };
     dispatch(createUserAction(createdUser));
-    console.log("created:", createdUser);
+    if (success === "CREATE") {
+      openNotificationWithIcon("success", "Success!", "Register successfully");
+      dispatch(loadDataAction());
+      console.log("createdddddd");
+    } else if (error === "CREATE") {
+      openNotificationWithIcon("error", "Error!", "Register failed");
+    }
   };
 
   return (
     <div>
-      {success === "CREATE" &&
-        openNotificationWithIcon(
-          "success",
-          "Success!",
-          "Register successfully"
-        )}
-      {error === "CREATE" &&
-        openNotificationWithIcon("error", "Error!", "Register failed")}
       <Drawer
         title="Create a new account"
         width={640}
