@@ -37,7 +37,6 @@ function getDetailUser(id) {
         const data = [];
         data.push(res);
         resolve(data);
-        console.log("Data:", data);
       })
       .catch((error) => {
         console.log(error);

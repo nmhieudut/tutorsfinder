@@ -5,7 +5,6 @@ import ProtectedRoute from "../guards/ProtectedRoute";
 import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 //Reducers
-import usersReducers from "../features/userData/reducers";
 import authReducers from "../features/auth/reducers"
 //Saga
 import createSagaMiddleware from "redux-saga";
@@ -17,7 +16,6 @@ import "./App.less";
 import rootSagas from "./rootSaga";
 //root reducer
 const rootReducer = combineReducers({
-  usersReducers,
   authReducers,
 });
 

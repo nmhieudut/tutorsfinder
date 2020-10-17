@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import {
   Drawer,
@@ -8,26 +8,16 @@ import {
   Radio,
   InputNumber,
   DatePicker,
-  message,
   Select,
   notification,
 } from "antd";
-import {
-  loadDataAction,
-  createUserAction,
-} from "../../../features/userData/actions";
-import { useDispatch, useSelector } from "react-redux";
+import UsersServices from "../../../api/UsersServices";
 
 const { Option } = Select;
 
 function UsersCreate(props) {
-  //redux + hooks
-  const createLoading = useSelector(
-    (state) => state.usersReducers.createLoading
-  );
-  const success = useSelector((state) => state.usersReducers.success);
-  const error = useSelector((state) => state.usersReducers.error);
-  const dispatch = useDispatch();
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const dateFormat = "YYYY/MM/DD";
 
   const openNotificationWithIcon = (type, message, description) => {
@@ -36,6 +26,34 @@ function UsersCreate(props) {
       description: description,
       duration: 2,
     });
+  };
+  const loadData = () => {
+    UsersServices.getUsers()
+      .then((res) => {
+        setData(res[0].data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  };
+  const onCreate = (createdUser) => {
+    setLoading(true);
+    UsersServices.createUser(createdUser)
+      .then((res) => {
+        setLoading(false);
+        openNotificationWithIcon(
+          "success",
+          "Success!",
+          "Register successfully"
+        );
+        loadData();
+      })
+      .catch((err) => {
+        setLoading(false);
+        openNotificationWithIcon("error", "Error!", err);
+        loadData();
+      });
   };
   const layout = {
     labelCol: { span: 6 },
@@ -52,7 +70,6 @@ function UsersCreate(props) {
     },
   };
   const onFinish = (values) => {
-    console.log(values);
     const createdUser = {
       username: values.username,
       password: values.password,
@@ -66,14 +83,7 @@ function UsersCreate(props) {
       dateOfBirth: moment(values.dateOfBirth, "YYYY/M/D"),
       authority: values.authority,
     };
-    dispatch(createUserAction(createdUser));
-    if (success === "CREATE") {
-      openNotificationWithIcon("success", "Success!", "Register successfully");
-      dispatch(loadDataAction());
-      console.log("createdddddd");
-    } else if (error === "CREATE") {
-      openNotificationWithIcon("error", "Error!", "Register failed");
-    }
+    onCreate(createdUser);
   };
 
   return (
@@ -177,10 +187,10 @@ function UsersCreate(props) {
             <Button
               type="primary"
               htmlType="submit"
-              disable={createLoading ? 1 : 0}
-              loading={createLoading ? 1 : 0}
+              disable={loading}
+              loading={loading}
             >
-              {createLoading ? "Registering..." : "Register"}
+              {loading ? "Registering..." : "Register"}
             </Button>
           </Form.Item>
         </Form>

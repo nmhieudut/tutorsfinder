@@ -3,15 +3,9 @@ import "./index.css";
 import { Layout, BackTop } from "antd";
 import SideBar from "../components/SideBar/SideBar";
 import HeaderNav from "../components/HeaderNav/HeaderNav";
-import { VerticalAlignTopOutlined } from "@ant-design/icons";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-  useRouteMatch,
-} from "react-router-dom";
-import routers from "../routers";
+import { BrowserRouter as Router, useRouteMatch } from "react-router-dom";
+import RouterPage from "../routers";
+
 const { Header, Footer, Content, Sider } = Layout;
 
 function Layouts() {
@@ -35,7 +29,6 @@ function Layouts() {
             breakpoint="lg"
             theme="dark"
             collapsible
-            reverseArrow
             collapsed={collapsed}
             onCollapse={onCollapse}
             style={{
@@ -61,34 +54,7 @@ function Layouts() {
             </Header>
             <Content>
               <div className="site-layout-content">
-                <Suspense fallback={<div>Loading....</div>}>
-                  <Switch>
-                    <Redirect
-                      exact
-                      from="/home"
-                      to={`${match.url}/dashboard`}
-                    />
-                    {routers.map((route, index) => {
-                      const component = React.lazy(() =>
-                        import(`../pages/${route.component}`)
-                      );
-                      return (
-                        <Route
-                          key={index}
-                          exact={route.exact}
-                          path={`${match.url}/${route.path}`}
-                          component={component}
-                        />
-                      );
-                    })}
-                  </Switch>
-
-                  <BackTop>
-                    <div className="back-top-button">
-                      <VerticalAlignTopOutlined />
-                    </div>
-                  </BackTop>
-                </Suspense>
+                <RouterPage match={match} />
               </div>
             </Content>
             <Footer style={{ textAlign: "center" }}>

@@ -7,7 +7,6 @@ import { Button, Typography, Input } from "antd";
 const { Title } = Typography;
 const { Search } = Input;
 
-
 function Users() {
   const [visible, setVisible] = useState(false);
   const showDrawer = () => {
@@ -50,8 +49,9 @@ function Users() {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "flex-start",
-          marginTop: 20,
-          marginBottom: 20,
+          backgroundColor: "white",
+          paddingBottom: 15,
+          paddingLeft: 10,
         }}
       >
         <Search

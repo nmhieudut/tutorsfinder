@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import {
   Form,
@@ -6,37 +6,31 @@ import {
   Button,
   Radio,
   DatePicker,
-  message,
   Select,
   notification,
 } from "antd";
-import {
-  loadDetailUserAction,
-  updateUserAction,
-} from "../../../features/userData/actions";
 import { SendOutlined } from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
+import UsersServices from "../../../api/UsersServices";
+import { useHistory } from "react-router-dom";
 
 const { Option } = Select;
 
 function UsersUpdate(props) {
   //console.log("param:", props.match.params.id)
-  //redux + hooks
-  const dispatch = useDispatch();
-  const data = useSelector((state) => state.usersReducers.data);
-  const loading = useSelector((state) => state.usersReducers.loading);
-  const updateLoading = useSelector(
-    (state) => state.usersReducers.updateLoading
-  );
-  const success = useSelector((state) => state.usersReducers.success);
-  const error = useSelector((state) => state.usersReducers.error);
-  console.log("data", data);
+  const dateFormat = "YYYY/MM/DD";
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
-    dispatch(loadDetailUserAction(props.match.params.id));
+    UsersServices.getDetailUser(props.match.params.id)
+      .then((res) => {
+        setData(res[0].data);
+        setLoading(false);
+      })
+      .catch((err) => setLoading(false));
   }, []);
 
-  const dateFormat = "YYYY/MM/DD";
   const openNotificationWithIcon = (type, message, description) => {
     notification[type]({
       message: message,
@@ -58,6 +52,20 @@ function UsersUpdate(props) {
       range: "${label} must be between ${min} and ${max}",
     },
   };
+  const onUpdate = (id, updatedUser) => {
+    setLoading(true);
+    UsersServices.updateUser(id, updatedUser)
+      .then((res) => {
+        console.log("resUpdate", res);
+        setLoading(false);
+        openNotificationWithIcon("success", "Success!", "Update successfully");
+        setTimeout(() => history.push("/home/users"), 2000);
+      })
+      .catch((err) => {
+        openNotificationWithIcon("error", "Error!", "Update failed");
+        setLoading(false);
+      });
+  };
   const onFinish = (values) => {
     console.log(values);
     const updatedUser = {
@@ -70,22 +78,11 @@ function UsersUpdate(props) {
       phoneNumber: values.phoneNumber,
       dateOfBirth: moment(values.dateOfBirth, "YYYY/M/D"),
     };
-    if (data) {
-      dispatch(updateUserAction(data.id, updatedUser));
-      if (success === "UPDATE") {
-        openNotificationWithIcon("success", "Success!", "Update successfully");
-      } else {
-        openNotificationWithIcon("error", "Error!", "Update failed");
-      }
-    }
+    onUpdate(data.id, updatedUser);
   };
   return (
     <div>
-      {/* {success === "UPDATE" &&
-        openNotificationWithIcon("success", "Success!", "Update successfully")}
-      {error === "UPDATE" &&
-        openNotificationWithIcon("error", "Error!", "Update failed")} */}
-      {!loading && data && (
+      {data && (
         <Form
           {...layout}
           name="basic"
@@ -162,11 +159,11 @@ function UsersUpdate(props) {
             <Button
               type="primary"
               htmlType="submit"
-              disable={updateLoading ? 1 : 0}
-              loading={updateLoading}
+              disable={loading ? 1 : 0}
+              loading={loading}
             >
               <SendOutlined />
-              {updateLoading ? "Saving..." : "Save"}
+              {loading ? "Saving..." : "Save"}
             </Button>
           </Form.Item>
         </Form>
@@ -174,4 +171,4 @@ function UsersUpdate(props) {
     </div>
   );
 }
-export default React.memo(UsersUpdate);
+export default UsersUpdate;

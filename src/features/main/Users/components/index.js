@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Details from "../../../pages/users/Details";
+import Details from "../../../../pages/users/Details";
 import { Link } from "react-router-dom";
 import { Table, Space, Button, Tag, notification } from "antd";
 import * as moment from "moment";
@@ -8,32 +8,29 @@ import {
   EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { loadDataAction, deleteUserAction } from "../actions";
+import UsersServices from "../../../../api/UsersServices";
 
 function Users() {
   //local state
   const [selectedUser, setSelectedUser] = useState([]);
   const [visible, setVisible] = useState(false);
-
-  //Hooks
-  const dispatch = useDispatch();
-
-  //State redux
-  const data = useSelector((state) => state.usersReducers.data);
-  const loading = useSelector((state) => state.usersReducers.loading);
-  const deleteLoading = useSelector(
-    (state) => state.usersReducers.deleteLoading
-  );
-  const success = useSelector((state) => state.usersReducers.success);
-  const error = useSelector((state) => state.usersReducers.error);
-  console.log("data", data);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const loadData = () => {
-    dispatch(loadDataAction());
+    UsersServices.getUsers()
+      .then((res) => {
+        setData(res[0].data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
   };
-  //Load data effect
-  useEffect(loadData, []);
+  useEffect(() => {
+    setLoading(true);
+    loadData();
+  }, []);
 
   const openNotificationWithIcon = (type, message, description) => {
     notification[type]({
@@ -52,14 +49,22 @@ function Users() {
   };
 
   const onDelete = (id) => {
-    dispatch(deleteUserAction(id));
-    console.log("success", success);
-    if (success === "DELETE") {
-      openNotificationWithIcon("success", "Success!", "Remove successfully");
-      dispatch(loadDataAction());
-    } else if (error === "DELETE") {
-      openNotificationWithIcon("error", "Error!", "Remove failed");
-    }
+    setLoading(true);
+    UsersServices.deleteUser(id)
+      .then((res) => {
+        setLoading(false);
+        openNotificationWithIcon(
+          "success",
+          "Success!",
+          "This user doesn't exist anymore !"
+        );
+        loadData();
+      })
+      .catch((err) => {
+        setLoading(false);
+        openNotificationWithIcon("error", "Error!", "Deleted failed");
+        loadData();
+      });
   };
 
   const columns = [
@@ -146,7 +151,7 @@ function Users() {
           <Button
             danger
             icon={<DeleteOutlined />}
-            loading={deleteLoading}
+            loading={loading}
             type="primary"
             onClick={() => {
               onDelete(record.id);
@@ -163,10 +168,6 @@ function Users() {
   ];
   return (
     <>
-      {/* {success === "DELETE" &&
-        openNotificationWithIcon("success", "Success!", "Remove successfully")}
-      {error === "DELETE" &&
-        openNotificationWithIcon("error", "Error!", "Remove failed")} */}
       <Table
         loading={loading}
         dataSource={data}
