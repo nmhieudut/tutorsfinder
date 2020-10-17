@@ -3,6 +3,7 @@ import "./details.css";
 import { Drawer, Divider, Col, Row, Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import * as moment from "moment";
+
 export default function Details(props) {
   console.log("props:", props.user);
   const DescriptionItem = ({ title, content }) => (

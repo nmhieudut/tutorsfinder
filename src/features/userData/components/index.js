@@ -73,10 +73,10 @@ function Users() {
       title: "Username",
       dataIndex: "username",
       key: "username",
-      render: (username) => <div>{username}</div>,
       sorter: {
         compare: (a, b) => a.username.length - b.username.length,
       },
+      render: (username) => <div>{username}</div>,
     },
     {
       title: "Gender",

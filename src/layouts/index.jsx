@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import "./index.css";
 import { Layout, BackTop } from "antd";
 import SideBar from "../components/SideBar/SideBar";
@@ -11,11 +11,7 @@ import {
   Redirect,
   useRouteMatch,
 } from "react-router-dom";
-import Users from "../pages/users/UsersManagement/Users";
-import UsersUpdate from "../pages/users/UsersManagement/UsersUpdate";
-import Subjects from "../pages/subjects/Subjects";
-import Dashboard from "../pages/dashboard";
-
+import routers from "../routers";
 const { Header, Footer, Content, Sider } = Layout;
 
 function Layouts() {
@@ -65,30 +61,34 @@ function Layouts() {
             </Header>
             <Content>
               <div className="site-layout-content">
-                <Switch>
-                  <Redirect exact from="/home" to={`${match.url}/dashboard`} />
-                  <Route
-                    exact
-                    path={`${match.url}/dashboard`}
-                    component={Dashboard}
-                  />
-                  <Route exact path={`${match.url}/users`} component={Users} />
-                  <Route
-                    exact
-                    path={`${match.url}/users/:id/edit`}
-                    component={UsersUpdate}
-                  />
-                  <Route
-                    exact
-                    path={`${match.url}/subjects`}
-                    component={Subjects}
-                  />
-                </Switch>
-                <BackTop>
-                  <div className="back-top-button">
-                    <VerticalAlignTopOutlined />
-                  </div>
-                </BackTop>
+                <Suspense fallback={<div>Loading....</div>}>
+                  <Switch>
+                    <Redirect
+                      exact
+                      from="/home"
+                      to={`${match.url}/dashboard`}
+                    />
+                    {routers.map((route, index) => {
+                      const component = React.lazy(() =>
+                        import(`../pages/${route.component}`)
+                      );
+                      return (
+                        <Route
+                          key={index}
+                          exact={route.exact}
+                          path={`${match.url}/${route.path}`}
+                          component={component}
+                        />
+                      );
+                    })}
+                  </Switch>
+
+                  <BackTop>
+                    <div className="back-top-button">
+                      <VerticalAlignTopOutlined />
+                    </div>
+                  </BackTop>
+                </Suspense>
               </div>
             </Content>
             <Footer style={{ textAlign: "center" }}>
