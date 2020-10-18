@@ -10,14 +10,13 @@ import { Link } from "react-router-dom";
 import { Menu } from "antd";
 import "../../layouts/index.css";
 import logo from "../../assets/logo.png";
-import { useRouteMatch, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const { SubMenu } = Menu;
 
 export default function SideBar(props) {
   const location = useLocation();
   const path = location.pathname;
-  console.log("location", path);
   const [selectedKey, setSelectedKey] = useState(
     path === "/home/dashboard"
       ? 1
@@ -25,7 +24,6 @@ export default function SideBar(props) {
       ? 2
       : path === "/home/subjects" && 3
   );
-  console.log("select", selectedKey.toString);
   const handleClick = (e) => {
     setSelectedKey(e.key);
   };
