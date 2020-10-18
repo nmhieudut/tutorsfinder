@@ -1,6 +1,6 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect } from "react";
 import "./index.css";
-import { Layout, BackTop } from "antd";
+import { Layout } from "antd";
 import SideBar from "../components/SideBar/SideBar";
 import HeaderNav from "../components/HeaderNav/HeaderNav";
 import { BrowserRouter as Router, useRouteMatch } from "react-router-dom";
@@ -39,7 +39,7 @@ function Layouts() {
               overflowY: "hidden",
             }}
           >
-            <SideBar />
+            <SideBar  />
           </Sider>
           <Layout
             style={{

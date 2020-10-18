@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import moment from "moment";
 import {
   Drawer,
@@ -12,12 +12,13 @@ import {
   notification,
 } from "antd";
 import UsersServices from "../../../api/UsersServices";
+import { useHistory } from "react-router-dom";
 
 const { Option } = Select;
 
 function UsersCreate(props) {
-  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
   const dateFormat = "YYYY/MM/DD";
 
   const openNotificationWithIcon = (type, message, description) => {
@@ -26,16 +27,6 @@ function UsersCreate(props) {
       description: description,
       duration: 2,
     });
-  };
-  const loadData = () => {
-    UsersServices.getUsers()
-      .then((res) => {
-        setData(res[0].data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log("error", err);
-      });
   };
   const onCreate = (createdUser) => {
     setLoading(true);
@@ -47,12 +38,11 @@ function UsersCreate(props) {
           "Success!",
           "Register successfully"
         );
-        loadData();
+        history.push("/users/UsersManagement/Users");
       })
       .catch((err) => {
         setLoading(false);
         openNotificationWithIcon("error", "Error!", err);
-        loadData();
       });
   };
   const layout = {

@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import {
-  Form,
-  Input,
-  Button,
-  Radio,
-  DatePicker,
-  Select,
-  notification,
-} from "antd";
+import { Form, Input, Button, Radio, DatePicker, notification } from "antd";
 import { SendOutlined } from "@ant-design/icons";
 import UsersServices from "../../../api/UsersServices";
 import { useHistory } from "react-router-dom";
-
-const { Option } = Select;
 
 function UsersUpdate(props) {
   //console.log("param:", props.match.params.id)
@@ -21,15 +11,15 @@ function UsersUpdate(props) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const history = useHistory();
-
+  const _id = props.match.params.id;
   useEffect(() => {
-    UsersServices.getDetailUser(props.match.params.id)
+    UsersServices.getDetailUser(_id)
       .then((res) => {
         setData(res[0].data);
         setLoading(false);
       })
       .catch((err) => setLoading(false));
-  }, []);
+  }, [props.match.params.id]);
 
   const openNotificationWithIcon = (type, message, description) => {
     notification[type]({
@@ -56,7 +46,6 @@ function UsersUpdate(props) {
     setLoading(true);
     UsersServices.updateUser(id, updatedUser)
       .then((res) => {
-        console.log("resUpdate", res);
         setLoading(false);
         openNotificationWithIcon("success", "Success!", "Update successfully");
         setTimeout(() => history.push("/home/users"), 2000);

@@ -1,5 +1,5 @@
 import React from "react";
-import Users from "../../../features/main/Users/components";
+import Users from "../../../features/main/components/Users/components";
 
 function UsersList() {
   return (

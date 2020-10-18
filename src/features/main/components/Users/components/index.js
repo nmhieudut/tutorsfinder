@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Details from "../../../../pages/users/Details";
+import Details from "../../../../../pages/users/Details";
 import { Link } from "react-router-dom";
 import { Table, Space, Button, Tag, notification } from "antd";
 import * as moment from "moment";
@@ -8,7 +8,7 @@ import {
   EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import UsersServices from "../../../../api/UsersServices";
+import UsersServices from "../../../../../api/UsersServices";
 
 function Users() {
   //local state
