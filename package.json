@@ -29,10 +29,11 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "webpack -p",
+    "build": "webpack",
     "watch": "webpack --watch",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "echo Skip build on Heroku"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -52,5 +53,6 @@
   "devDependencies": {
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
-  }
+  },
+  "heroku-run-build-script": true
 }
