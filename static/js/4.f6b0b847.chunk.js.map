@@ -1,0 +1,1 @@
+{"version":3,"sources":["pages/dashboard/index.jsx"],"names":["Dashboard"],"mappings":"8GAAA,mEAEe,SAASA,IACtB,OAAO","file":"static/js/4.f6b0b847.chunk.js","sourcesContent":["import React, { useEffect } from \"react\";\r\n\r\nexport default function Dashboard() {\r\n  return <div>Dashboard</div>; \r\n}\r\n"],"sourceRoot":""}

@@ -1,0 +1,1 @@
+{"version":3,"sources":["pages/subjects/SubjectsUpdate.jsx"],"names":["SubjectsUpdate"],"mappings":"+GAAA,mEAEe,SAASA,IACnB,OACK","file":"static/js/14.96b8c396.chunk.js","sourcesContent":["import React from 'react'\r\n\r\nexport default function SubjectsUpdate() {\r\n     return (\r\n          <div>\r\n               \r\n          </div>\r\n     )\r\n}\r\n"],"sourceRoot":""}

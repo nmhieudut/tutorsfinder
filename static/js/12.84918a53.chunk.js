@@ -1,0 +1,2 @@
+(this["webpackJsonpadmin-app"]=this["webpackJsonpadmin-app"]||[]).push([[12],{247:function(n,t,a){"use strict";a.r(t),a.d(t,"default",(function(){return p}));var e=a(0),i=a.n(e);function p(){return i.a.createElement("div",null)}}}]);
+//# sourceMappingURL=12.84918a53.chunk.js.map
