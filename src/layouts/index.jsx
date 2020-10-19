@@ -12,7 +12,7 @@ function Layouts() {
   const [collapsed, setCollapsed] = useState(false);
   const match = useRouteMatch();
   console.log("match", match);
-
+  console.log("doc", document);
   useEffect(() => {
     document.title = "Home";
   }, []);
@@ -39,7 +39,7 @@ function Layouts() {
               overflowY: "hidden",
             }}
           >
-            <SideBar  />
+            <SideBar />
           </Sider>
           <Layout
             style={{

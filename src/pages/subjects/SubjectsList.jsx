@@ -1,9 +1,9 @@
-import React from 'react'
-
+import React from "react";
+import SubjectComponents from "../../features/main/components/Subjects/components";
 export default function SubjectsList() {
-     return (
-          <div>
-               
-          </div>
-     )
+  return (
+    <div>
+      <SubjectComponents />
+    </div>
+  );
 }
