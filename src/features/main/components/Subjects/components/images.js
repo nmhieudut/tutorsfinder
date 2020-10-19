@@ -1,0 +1,47 @@
+const images = [
+  {
+    image:
+      "https://img.freepik.com/free-vector/realistic-math-chalkboard-background_23-2148154055.jpg?size=626&ext=jpg",
+  },
+  {
+    image:
+      "https://clas.ucdenver.edu/english/sites/default/files/styles/hero/public/hero/litx.jpg?itok=4wgM2Ve7",
+  },
+  {
+    image:
+      "https://p3cdn4static.sharpschool.com/UserFiles/Servers/Server_3907102/Image/hand-drawn-science-education-background_23-2148499326.jpg",
+  },
+  {
+    image:
+      "https://cdn1.iconfinder.com/data/icons/studing-discipline/100/10-512.png",
+  },
+  {
+    image:
+      "https://cdn2.vectorstock.com/i/1000x1000/94/66/subject-of-chemistry-vector-1239466.jpg",
+  },
+  {
+    image:
+      "https://image.shutterstock.com/image-vector/history-subject-conceptlettering-card-vector-600w-1110756569.jpg",
+  },
+  {
+    image:
+      "https://img.freepik.com/free-vector/geography-subject-with-worldmap-books_1308-30998.jpg?size=626&ext=jpg",
+  },
+  {
+    image:
+      "https://www.kwena.net/wp-content/uploads/2019/09/AdobeStock_181971672-1024x648-1.jpg",
+  },
+  {
+    image:
+      "https://st2.depositphotos.com/3591429/5246/i/950/depositphotos_52462701-stock-photo-people-and-english-concept.jpg",
+  },
+  {
+    image:
+      "https://schoolweb.tdsb.on.ca/portals/regentheights/images/Music.jpg",
+  },
+  {
+    image:
+      "https://tedsaigon.com/uploads/editer/images/Bo%20mon/Art/is-marilyn-a-good-artist-ftr.jpg",
+  },
+];
+export default images;
