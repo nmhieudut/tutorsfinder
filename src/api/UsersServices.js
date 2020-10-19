@@ -2,7 +2,6 @@ import axios from "axios";
 
 function getUsers() {
   const token = JSON.parse(localStorage.getItem("token"));
-  console.log(`Bearer ${token}`);
   return new Promise((resolve, reject) => {
     axios
       .get("http://haimai.ddns.net:9090/api/edu/v1/user", {

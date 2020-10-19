@@ -29,7 +29,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "webpack",
+    "build": "react-scripts build",
     "watch": "webpack --watch",
     "test": "craco test",
     "eject": "react-scripts eject",
