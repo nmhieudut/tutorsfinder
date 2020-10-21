@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Details from "../../../../../pages/users/Details";
 import { Link } from "react-router-dom";
+import DeleteButton from "../../../../../components/DeleteButton";
 import { Table, Space, Button, Tag, notification } from "antd";
 import * as moment from "moment";
-import {
-  FolderViewOutlined,
-  EditOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
+import { FolderViewOutlined, EditOutlined } from "@ant-design/icons";
 import UsersServices from "../../../../../api/UsersServices";
 
 function Users() {
@@ -16,7 +13,7 @@ function Users() {
   const [visible, setVisible] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  console.log("user",data)
+  console.log("user", data);
   const loadData = () => {
     UsersServices.getUsers()
       .then((res) => {
@@ -48,7 +45,12 @@ function Users() {
   const onClose = () => {
     setVisible(false);
   };
-
+  const onToggleStatus = (id, status) => {
+    UsersServices.changeStatus(id, status).then((res) => {
+      console.log("OK");
+      loadData();
+    });
+  };
   const onDelete = (id) => {
     setLoading(true);
     UsersServices.deleteUser(id)
@@ -83,12 +85,6 @@ function Users() {
         compare: (a, b) => a.username.length - b.username.length,
       },
       render: (username) => <div>{username}</div>,
-    },
-    {
-      title: "Gender",
-      dataIndex: "gender",
-      key: "gender",
-      render: (gender) => `${gender ? "Male" : "Female"}`,
     },
     {
       title: "Email",
@@ -133,6 +129,24 @@ function Users() {
       },
     },
     {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (status) => {
+        let color;
+        const activeStatus =
+          status === "INACTIVE" ? "INACTIVE" : status === "ACTIVE" && "ACTIVE";
+        if (activeStatus === "INACTIVE") {
+          color = "#6d4c41";
+        } else color = "#ff5722";
+        return (
+          <Tag color={color} key={activeStatus}>
+            {activeStatus}
+          </Tag>
+        );
+      },
+    },
+    {
       title: "Action",
       key: "action",
       align: "center",
@@ -140,30 +154,44 @@ function Users() {
       render: (record) => (
         <Space size="small">
           <Button
-            type="primary"
             icon={<FolderViewOutlined />}
             onClick={() => onSelect(record)}
           >
             More
           </Button>
           <Link target="_top" to={`/home/users/${record.id}/edit`}>
-            <Button icon={<EditOutlined />}>Edit</Button>
+            <Button type="primary" icon={<EditOutlined />}>
+              Edit
+            </Button>
           </Link>
-          <Button
-            danger
-            icon={<DeleteOutlined />}
+          <DeleteButton
             loading={loading}
-            type="primary"
-            onClick={() => {
-              onDelete(record.id);
+            item={record}
+            onSelected={(id) => {
+              onDelete(id);
             }}
-          >
-            Delete
-          </Button>
-          <Button style={{ backgroundColor: "#1976d2", color: "white" }}>
-            {record.activation ? "Active" : "Inactive"}
-          </Button>
+          />
         </Space>
+      ),
+    },
+    {
+      title: "Active / Inactive",
+      key: "Active / Inactive",
+      render: (record) => (
+        <Button
+          style={{
+            backgroundColor:
+              record.status === "INACTIVE" ? "#4caf50" : "#263238",
+            color: "white",
+            width: "100%",
+          }}
+          onClick={() => {
+            const status = record.status === "INACTIVE" ? "ACTIVE" : "INACTIVE";
+            onToggleStatus(record.id, status);
+          }}
+        >
+          {record.status === "INACTIVE" ? "ACTIVE" : "INACTIVE"}
+        </Button>
       ),
     },
   ];

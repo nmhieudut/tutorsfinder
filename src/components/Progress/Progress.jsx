@@ -4,7 +4,6 @@ import React from 'react'
 import Bar from './Bar'
 import Container from './Container'
 import './index.css'
-import Spinner from './Spinner'
 
 const Progress = ({ isAnimating }) => {
   const { animationDuration, isFinished, progress } = useNProgress({
@@ -14,7 +13,6 @@ const Progress = ({ isAnimating }) => {
   return (
     <Container isFinished={isFinished} animationDuration={animationDuration}>
       <Bar progress={progress} animationDuration={animationDuration} />
-      <Spinner />
     </Container>
   )
 }

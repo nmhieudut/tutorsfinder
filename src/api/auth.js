@@ -9,7 +9,6 @@ function login(username, password) {
     axios
       .post("http://haimai.ddns.net:9090/api/auth/v1/admin/login", userConfig)
       .then((res) => {
-        console.log(res);
         localStorage.setItem("token", JSON.stringify(res.data.authToken));
         resolve(res);
       })

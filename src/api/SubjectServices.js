@@ -11,7 +11,6 @@ async function getSubjects() {
         },
       }
     );
-    console.log("res", response);
     return response;
   } catch (e) {
     console.log("error", e);

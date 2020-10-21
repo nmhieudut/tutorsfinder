@@ -5,7 +5,7 @@ import { UserOutlined } from "@ant-design/icons";
 import * as moment from "moment";
 
 export default function Details(props) {
-  console.log("props:", props.user);
+
   const DescriptionItem = ({ title, content }) => (
     <div className="site-description-item-profile-wrapper">
       <p className="site-description-item-profile-p-label">{title}:</p>

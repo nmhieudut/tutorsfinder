@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Space, Typography, Image } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Space,
+  Typography,
+  Image,
+  notification,
+} from "antd";
 import { loginAction } from "../actions";
 import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,15 +20,21 @@ const { Title } = Typography;
 export default function Auth() {
   const [isAuth, setIsAuth] = useState(false);
   const dispatch = useDispatch();
+
   const loading = useSelector((state) => state.authReducers.loading);
   const loggedInUser = useSelector((state) => state.authReducers.loggedInUser);
-  const error = useSelector((state) => state.authReducers.error);
-  var decoded = jwt_decode(
-    "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjEiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjAyMzM2MTgzfQ.L1puNvKEXG26PfD1o_Yw_KXRiObOmUSz0seqpwX3FwvvXdNTgJxqHQAdRIEzSIdiLMUMKyzaCC7cJ-9zHSL8SA"
-  );
-  console.log("logged:", loggedInUser);
-  console.log("decode", decoded);
-  console.log("err:", error);
+  var error = useSelector((state) => state.authReducers.error);
+  const decoded = loggedInUser && jwt_decode(loggedInUser);
+  const role = decoded && decoded.auth;
+
+  console.log("error:", error);
+  const openNotificationWithIcon = (type, message, description) => {
+    notification[type]({
+      message: message,
+      description: description,
+      duration: 2,
+    });
+  };
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: {
@@ -33,6 +47,7 @@ export default function Auth() {
       span: 22,
     },
   };
+
   useEffect(() => {
     document.title = "Login";
     const isAuthenticated = localStorage.getItem("token") ? true : false;
@@ -43,14 +58,20 @@ export default function Auth() {
     console.log(values);
     setIsAuth(true);
     dispatch(loginAction(values.username, values.password));
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    if (error) {
+      openNotificationWithIcon(
+        "error",
+        "Error",
+        "You can not access this site, try again later !"
+      );
+      error = null;
+    }
   };
 
-  if (loggedInUser || isAuth) {
-    return <Redirect to="/home" target="_top" />;
+  if (role === "ROLE_ADMIN" && isAuth) {
+    return <Redirect to="/home" />;
   }
+
   return (
     <div
       style={{
@@ -59,6 +80,7 @@ export default function Auth() {
         flexDirection: "row",
         justifyContent: "center",
         textAlign: "center",
+        backgroundColor: "black",
       }}
     >
       <Progress isAnimating={loading} />
@@ -82,7 +104,6 @@ export default function Auth() {
                 remember: true,
               }}
               onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
             >
               <Form.Item
                 label="User Name"
@@ -114,7 +135,8 @@ export default function Auth() {
                   type="primary"
                   htmlType="submit"
                   loading={loading ? 1 : 0}
-                  disable={loading ? 1 : 0}
+                  disabled={loading ? 1 : 0}
+                  target="_top"
                 >
                   {loading ? "Submitting..." : "Submit"}
                 </Button>

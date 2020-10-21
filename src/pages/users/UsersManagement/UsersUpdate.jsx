@@ -6,7 +6,6 @@ import UsersServices from "../../../api/UsersServices";
 import { useHistory } from "react-router-dom";
 
 function UsersUpdate(props) {
-  //console.log("param:", props.match.params.id)
   const dateFormat = "YYYY/MM/DD";
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -56,7 +55,6 @@ function UsersUpdate(props) {
       });
   };
   const onFinish = (values) => {
-    console.log(values);
     const updatedUser = {
       firstName: values.firstName,
       lastName: values.lastName,
@@ -120,10 +118,7 @@ function UsersUpdate(props) {
             label="Birthday"
             rules={[{ required: true }]}
           >
-            <DatePicker
-              onChange={(e) => console.log(e._d)}
-              format={dateFormat}
-            />
+            <DatePicker format={dateFormat} />
           </Form.Item>
           <Form.Item
             name="phoneNumber"
@@ -148,7 +143,7 @@ function UsersUpdate(props) {
             <Button
               type="primary"
               htmlType="submit"
-              disable={loading ? 1 : 0}
+              disabled={loading ? 1 : 0}
               loading={loading}
             >
               <SendOutlined />

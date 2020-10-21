@@ -4,7 +4,6 @@ import { put, takeLatest } from "redux-saga/effects";
 import auth from "../../../api/auth";
 
 function* Login(action) {
-  console.log("Action", action);
   try {
     const response = yield auth.login(action.username, action.password);
     yield put({

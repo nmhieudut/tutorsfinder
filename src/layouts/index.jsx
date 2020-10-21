@@ -11,12 +11,9 @@ const { Header, Footer, Content, Sider } = Layout;
 function Layouts() {
   const [collapsed, setCollapsed] = useState(false);
   const match = useRouteMatch();
-  console.log("match", match);
-  console.log("doc", document);
   useEffect(() => {
     document.title = "Home";
   }, []);
-
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
   };

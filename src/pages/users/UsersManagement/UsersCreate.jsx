@@ -38,7 +38,7 @@ function UsersCreate(props) {
           "Success!",
           "Register successfully"
         );
-        history.push("/users/UsersManagement/Users");
+        setTimeout(() => window.location.reload(), 1000);
       })
       .catch((err) => {
         setLoading(false);
@@ -177,7 +177,7 @@ function UsersCreate(props) {
             <Button
               type="primary"
               htmlType="submit"
-              disable={loading}
+              disabled={loading}
               loading={loading}
             >
               {loading ? "Registering..." : "Register"}

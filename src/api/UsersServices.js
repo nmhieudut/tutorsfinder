@@ -13,7 +13,6 @@ function getUsers() {
         const data = [];
         data.push(res);
         resolve(data);
-        //console.log("Data:", data);
       })
       .catch((error) => {
         console.log(error);
@@ -99,10 +98,35 @@ function deleteUser(id) {
       });
   });
 }
+
+function changeStatus(id, status) {
+  const token = JSON.parse(localStorage.getItem("token"));
+  return new Promise((resolve, reject) => {
+    axios
+      .put(
+        "http://haimai.ddns.net:9090/api/edu/v1/user/changestatus",
+        { _status: status },
+        {
+          params: { id: id },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+  });
+}
 export default {
   getUsers,
   getDetailUser,
   createUser,
   updateUser,
   deleteUser,
+  changeStatus,
 };
