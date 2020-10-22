@@ -1,15 +1,13 @@
 import axios from "axios";
 
-
-
 function login(username, password) {
-  const userConfig = { 
+  const userConfig = {
     username: username,
     password: password,
   };
   return new Promise((resolve, reject) => {
     axios
-      .post("http://haimai.ddns.net:9090/api/auth/v1/admin/login", userConfig)
+      .post("https://haimai.ddns.net:9090/api/auth/v1/admin/login", userConfig)
       .then((res) => {
         localStorage.setItem("token", JSON.stringify(res.data.authToken));
         resolve(res);
