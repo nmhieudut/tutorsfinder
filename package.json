@@ -34,7 +34,7 @@
     "watch": "webpack --watch",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "heroku-postbuild": "echo Skip build on Heroku"
+    "heroku-postbuild": "ng build --prod"
   },
   "eslintConfig": {
     "extends": "react-app"
