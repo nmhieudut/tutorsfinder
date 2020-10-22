@@ -5,7 +5,6 @@ import { UserOutlined } from "@ant-design/icons";
 import * as moment from "moment";
 
 export default function Details(props) {
-
   const DescriptionItem = ({ title, content }) => (
     <div className="site-description-item-profile-wrapper">
       <p className="site-description-item-profile-p-label">{title}:</p>
@@ -21,7 +20,11 @@ export default function Details(props) {
           <div>
             <Avatar
               src={props.user.photo}
-              icon={props.user.photo === "photo not found" && <UserOutlined />}
+              icon={
+                props.user.photo === ("photo not found" || null) && (
+                  <UserOutlined />
+                )
+              }
             />{" "}
             &nbsp;
             {props.user.username}

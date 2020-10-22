@@ -47,7 +47,11 @@ function Users() {
   };
   const onToggleStatus = (id, status) => {
     UsersServices.changeStatus(id, status).then((res) => {
-      console.log("OK");
+      openNotificationWithIcon(
+        "success",
+        "Success!",
+        `This user is now ${status}`
+      );
       loadData();
     });
   };
@@ -99,12 +103,6 @@ function Users() {
       render: (creationDate) => `${moment(creationDate).format("MMM Do YY")}`,
     },
     {
-      title: "Phone",
-      dataIndex: "phoneNumber",
-      key: "phoneNumber",
-      render: (phoneNumber) => `${phoneNumber}`,
-    },
-    {
       title: "Role",
       dataIndex: "authority",
       key: "authority",
@@ -151,32 +149,43 @@ function Users() {
       key: "action",
       align: "center",
       responsive: ["lg"],
-      render: (record) => (
-        <Space size="small">
-          <Button
-            icon={<FolderViewOutlined />}
-            onClick={() => onSelect(record)}
-          >
-            More
-          </Button>
-          <Link target="_top" to={`/home/users/${record.id}/edit`}>
-            <Button type="primary" icon={<EditOutlined />}>
-              Edit
+      render: (record) =>
+        record.authority !== "ROLE_ADMIN" ? (
+          <Space size="small">
+            <Button
+              icon={<FolderViewOutlined />}
+              onClick={() => onSelect(record)}
+            >
+              More
             </Button>
-          </Link>
-          <DeleteButton
-            loading={loading}
-            item={record}
-            onSelected={(id) => {
-              onDelete(id);
-            }}
-          />
-        </Space>
-      ),
+            <Link target="_top" to={`/home/users/${record.id}/edit`}>
+              <Button type="primary" icon={<EditOutlined />}>
+                Edit
+              </Button>
+            </Link>
+            <DeleteButton
+              loading={loading}
+              item={record}
+              onSelected={(id) => {
+                onDelete(id);
+              }}
+            />
+          </Space>
+        ) : (
+          <Space size="small">
+            <Button
+              icon={<FolderViewOutlined />}
+              onClick={() => onSelect(record)}
+            >
+              More
+            </Button>
+            <Button disabled>No action permission</Button>
+          </Space>
+        ),
     },
     {
-      title: "Active / Inactive",
-      key: "Active / Inactive",
+      title: "Activate / Deactivate",
+      key: "Activate / Deactivate",
       render: (record) => (
         <Button
           style={{
@@ -190,7 +199,7 @@ function Users() {
             onToggleStatus(record.id, status);
           }}
         >
-          {record.status === "INACTIVE" ? "ACTIVE" : "INACTIVE"}
+          {record.status === "INACTIVE" ? "ACTIVATE" : "DEACTIVATE"}
         </Button>
       ),
     },

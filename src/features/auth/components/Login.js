@@ -27,7 +27,7 @@ export default function Auth() {
   var error = useSelector((state) => state.authReducers.error);
   const decoded = loggedInUser && jwt_decode(loggedInUser);
   const role = decoded && decoded.auth;
-
+  //TODO : GUI Login
   console.log("error:", error);
   const openNotificationWithIcon = (type, message, description) => {
     notification[type]({
@@ -57,16 +57,17 @@ export default function Auth() {
 
   const onFinish = (values) => {
     console.log(values);
+    //TODO :Auth flow
     setIsAuth(true);
     dispatch(loginAction(values.username, values.password));
-    if (error) {
-      openNotificationWithIcon(
-        "error",
-        "Error",
-        "You can not access this site, try again later !"
-      );
-      error = null;
-    }
+    // if (error) {
+    //   openNotificationWithIcon(
+    //     "error",
+    //     "Error",
+    //     "You can not access this site, try again later !"
+    //   );
+    //   error = null;
+    // }
   };
 
   if (role === "ROLE_ADMIN" && isAuth) {

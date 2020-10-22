@@ -67,6 +67,9 @@ function UsersUpdate(props) {
     };
     onUpdate(data.id, updatedUser);
   };
+  if (data && data.authority === "ROLE_ADMIN") {
+    return <div>Can't edit this user, try another one !</div>;
+  }
   return (
     <div>
       {data && (
