@@ -1,0 +1,61 @@
+.image_page {
+  position: relative;
+  background: url(https://www.montereybayparent.com/downloads/417/download/tutor%20with%20children.jpg?cb=c0160718148c72e60d3e6d7d6a322ca0)
+    no-repeat;
+  background-size: contain;
+  flex: 4;
+}
+
+.layer {
+  background: rgb(28, 55, 17);
+  background: linear-gradient(
+    30deg,
+    rgba(28, 55, 17, 1) 0%,
+    rgba(76, 115, 60, 1) 30%,
+    rgba(17, 139, 39, 1) 55%,
+    rgba(55, 203, 47, 1) 80%,
+    rgba(25, 222, 47, 1) 100%
+  );
+  position: absolute;
+  opacity: 0.8;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.form_content {
+  flex: 2.5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.about_us {
+  position: absolute;
+  width: 40%;
+  font-size: 20px;
+  color: white;
+  top: 15%;
+  left: 15%;
+  animation-name: display;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  text-align: left;
+}
+@keyframes display {
+  0% {
+    left: -25%;
+    opacity: 0;
+  }
+
+  100% {
+    left: 15%;
+    opacity: 1;
+  }
+}
+.logo {
+  bottom: 10px;
+  left: 10px;
+  position: absolute;
+}

@@ -12,10 +12,11 @@ import { loginAction } from "../actions";
 import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import logo from "../../../assets/logo.png";
+import "./login.css";
 import Progress from "../../../components/Progress/Progress";
 import jwt_decode from "jwt-decode";
 
-const { Title } = Typography;
+const { Title, Paragraph } = Typography;
 
 export default function Auth() {
   const [isAuth, setIsAuth] = useState(false);
@@ -80,70 +81,67 @@ export default function Auth() {
         flexDirection: "row",
         justifyContent: "center",
         textAlign: "center",
-        backgroundColor: "black",
+        height: "100vh",
       }}
     >
       <Progress isAnimating={loading} />
-      <div
-        style={{
-          marginTop: 75,
-          padding: 155,
-          border: "1px solid #bdbdbd",
-          boxShadow: "3px 3px #888888",
-          position: "absolute",
-        }}
-      >
-        <div>
-          <Space direction="vertical">
-            <Image src={logo} />
-            <Title>LOGIN</Title>
-            <Form
-              {...layout}
-              name="basic"
-              initialValues={{
-                remember: true,
-              }}
-              onFinish={onFinish}
-            >
-              <Form.Item
-                label="User Name"
-                name="username"
-                // rules={[
-                //   {
-                //     required: true,
-                //     message: "Please input your username!",
-                //   },
-                // ]}
-              >
-                <Input placeholder="Enter your username" />
-              </Form.Item>
-
-              <Form.Item
-                name="password"
-                label="Password"
-                // rules={[
-                //   {
-                //     required: true,
-                //     message: "Please input your password!",
-                //   },
-                // ]}
-              >
-                <Input.Password placeholder="Enter your password" />
-              </Form.Item>
-              <Form.Item {...tailLayout}>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  loading={loading ? 1 : 0}
-                  disabled={loading ? 1 : 0}
-                  target="_top"
-                >
-                  {loading ? "Submitting..." : "Submit"}
-                </Button>
-              </Form.Item>
-            </Form>
-          </Space>
+      <div className="image_page">
+        <div className="layer"></div>
+        <div className="about_us">
+          <Title style={{ color: "white" }}> Dit me backend</Title>
+          <Paragraph style={{ color: "white" }}> Dit me backend nha</Paragraph>
         </div>
+        <div className="logo">
+          <Image src={logo} width="30px" height="30px" />
+        </div>
+      </div>
+      <div className="form_content">
+        <Title>LOGIN</Title>
+        <Form
+          {...layout}
+          name="basic"
+          initialValues={{
+            remember: true,
+          }}
+          onFinish={onFinish}
+        >
+          <Form.Item
+            label="User Name"
+            name="username"
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: "Please input your username!",
+            //   },
+            // ]}
+          >
+            <Input placeholder="Enter your username" />
+          </Form.Item>
+
+          <Form.Item
+            name="password"
+            label="Password"
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: "Please input your password!",
+            //   },
+            // ]}
+          >
+            <Input.Password placeholder="Enter your password" />
+          </Form.Item>
+          <Form.Item {...tailLayout}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={loading ? 1 : 0}
+              disabled={loading ? 1 : 0}
+              target="_top"
+            >
+              {loading ? "Submitting..." : "Submit"}
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
     </div>
   );
