@@ -5,7 +5,7 @@ import ProtectedRoute from "../guards/ProtectedRoute";
 import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 //Reducers
-import authReducers from "../features/auth/reducers"
+import authReducers from "../features/auth/reducers";
 //Saga
 import createSagaMiddleware from "redux-saga";
 import { Provider } from "react-redux";
@@ -42,7 +42,7 @@ function App() {
         <BrowserRouter>
           <Switch>
             <Redirect exact from="/" to="/login" />
-            <Route exact path="/login" component={Login}/>
+            <Route exact path="/login" component={Login} />
             <ProtectedRoute path="/home" component={Layouts} />
             <Route path="*" component={() => <div>404 Not Found</div>} />
           </Switch>

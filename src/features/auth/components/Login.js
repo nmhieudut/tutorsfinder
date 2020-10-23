@@ -14,21 +14,17 @@ import { useDispatch, useSelector } from "react-redux";
 import logo from "../../../assets/logo.png";
 import "./login.css";
 import Progress from "../../../components/Progress/Progress";
-import jwt_decode from "jwt-decode";
 
 const { Title, Paragraph } = Typography;
 
 export default function Auth() {
-  const [isAuth, setIsAuth] = useState(false);
   const dispatch = useDispatch();
-
   const loading = useSelector((state) => state.authReducers.loading);
-  const loggedInUser = useSelector((state) => state.authReducers.loggedInUser);
-  var error = useSelector((state) => state.authReducers.error);
-  const decoded = loggedInUser && jwt_decode(loggedInUser);
-  const role = decoded && decoded.auth;
+  const isAuth = useSelector((state) => state.authReducers.isAuth);
+  // var error = useSelector((state) => state.authReducers.error);
+  useEffect(() => localStorage.clear(), []);
   //TODO : GUI Login
-  console.log("error:", error);
+  // console.log("error:", error);
   const openNotificationWithIcon = (type, message, description) => {
     notification[type]({
       message: message,
@@ -51,15 +47,13 @@ export default function Auth() {
 
   useEffect(() => {
     document.title = "Login";
-    const isAuthenticated = localStorage.getItem("token") ? true : false;
-    setIsAuth(isAuthenticated);
   }, []);
 
   const onFinish = (values) => {
     console.log(values);
     //TODO :Auth flow
-    setIsAuth(true);
     dispatch(loginAction(values.username, values.password));
+
     // if (error) {
     //   openNotificationWithIcon(
     //     "error",
@@ -69,11 +63,9 @@ export default function Auth() {
     //   error = null;
     // }
   };
-
-  if (role === "ROLE_ADMIN" && isAuth) {
+  if (isAuth) {
     return <Redirect to="/home" />;
   }
-
   return (
     <div
       style={{

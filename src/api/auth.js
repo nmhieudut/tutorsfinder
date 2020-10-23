@@ -7,7 +7,7 @@ function login(username, password) {
   };
   return new Promise((resolve, reject) => {
     axios
-      .post("https://haimai.ddns.net:9090/api/auth/v1/admin/login", userConfig)
+      .post("http://haimai.ddns.net:9090/api/auth/v1/admin/login", userConfig)
       .then((res) => {
         localStorage.setItem("token", JSON.stringify(res.data.authToken));
         resolve(res);

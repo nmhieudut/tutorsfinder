@@ -9,7 +9,8 @@ import {
 
 import avatar from "../../assets/avatar.jpg";
 import "../../layouts/index.css";
-
+import { logoutAction } from "../../features/auth/actions";
+import { useDispatch } from "react-redux";
 const { Meta } = Card;
 
 export default function HeaderNav() {
@@ -27,9 +28,14 @@ export default function HeaderNav() {
       title: "Ant Design Title 4",
     },
   ];
- 
+  const dispatch = useDispatch();
+
   const logOut = () => {
     localStorage.clear();
+    console.log(document.readyState);
+    setTimeout(() => {
+      dispatch(logoutAction());
+    }, 2000);
   };
   const profileOverlay = (
     <div>
@@ -42,17 +48,17 @@ export default function HeaderNav() {
         <div style={{ textAlign: "center", margin: 25, padding: 10 }}>
           <p>Death is like the wind, always by my side</p>
 
-          <Link to="/login" target="_top" style={{ color: "white" }}>
-            <Button
-              type="primary"
-              shape="round"
-              icon={<LogoutOutlined />}
-              size="medium"
-              onClick={logOut}
-            >
-              Log Out
-            </Button>
-          </Link>
+          {/* <Link to="/login" target="_top" style={{ color: "white" }}> */}
+          <Button
+            type="primary"
+            shape="round"
+            icon={<LogoutOutlined />}
+            size="medium"
+            onClick={logOut}
+          >
+            Log Out
+          </Button>
+          {/* </Link> */}
         </div>
       </Card>
     </div>

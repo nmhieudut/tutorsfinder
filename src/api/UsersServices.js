@@ -4,7 +4,7 @@ function getUsers() {
   const token = JSON.parse(localStorage.getItem("token"));
   return new Promise((resolve, reject) => {
     axios
-      .get("https://haimai.ddns.net:9090/api/edu/v1/user", {
+      .get("http://haimai.ddns.net:9090/api/edu/v1/user", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -25,7 +25,7 @@ function getDetailUser(id) {
   const token = JSON.parse(localStorage.getItem("token"));
   return new Promise((resolve, reject) => {
     axios
-      .get(`https://haimai.ddns.net:9090/api/edu/v1/user/details/${id}`, {
+      .get(`http://haimai.ddns.net:9090/api/edu/v1/user/details/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -46,7 +46,7 @@ function createUser(createdUser) {
   return new Promise((resolve, reject) => {
     axios
       .post(
-        "https://haimai.ddns.net:9090/api/auth/v1/user/register",
+        "http://haimai.ddns.net:9090/api/auth/v1/user/register",
         createdUser
       )
       .then((res) => {
@@ -63,7 +63,7 @@ function updateUser(id, updatedUser) {
   const token = JSON.parse(localStorage.getItem("token"));
   return new Promise((resolve, reject) => {
     axios
-      .put(`https://haimai.ddns.net:9090/api/edu/v1/user/update`, updatedUser, {
+      .put(`http://haimai.ddns.net:9090/api/edu/v1/user/update`, updatedUser, {
         params: { idUser: id },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -83,7 +83,7 @@ function deleteUser(id) {
   const token = JSON.parse(localStorage.getItem("token"));
   return new Promise((resolve, reject) => {
     axios
-      .delete(`https://haimai.ddns.net:9090/api/edu/v1/user/delete`, {
+      .delete(`http://haimai.ddns.net:9090/api/edu/v1/user/delete`, {
         params: { idUser: id },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -104,7 +104,7 @@ function changeStatus(id, status) {
   return new Promise((resolve, reject) => {
     axios
       .put(
-        "httpss://haimai.ddns.net:9090/api/edu/v1/user/changestatus",
+        "https://haimai.ddns.net:9090/api/edu/v1/user/changestatus",
         { name_status: status },
         {
           params: { id: id },
