@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Avatar, Dropdown, Card, Button, Badge, List } from "antd";
 import {
   DownOutlined,
@@ -16,7 +16,6 @@ export default function HeaderNav() {
       title: "Ant Design Title 1",
     },
   ];
-  let history = useHistory();
 
   const logOut = () => {
     localStorage.clear();

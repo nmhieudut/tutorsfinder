@@ -20,17 +20,14 @@ const { Title, Paragraph } = Typography;
 export default function Auth() {
   const [loading, setLoading] = useState(false);
   const [isAuth, setIsAuth] = useState(localStorage.getItem("token"));
-
-  // var error = useSelector((state) => state.authReducers.error);
   //TODO : GUI Login
-  // console.log("error:", error);
-  // const openNotificationWithIcon = (type, message, description) => {
-  //   notification[type]({
-  //     message: message,
-  //     description: description,
-  //     duration: 2,
-  //   });
-  // };
+  const openNotificationWithIcon = (type, message, description) => {
+    notification[type]({
+      message: message,
+      description: description,
+      duration: 2,
+    });
+  };
   const layout = {
     labelCol: { span: 0 },
     wrapperCol: {
@@ -56,10 +53,25 @@ export default function Auth() {
       .then((res) => {
         setLoading(false);
         setIsAuth(true);
+        openNotificationWithIcon("success", "Success", "Login successfully !");
       })
       .catch((err) => {
         setIsAuth(false);
-        console.log("err", err);
+        setLoading(false);
+        console.log("err", err.response.data.status);
+        if (err.response.data.status === 500) {
+          openNotificationWithIcon(
+            "error",
+            "Error",
+            "Can't access this site, try again later !"
+          );
+        } else if (err.response.data.status === 401) {
+          openNotificationWithIcon(
+            "error",
+            "Error",
+            "Wrong username or password, try again later !"
+          );
+        }
       });
   };
   if (isAuth) {
