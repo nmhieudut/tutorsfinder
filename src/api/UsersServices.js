@@ -51,7 +51,6 @@ function createUser(createdUser) {
       )
       .then((res) => {
         resolve(res);
-        console.log("Data created:", res);
       })
       .catch((error) => {
         console.log(error);
@@ -71,7 +70,6 @@ function updateUser(id, updatedUser) {
       })
       .then((res) => {
         resolve(res);
-        console.log(res);
       })
       .catch((error) => {
         reject(error);

@@ -13,7 +13,6 @@ function Users() {
   const [visible, setVisible] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  console.log("user", data);
   const loadData = () => {
     UsersServices.getUsers()
       .then((res) => {

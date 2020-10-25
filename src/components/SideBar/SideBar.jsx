@@ -17,7 +17,6 @@ const { SubMenu } = Menu;
 export default function SideBar(props) {
   const location = useLocation();
   const path = location.pathname;
-  console.log("path", path);
 
   const [selectedKey, setSelectedKey] = useState(
     path === "/home/dashboard"

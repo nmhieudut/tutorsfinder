@@ -46,7 +46,6 @@ export default function Auth() {
   }, []);
 
   const onFinish = (values) => {
-    console.log(values);
     setLoading(true);
     auth
       .login(values.username, values.password)
@@ -58,7 +57,6 @@ export default function Auth() {
       .catch((err) => {
         setIsAuth(false);
         setLoading(false);
-        console.log("err", err.response.data.status);
         if (err.response.data.status === 500) {
           openNotificationWithIcon(
             "error",
