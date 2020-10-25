@@ -1,41 +1,40 @@
 import React, { useState, useEffect } from "react";
-import {
-  Form,
-  Input,
-  Button,
-  Space,
-  Typography,
-  Image,
-  notification,
-} from "antd";
-import { loginAction } from "../actions";
+import { Form, Input, Button, Typography, Image, notification } from "antd";
+
 import { Redirect } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+
 import logo from "../../../assets/logo.png";
+import reactLogo from "../../../assets/react_ts.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebook,
+  faGooglePlus,
+  faGithub,
+} from "@fortawesome/free-brands-svg-icons";
+// import { FacebookOutlined, GoogleOutlined } from "@ant-design/icons";
 import "./login.css";
+import auth from "../../../api/auth";
 import Progress from "../../../components/Progress/Progress";
 
 const { Title, Paragraph } = Typography;
-
 export default function Auth() {
-  const dispatch = useDispatch();
-  const loading = useSelector((state) => state.authReducers.loading);
-  const isAuth = useSelector((state) => state.authReducers.isAuth);
+  const [loading, setLoading] = useState(false);
+  const [isAuth, setIsAuth] = useState(localStorage.getItem("token"));
+
   // var error = useSelector((state) => state.authReducers.error);
-  useEffect(() => localStorage.clear(), []);
   //TODO : GUI Login
   // console.log("error:", error);
-  const openNotificationWithIcon = (type, message, description) => {
-    notification[type]({
-      message: message,
-      description: description,
-      duration: 2,
-    });
-  };
+  // const openNotificationWithIcon = (type, message, description) => {
+  //   notification[type]({
+  //     message: message,
+  //     description: description,
+  //     duration: 2,
+  //   });
+  // };
   const layout = {
-    labelCol: { span: 8 },
+    labelCol: { span: 0 },
     wrapperCol: {
-      span: 16,
+      span: 24,
     },
   };
   const tailLayout = {
@@ -51,55 +50,78 @@ export default function Auth() {
 
   const onFinish = (values) => {
     console.log(values);
-    //TODO :Auth flow
-    dispatch(loginAction(values.username, values.password));
-
-    // if (error) {
-    //   openNotificationWithIcon(
-    //     "error",
-    //     "Error",
-    //     "You can not access this site, try again later !"
-    //   );
-    //   error = null;
-    // }
+    setLoading(true);
+    auth
+      .login(values.username, values.password)
+      .then((res) => {
+        setLoading(false);
+        setIsAuth(true);
+      })
+      .catch((err) => {
+        setIsAuth(false);
+        console.log("err", err);
+      });
   };
   if (isAuth) {
     return <Redirect to="/home" />;
   }
   return (
-    <div
-      style={{
-        display: "flex",
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "center",
-        textAlign: "center",
-        height: "100vh",
-      }}
-    >
+    <div className="main-page">
       <Progress isAnimating={loading} />
       <div className="image_page">
         <div className="layer"></div>
         <div className="about_us">
-          <Title style={{ color: "white" }}> Dit me backend</Title>
-          <Paragraph style={{ color: "white" }}> Dit me backend nha</Paragraph>
+          <Title style={{ color: "white" }}> Welcome</Title>
+          <div className="space-line"></div>
+          <Paragraph style={{ color: "white" }}>
+            {" "}
+            Welcome to <strong>TutorsFinder</strong> administrator page.
+          </Paragraph>
         </div>
-        <div className="logo">
-          <Image src={logo} width="30px" height="30px" />
+        <div className="footer">
+          <div className="social-contact">
+            <div className="social-icon">
+              <a
+                href="https://www.facebook.com/hieumaxnho"
+                target="_blank"
+                className={"fa" + " fa-facebook"}
+              >
+                <FontAwesomeIcon icon={faFacebook} />
+              </a>
+              <a
+                target="_blank"
+                href="https://www.github.com/tuanconbu"
+                className={"fa " + "fa-twitter"}
+              >
+                <FontAwesomeIcon icon={faGithub} />
+              </a>
+              <a href="#" className="fa fa-google">
+                <FontAwesomeIcon icon={faGooglePlus} />
+              </a>
+            </div>
+
+            <p style={{ color: "#424242" }}>
+              Telephone: (+84)123456789 / Hotline: 113
+            </p>
+          </div>
         </div>
       </div>
+
       <div className="form_content">
-        <Title>LOGIN</Title>
+        <div className="logo">
+          <Image src={logo} width="60px" height="60px" />
+          <h1 className="title">TUTORS FINDER</h1>
+        </div>
         <Form
           {...layout}
           name="basic"
+          size="large"
           initialValues={{
             remember: true,
           }}
           onFinish={onFinish}
         >
           <Form.Item
-            label="User Name"
             name="username"
             // rules={[
             //   {
@@ -108,12 +130,11 @@ export default function Auth() {
             //   },
             // ]}
           >
-            <Input placeholder="Enter your username" />
+            <Input placeholder="User Name" />
           </Form.Item>
 
           <Form.Item
             name="password"
-            label="Password"
             // rules={[
             //   {
             //     required: true,
@@ -121,20 +142,33 @@ export default function Auth() {
             //   },
             // ]}
           >
-            <Input.Password placeholder="Enter your password" />
+            <Input.Password placeholder="Password" />
           </Form.Item>
           <Form.Item {...tailLayout}>
             <Button
               type="primary"
               htmlType="submit"
+              style={{ backgroundColor: "green" }}
               loading={loading ? 1 : 0}
               disabled={loading ? 1 : 0}
               target="_top"
             >
-              {loading ? "Submitting..." : "Submit"}
+              {loading ? "Checking..." : "Log In"}
             </Button>
           </Form.Item>
         </Form>
+        <div className="powered-by">
+          <h2>
+            Powered by{" "}
+            <img
+              className="reactLogo"
+              src={reactLogo}
+              width="30px"
+              height="30px"
+            />{" "}
+            ReactJs
+          </h2>
+        </div>
       </div>
     </div>
   );

@@ -1,23 +1,29 @@
+.main-page {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+}
 .image_page {
   position: relative;
-  background: url(https://www.montereybayparent.com/downloads/417/download/tutor%20with%20children.jpg?cb=c0160718148c72e60d3e6d7d6a322ca0)
+  background: url(https://cdn.24h.com.vn/upload/1-2020/images/2020-02-18/1582021069-694-choang-vang-voi-co-gia-su-nguc-ngon-ngon-truy-tim-ly-lich-dan-mang-con-soc-hon-cogiaoboclua-3-1581815612-width640height799.jpg)
     no-repeat;
-  background-size: contain;
+  background-size: 100% 100vh;
   flex: 4;
 }
-
+.space-line {
+  height: 5px;
+  background-color: white;
+  width: 100%;
+  margin-bottom: 15px;
+  animation: slider 1s linear;
+}
 .layer {
-  background: rgb(28, 55, 17);
-  background: linear-gradient(
-    30deg,
-    rgba(28, 55, 17, 1) 0%,
-    rgba(76, 115, 60, 1) 30%,
-    rgba(17, 139, 39, 1) 55%,
-    rgba(55, 203, 47, 1) 80%,
-    rgba(25, 222, 47, 1) 100%
-  );
+  background: #16ec6f;
   position: absolute;
-  opacity: 0.8;
+  opacity: 0.4;
   top: 0;
   left: 0;
   width: 100%;
@@ -25,23 +31,94 @@
 }
 
 .form_content {
-  flex: 2.5;
+  flex: 2;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: #eeeeee;
+  position: relative;
 }
 .about_us {
   position: absolute;
   width: 40%;
   font-size: 20px;
   color: white;
-  top: 15%;
+  top: 30%;
   left: 15%;
   animation-name: display;
   animation-duration: 1s;
   animation-timing-function: ease-out;
   text-align: left;
+}
+.powered-by {
+  bottom: 10px;
+  text-align: center;
+  position: absolute;
+}
+.reactLogo {
+  animation: rotating 2s linear infinite;
+}
+
+.logo {
+  margin-bottom: 40px;
+}
+.title {
+  margin-top: 30px;
+  font-weight: 900;
+  color: green;
+}
+.footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  color: #6f7882;
+  font-size: 16px;
+  font-weight: bold;
+}
+.social-contact {
+  padding: 15px 0;
+}
+.social-icon {
+  margin: 50px 0;
+}
+.fa {
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+  border-radius: 100%;
+}
+
+.fa:hover {
+  opacity: 0.7;
+  text-decoration: none;
+}
+
+.fa-facebook {
+  background: #3b5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: black;
+  color: white;
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
+
+@keyframes rotating {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 @keyframes display {
   0% {
@@ -54,8 +131,11 @@
     opacity: 1;
   }
 }
-.logo {
-  bottom: 10px;
-  left: 10px;
-  position: absolute;
+@keyframes slider {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
 }
