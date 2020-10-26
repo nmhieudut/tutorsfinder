@@ -102,7 +102,7 @@ function changeStatus(id, status) {
   return new Promise((resolve, reject) => {
     axios
       .put(
-        "https://haimai.ddns.net:9090/api/edu/v1/user/changestatus",
+        "http://haimai.ddns.net:9090/api/edu/v1/user/changestatus",
         { name_status: status },
         {
           params: { id: id },

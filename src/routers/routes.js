@@ -19,5 +19,10 @@ const routes = [
     exact: true,
     component: "subjects/Subjects",
   },
+  {
+    path: "tutors",
+    exact: true,
+    component: "tutors/Tutors",
+  },
 ];
 export default routes;

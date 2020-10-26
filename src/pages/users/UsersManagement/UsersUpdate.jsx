@@ -18,7 +18,7 @@ function UsersUpdate(props) {
         setLoading(false);
       })
       .catch((err) => setLoading(false));
-  }, [props.match.params.id]);
+  }, [_id]);
 
   const openNotificationWithIcon = (type, message, description) => {
     notification[type]({

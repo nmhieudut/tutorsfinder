@@ -45,7 +45,11 @@ function Layouts() {
             }}
           >
             <Header
-              style={{ padding: 0, width: "100%", backgroundColor: "white" }}
+              style={{
+                padding: 0,
+                width: "100%",
+                backgroundColor: "white",
+              }}
             >
               <HeaderNav />
             </Header>

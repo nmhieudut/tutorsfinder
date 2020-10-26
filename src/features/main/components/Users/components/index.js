@@ -4,20 +4,29 @@ import { Link } from "react-router-dom";
 import DeleteButton from "../../../../../components/DeleteButton";
 import { Table, Space, Button, Tag, notification } from "antd";
 import * as moment from "moment";
-import { FolderViewOutlined, EditOutlined } from "@ant-design/icons";
+import {
+  FolderViewOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 import UsersServices from "../../../../../api/UsersServices";
-
-function Users() {
+import useDebounce from "../../../../../hooks/useDebounce";
+function Users(props) {
   //local state
   const [selectedUser, setSelectedUser] = useState([]);
   const [visible, setVisible] = useState(false);
   const [data, setData] = useState([]);
+  const [result, setResult] = useState([]);
   const [loading, setLoading] = useState(false);
+  const searchTerm = props.searchTerm;
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  console.log(data);
   const loadData = () => {
     UsersServices.getUsers()
       .then((res) => {
         setData(res[0].data);
         setLoading(false);
+        setResult(res[0].data);
       })
       .catch((err) => {
         console.log("error", err);
@@ -28,6 +37,17 @@ function Users() {
     setLoading(true);
     loadData();
   }, []);
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      const items = data.filter(
+        (item) =>
+          item.username.toLowerCase().includes(debouncedSearchTerm) ||
+          item.email.toLowerCase().includes(debouncedSearchTerm)
+      );
+      return setResult(items);
+    }
+    return setResult(data);
+  }, [debouncedSearchTerm, data]);
 
   const openNotificationWithIcon = (type, message, description) => {
     notification[type]({
@@ -45,14 +65,21 @@ function Users() {
     setVisible(false);
   };
   const onToggleStatus = (id, status) => {
-    UsersServices.changeStatus(id, status).then((res) => {
-      openNotificationWithIcon(
-        "success",
-        "Success!",
-        `This user is now ${status}`
-      );
-      loadData();
-    });
+    setLoading(true);
+    UsersServices.changeStatus(id, status)
+      .then((res) => {
+        openNotificationWithIcon(
+          "success",
+          "Success!",
+          `This user is now ${status}`
+        );
+        setLoading(false);
+        loadData();
+      })
+      .catch((e) => {
+        console.log(e);
+        setLoading(false);
+      });
   };
   const onDelete = (id) => {
     setLoading(true);
@@ -96,10 +123,16 @@ function Users() {
       render: (email) => `${email}`,
     },
     {
-      title: "Created Date",
-      dataIndex: "creationDate",
-      key: "creationDate",
-      render: (creationDate) => `${moment(creationDate).format("MMM Do YY")}`,
+      title: "Phone",
+      dataIndex: "phoneNumber",
+      key: "phoneNumber",
+      render: (phoneNumber) => `${phoneNumber ? phoneNumber : "None"}`,
+    },
+    {
+      title: "Birthday",
+      dataIndex: "dateOfBirth",
+      key: "dateOfBirth",
+      render: (dateOfBirth) => `${moment(dateOfBirth).format("L")}`,
     },
     {
       title: "Role",
@@ -154,13 +187,9 @@ function Users() {
             <Button
               icon={<FolderViewOutlined />}
               onClick={() => onSelect(record)}
-            >
-              More
-            </Button>
+            ></Button>
             <Link target="_top" to={`/home/users/${record.id}/edit`}>
-              <Button type="primary" icon={<EditOutlined />}>
-                Edit
-              </Button>
+              <Button type="primary" icon={<EditOutlined />} />
             </Link>
             <DeleteButton
               loading={loading}
@@ -175,23 +204,26 @@ function Users() {
             <Button
               icon={<FolderViewOutlined />}
               onClick={() => onSelect(record)}
-            >
-              More
-            </Button>
-            <Button disabled>No action permission</Button>
+            />
+            <Button disabled type="primary" icon={<EditOutlined />} />
+            <Button danger disabled type="primary" icon={<DeleteOutlined />} />
           </Space>
         ),
     },
     {
       title: "Activate / Deactivate",
       key: "Activate / Deactivate",
+      align: "center",
+      responsive: ["lg"],
       render: (record) => (
         <Button
+          loading={loading}
+          disabled={loading}
           style={{
             backgroundColor:
               record.status === "INACTIVE" ? "#4caf50" : "#263238",
             color: "white",
-            width: "100%",
+            marginHorizontal: 50,
           }}
           onClick={() => {
             const status = record.status === "INACTIVE" ? "ACTIVE" : "INACTIVE";
@@ -207,10 +239,9 @@ function Users() {
     <>
       <Table
         loading={loading}
-        dataSource={data}
+        dataSource={result}
         columns={columns}
         size="small"
-        bordered
         rowKey={(record) => `${record.id}`}
       />
       <Details user={selectedUser} visible={visible} onClose={onClose} />

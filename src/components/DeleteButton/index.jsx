@@ -12,9 +12,7 @@ function DeleteButton({ item, loading, onSelected }) {
         onClick={() => {
           onSelected(item.id);
         }}
-      >
-        Delete
-      </Button>
+      ></Button>
     </>
   );
 }

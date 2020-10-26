@@ -3,21 +3,21 @@ import UsersList from "./UsersList";
 import UsersCreate from "./UsersCreate";
 import {
   UserAddOutlined,
-  AudioOutlined,
+  SearchOutlined,
   ReloadOutlined,
 } from "@ant-design/icons";
 import { Button, Typography, Input, Space } from "antd";
 
 const { Title } = Typography;
-const { Search } = Input;
 
 function Users() {
   const [visible, setVisible] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const showDrawer = () => {
     setVisible(true);
   };
   const suffix = (
-    <AudioOutlined
+    <SearchOutlined
       style={{
         fontSize: 16,
         color: "#1890ff",
@@ -31,13 +31,12 @@ function Users() {
     window.location.reload();
   };
   return (
-    <div>
+    <>
       <div
         style={{
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
-          backgroundColor: "white",
         }}
       >
         <div style={{ flex: 1, padding: "20px", textAlign: "left" }}>
@@ -56,31 +55,32 @@ function Users() {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "flex-start",
-          backgroundColor: "white",
           paddingBottom: 15,
           paddingLeft: 10,
         }}
       >
         <Space>
-          <Search
+          <Input
             style={{ width: 500 }}
             placeholder="search something..."
-            enterButton="Search"
             suffix={suffix}
-            onSearch={(value) => console.log(value)}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
           <Button type="primary" onClick={onReload} icon={<ReloadOutlined />}>
             Reload
           </Button>
         </Space>
       </div>
-      <UsersList />
+      <div style={{ padding: 10 }}>
+        <UsersList searchTerm={searchTerm} />
+      </div>
+
       <UsersCreate
         visible={visible}
         showDrawer={showDrawer}
         onClose={onClose}
       />
-    </div>
+    </>
   );
 }
 export default Users;

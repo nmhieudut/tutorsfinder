@@ -1,10 +1,10 @@
 import React from "react";
 import Users from "../../../features/main/components/Users/components";
 
-function UsersList() {
+function UsersList(props) {
   return (
     <div>
-      <Users />
+      <Users searchTerm={props.searchTerm} />
     </div>
   );
 }

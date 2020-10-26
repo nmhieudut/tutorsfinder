@@ -23,7 +23,9 @@ export default function SideBar(props) {
       ? 1
       : path === "/home/users"
       ? 2
-      : path === "/home/subjects" && 3
+      : path === "/home/subjects"
+      ? 3
+      : path === "/home/tutors" && 4
   );
   const handleClick = (e) => {
     setSelectedKey(e.key);
@@ -36,6 +38,7 @@ export default function SideBar(props) {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          backgroundColor: "#4a148c",
         }}
       >
         <Link to="/" target="_top">
@@ -64,8 +67,11 @@ export default function SideBar(props) {
           <Menu.Item key="3" icon={<SnippetsOutlined />}>
             <Link to="/home/subjects">Subjects</Link>
           </Menu.Item>
+          <Menu.Item key="4" icon={<UserOutlined />}>
+            <Link to="/home/tutors">Tutors</Link>
+          </Menu.Item>
         </SubMenu>
-        <Menu.Item key="4" icon={<FormOutlined />}>
+        <Menu.Item key="5" icon={<FormOutlined />}>
           Feedback
         </Menu.Item>
       </Menu>

@@ -72,20 +72,20 @@ export default function HeaderNav() {
         style={{
           flex: 1,
           display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      ></div>
-      <div
-        style={{
-          flex: 6,
-          display: "flex",
-          flexDirection: "row",
           justifyContent: "flex-end",
           alignItems: "center",
+          border: "1px solid #e0e0e0",
         }}
       >
-        <div style={{ margin: "0 30px" }}>
+        <div
+          style={{
+            margin: "0 30px",
+            padding: "0 30px",
+           
+            border: "1px solid #e0e0e0",
+            borderBottom: 0
+          }}
+        >
           <Dropdown overlay={notificationOverLay}>
             <Badge
               count={data.length}
@@ -98,18 +98,22 @@ export default function HeaderNav() {
             </Badge>
           </Dropdown>
         </div>
-        <Avatar src={avatar} />
-        <Dropdown overlay={profileOverlay}>
-          <Link
-            target="_blank"
-            rel="noopener noreferrer"
-            to="/"
-            onClick={(e) => e.preventDefault()}
-          >
-            <DownOutlined />
-          </Link>
-        </Dropdown>
-        ,
+        <div style={{}}>
+          <Dropdown overlay={profileOverlay}>
+            <div style={{ cursor: "pointer" }}>
+              <Avatar src={avatar} />
+              <span style={{ margin: 20 }}>Hieu Nguyen</span>
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                to="/"
+                onClick={(e) => e.preventDefault()}
+              >
+                <DownOutlined />
+              </Link>
+            </div>
+          </Dropdown>
+        </div>
       </div>
     </div>
   );
