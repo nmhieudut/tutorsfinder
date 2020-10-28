@@ -81,9 +81,7 @@ export default function HeaderNav() {
           style={{
             margin: "0 30px",
             padding: "0 30px",
-           
-            border: "1px solid #e0e0e0",
-            borderBottom: 0
+            borderBottom: 0,
           }}
         >
           <Dropdown overlay={notificationOverLay}>
@@ -102,7 +100,7 @@ export default function HeaderNav() {
           <Dropdown overlay={profileOverlay}>
             <div style={{ cursor: "pointer" }}>
               <Avatar src={avatar} />
-              <span style={{ margin: 20 }}>Hieu Nguyen</span>
+              <span style={{ margin: 10 }}>Hieu Nguyen</span>
               <Link
                 target="_blank"
                 rel="noopener noreferrer"

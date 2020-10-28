@@ -7,7 +7,6 @@ const { Meta } = Card;
 export default function SubjectComponents() {
   const [data, setData] = useState(null);
 
-  console.log("data", data);
   useEffect(() => {
     async function fetchSubjects() {
       const response = await SubjectServices.getSubjects();
@@ -26,7 +25,7 @@ export default function SubjectComponents() {
   }, []);
 
   return (
-    <div>
+    <div style={{ padding: 20 }}>
       {data ? (
         <List
           grid={{

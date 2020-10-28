@@ -57,19 +57,7 @@ export default function Auth() {
       .catch((err) => {
         setIsAuth(false);
         setLoading(false);
-        if (err.response.data.status === 500) {
-          openNotificationWithIcon(
-            "error",
-            "Error",
-            "Can't access this site, try again later !"
-          );
-        } else if (err.response.data.status === 401) {
-          openNotificationWithIcon(
-            "error",
-            "Error",
-            "Wrong username or password, try again later !"
-          );
-        }
+        openNotificationWithIcon("error", "Error", err.response.data.message);
       });
   };
   if (isAuth) {

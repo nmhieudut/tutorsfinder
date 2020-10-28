@@ -20,7 +20,7 @@ function Users(props) {
   const [loading, setLoading] = useState(false);
   const searchTerm = props.searchTerm;
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
-  console.log(data);
+  console.log("data", data);
   const loadData = () => {
     UsersServices.getUsers()
       .then((res) => {

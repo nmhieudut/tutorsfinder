@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
-import { Layout } from "antd";
+import { Layout, BackTop } from "antd";
 import SideBar from "../components/SideBar/SideBar";
 import HeaderNav from "../components/HeaderNav/HeaderNav";
 import { BrowserRouter as Router, useRouteMatch } from "react-router-dom";
 import RouterPage from "../routers";
+import { VerticalAlignTopOutlined } from "@ant-design/icons";
 
 const { Header, Footer, Content, Sider } = Layout;
 
@@ -57,6 +58,11 @@ function Layouts() {
               <div className="site-layout-content">
                 <RouterPage match={match} />
               </div>
+              <BackTop visibilityHeight="200">
+                <div className="back-top-button">
+                  <VerticalAlignTopOutlined />
+                </div>
+              </BackTop>
             </Content>
             <Footer style={{ textAlign: "center" }}>
               Created by Hieu Hoa Hong

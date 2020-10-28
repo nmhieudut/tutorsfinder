@@ -6,21 +6,71 @@ import {
   Button,
   Input,
   Radio,
+  Upload,
   InputNumber,
   DatePicker,
+  message,
   Select,
   notification,
 } from "antd";
 import UsersServices from "../../../api/UsersServices";
 import { useHistory } from "react-router-dom";
+import { storage } from "../../../firebase";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import "./UserCreate.css";
 
 const { Option } = Select;
 
+function beforeUpload(file) {
+  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  if (!isJpgOrPng) {
+    message.error("You can only upload JPG/PNG file!");
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error("Image must smaller than 2MB!");
+  }
+  return isJpgOrPng && isLt2M;
+}
+
 function UsersCreate(props) {
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
+  const [imgLoading, setImgLoading] = useState(false);
+  const [image, setImage] = useState(null);
+  const [urlImg, setUrlImg] = useState("");
+
   const dateFormat = "YYYY/MM/DD";
 
+  console.log("url", urlImg);
+
+  const handleChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+  const handleUpload = async () => {
+    setImgLoading(true);
+
+    console.log("image", image.name);
+    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {},
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("images")
+          .child(image.name)
+          .getDownloadURL()
+          .then((url) => {
+            setUrlImg(url);
+            setImgLoading(false);
+          });
+      }
+    );
+  };
   const openNotificationWithIcon = (type, message, description) => {
     notification[type]({
       message: message,
@@ -28,6 +78,19 @@ function UsersCreate(props) {
       duration: 2,
     });
   };
+  const uploadButton = (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {imgLoading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
   const onCreate = (createdUser) => {
     setLoading(true);
     UsersServices.createUser(createdUser)
@@ -42,7 +105,8 @@ function UsersCreate(props) {
       })
       .catch((err) => {
         setLoading(false);
-        openNotificationWithIcon("error", "Error!", err);
+        console.log({ err });
+        openNotificationWithIcon("error", "Error!", err.response.data.message);
       });
   };
   const layout = {
@@ -60,6 +124,7 @@ function UsersCreate(props) {
     },
   };
   const onFinish = (values) => {
+    console.log(values);
     const createdUser = {
       username: values.username,
       password: values.password,
@@ -68,11 +133,13 @@ function UsersCreate(props) {
       address: values.address,
       email: values.email,
       gender: values.gender,
+      photo: urlImg || null,
       introduction: values.introduction,
       phoneNumber: values.phoneNumber,
       dateOfBirth: moment(values.dateOfBirth, "YYYY/M/D"),
       authority: values.authority,
     };
+    console.log("create", createdUser);
     onCreate(createdUser);
   };
 
@@ -126,13 +193,35 @@ function UsersCreate(props) {
           >
             <Input />
           </Form.Item>
+          <div className="upload-img">
+            <label style={{ marginRight: 10 }}>Avatar:</label>
+            <div name="photo" className="avatar-uploader">
+              {urlImg ? (
+                <img
+                  src={urlImg || "http://via.placeholder.com/300"}
+                  alt="avatar"
+                  width="100%"
+                  height="100%"
+                />
+              ) : (
+                uploadButton
+              )}
+            </div>
+            <div className="choose-file">
+              <input type="file" onChange={handleChange} />
+              <button style={{ marginTop: 10 }} onClick={handleUpload}>
+                Upload
+              </button>
+            </div>
+          </div>
+
           <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
             <Radio.Group>
               <Radio value={1}>Male</Radio>
               <Radio value={0}>Female</Radio>
             </Radio.Group>
           </Form.Item>
-          <Form.Item name="authority" label="Role">
+          <Form.Item name="authority" label="Role" rules={[{ required: true }]}>
             <Select style={{ width: 120 }}>
               <Option value="ROLE_TUTOR">Tutor</Option>
               <Option value="ROLE_ADMIN">Admin</Option>

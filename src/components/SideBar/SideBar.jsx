@@ -38,7 +38,7 @@ export default function SideBar(props) {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "#4a148c",
+          backgroundColor: "#1a237e",
         }}
       >
         <Link to="/" target="_top">
@@ -70,8 +70,11 @@ export default function SideBar(props) {
           <Menu.Item key="4" icon={<UserOutlined />}>
             <Link to="/home/tutors">Tutors</Link>
           </Menu.Item>
+          <Menu.Item key="5" icon={<UserOutlined />}>
+            <Link to="/home/needs">Needs</Link>
+          </Menu.Item>
         </SubMenu>
-        <Menu.Item key="5" icon={<FormOutlined />}>
+        <Menu.Item key="6" icon={<FormOutlined />}>
           Feedback
         </Menu.Item>
       </Menu>

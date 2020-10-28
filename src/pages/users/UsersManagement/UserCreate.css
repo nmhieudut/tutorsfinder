@@ -1,0 +1,18 @@
+.upload-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 0 10px 84px;
+}
+
+.avatar-uploader {
+  width: 128px;
+  height: 128px;
+  border: 1px dashed black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.choose-file {
+  margin: 20px;
+}
