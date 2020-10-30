@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import SubjectServices from "../../../../../api/SubjectServices";
 import { List, Card, Spin } from "antd";
 import images from "./images";
+
+
 const { Meta } = Card;
 
 export default function SubjectComponents() {
   const [data, setData] = useState(null);
-
   useEffect(() => {
     async function fetchSubjects() {
       const response = await SubjectServices.getSubjects();

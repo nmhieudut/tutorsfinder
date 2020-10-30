@@ -20,11 +20,7 @@ export default function Details(props) {
           <div>
             <Avatar
               src={props.user.photo}
-              icon={
-                props.user.photo === ("photo not found" || null) && (
-                  <UserOutlined />
-                )
-              }
+              icon={props.user.photo === null && <UserOutlined />}
             />{" "}
             &nbsp;
             {props.user.username}

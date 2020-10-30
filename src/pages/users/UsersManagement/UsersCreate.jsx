@@ -21,24 +21,12 @@ import "./UserCreate.css";
 
 const { Option } = Select;
 
-function beforeUpload(file) {
-  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-  if (!isJpgOrPng) {
-    message.error("You can only upload JPG/PNG file!");
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
-  }
-  return isJpgOrPng && isLt2M;
-}
-
 function UsersCreate(props) {
   const [loading, setLoading] = useState(false);
   const [imgLoading, setImgLoading] = useState(false);
   const [image, setImage] = useState(null);
   const [urlImg, setUrlImg] = useState("");
-
+  
   const dateFormat = "YYYY/MM/DD";
 
   console.log("url", urlImg);
@@ -47,11 +35,11 @@ function UsersCreate(props) {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
     }
+    //handleUpload();
   };
-  const handleUpload = async () => {
+  const handleUpload = () => {
     setImgLoading(true);
-
-    console.log("image", image.name);
+    console.log("image", image.name);//undefined
     const uploadTask = storage.ref(`images/${image.name}`).put(image);
     uploadTask.on(
       "state_changed",
