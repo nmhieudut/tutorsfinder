@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import {
   Drawer,
@@ -6,10 +6,8 @@ import {
   Button,
   Input,
   Radio,
-  Upload,
   InputNumber,
   DatePicker,
-  message,
   Select,
   notification,
 } from "antd";
@@ -26,20 +24,19 @@ function UsersCreate(props) {
   const [imgLoading, setImgLoading] = useState(false);
   const [image, setImage] = useState(null);
   const [urlImg, setUrlImg] = useState("");
-  
+
   const dateFormat = "YYYY/MM/DD";
 
-  console.log("url", urlImg);
-
+  useEffect(() => {
+    if (image) handleUpload();
+  }, [image]);
   const handleChange = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
     }
-    //handleUpload();
   };
   const handleUpload = () => {
     setImgLoading(true);
-    console.log("image", image.name);//undefined
     const uploadTask = storage.ref(`images/${image.name}`).put(image);
     uploadTask.on(
       "state_changed",
@@ -89,11 +86,10 @@ function UsersCreate(props) {
           "Success!",
           "Register successfully"
         );
-        setTimeout(() => window.location.reload(), 1000);
+        setTimeout(() => window.location.reload(), 2000);
       })
       .catch((err) => {
         setLoading(false);
-        console.log({ err });
         openNotificationWithIcon("error", "Error!", err.response.data.message);
       });
   };
@@ -112,7 +108,6 @@ function UsersCreate(props) {
     },
   };
   const onFinish = (values) => {
-    console.log(values);
     const createdUser = {
       username: values.username,
       password: values.password,
@@ -127,7 +122,6 @@ function UsersCreate(props) {
       dateOfBirth: moment(values.dateOfBirth, "YYYY/M/D"),
       authority: values.authority,
     };
-    console.log("create", createdUser);
     onCreate(createdUser);
   };
 
@@ -197,9 +191,6 @@ function UsersCreate(props) {
             </div>
             <div className="choose-file">
               <input type="file" onChange={handleChange} />
-              <button style={{ marginTop: 10 }} onClick={handleUpload}>
-                Upload
-              </button>
             </div>
           </div>
 
