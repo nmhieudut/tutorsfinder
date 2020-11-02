@@ -5,9 +5,6 @@ import ProtectedRoute from "../guards/ProtectedRoute";
 import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
 import "./App.less";
 
-
-
-
 function App() {
   return (
     <div className="App">

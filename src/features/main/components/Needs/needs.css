@@ -1,0 +1,22 @@
+.info-schedule-list {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.info-schedule-list > .info-modal {
+  border: 1px solid #e0e0e0;
+  box-shadow: 2px 2px rgba(41, 41, 41, 0.25);
+  margin: 20px;
+}
+.info-modal-title {
+  background-color: red;
+  color: white;
+  font-weight: 700;
+  padding: 10px;
+  text-align: center;
+}
+.info-modal-time {
+  text-align: center;
+  padding: 5px;
+}

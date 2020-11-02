@@ -12,7 +12,6 @@ import {
   notification,
 } from "antd";
 import UsersServices from "../../../api/UsersServices";
-import { useHistory } from "react-router-dom";
 import { storage } from "../../../firebase";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import "./UserCreate.css";
@@ -26,15 +25,52 @@ function UsersCreate(props) {
   const [urlImg, setUrlImg] = useState("");
 
   const dateFormat = "YYYY/MM/DD";
+  const openNotificationWithIcon = (type, message, description) => {
+    notification[type]({
+      message: message,
+      description: description,
+      duration: 2,
+    });
+  };
+  const uploadButton = (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {imgLoading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
+  const layout = {
+    labelCol: { span: 6 },
+    wrapperCol: { span: 14 },
+  };
+  const validateMessages = {
+    required: "${label} is required!",
+    types: {
+      email: "${label} is not validate email!",
+      number: "${label} is not a validate number!",
+    },
+    number: {
+      range: "${label} must be between ${min} and ${max}",
+    },
+  };
 
   useEffect(() => {
     if (image) handleUpload();
   }, [image]);
+
   const handleChange = (e) => {
+    setUrlImg("");
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
     }
   };
+
   const handleUpload = () => {
     setImgLoading(true);
     const uploadTask = storage.ref(`images/${image.name}`).put(image);
@@ -56,26 +92,7 @@ function UsersCreate(props) {
       }
     );
   };
-  const openNotificationWithIcon = (type, message, description) => {
-    notification[type]({
-      message: message,
-      description: description,
-      duration: 2,
-    });
-  };
-  const uploadButton = (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      {imgLoading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
+
   const onCreate = (createdUser) => {
     setLoading(true);
     UsersServices.createUser(createdUser)
@@ -93,20 +110,7 @@ function UsersCreate(props) {
         openNotificationWithIcon("error", "Error!", err.response.data.message);
       });
   };
-  const layout = {
-    labelCol: { span: 6 },
-    wrapperCol: { span: 14 },
-  };
-  const validateMessages = {
-    required: "${label} is required!",
-    types: {
-      email: "${label} is not validate email!",
-      number: "${label} is not a validate number!",
-    },
-    number: {
-      range: "${label} must be between ${min} and ${max}",
-    },
-  };
+
   const onFinish = (values) => {
     const createdUser = {
       username: values.username,
@@ -190,7 +194,7 @@ function UsersCreate(props) {
               )}
             </div>
             <div className="choose-file">
-              <input type="file" onChange={handleChange} />
+              <input type="file" onChange={handleChange} title=" " />
             </div>
           </div>
 

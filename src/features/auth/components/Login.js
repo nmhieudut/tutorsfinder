@@ -82,12 +82,14 @@ export default function Auth() {
               <a
                 href="https://www.facebook.com/hieumaxnho"
                 target="_blank"
+                rel="noopener noreferrer"
                 className={"fa" + " fa-facebook"}
               >
                 <FontAwesomeIcon icon={faFacebook} />
               </a>
               <a
                 target="_blank"
+                rel="noopener noreferrer"
                 href="https://www.github.com/tuanconbu"
                 className={"fa " + "fa-twitter"}
               >
@@ -164,7 +166,7 @@ export default function Auth() {
               width="30px"
               height="30px"
             />{" "}
-            ReactJs
+            Hieu Nho
           </h2>
         </div>
       </div>
