@@ -44,9 +44,14 @@ export default function NeedsComponents() {
   };
   const columns = [
     {
-      title: "ID User",
-      dataIndex: "idUser",
-      key: "idUser",
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "User",
+      dataIndex: "nameUser",
+      key: "nameUser",
     },
     {
       title: "Grade",

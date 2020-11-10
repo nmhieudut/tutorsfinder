@@ -29,5 +29,15 @@ const routes = [
     exact: true,
     component: "needs/Needs",
   },
+  {
+    path: "feedbacks",
+    exact: true,
+    component: "feedback/Feedbacks",
+  },
+  {
+    path: "notifications",
+    exact: true,
+    component: "notifications/Notifications",
+  },
 ];
 export default routes;

@@ -13,7 +13,7 @@ const { Meta } = Card;
 export default function HeaderNav() {
   const data = [
     {
-      title: "Ant Design Title 1",
+      title: "Notification",
     },
   ];
 
@@ -49,10 +49,7 @@ export default function HeaderNav() {
   const notificationsList = (item) => {
     return (
       <List.Item>
-        <List.Item.Meta
-          title={item.title}
-          description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-        />
+        <List.Item.Meta title={item.title} description="Login Successfully" />
       </List.Item>
     );
   };
