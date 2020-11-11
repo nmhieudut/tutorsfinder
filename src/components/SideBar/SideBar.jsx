@@ -36,6 +36,7 @@ export default function SideBar(props) {
       ? 6
       : 7
   );
+  console.log("key",selectedKey)
   const handleClick = (e) => {
     setSelectedKey(e.key);
   };
