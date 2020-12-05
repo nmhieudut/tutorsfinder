@@ -4,6 +4,7 @@ import { Typography, Button, Modal } from "antd";
 import logo from "../../../../assets/logo.png";
 import NotiServices from "../../../../api/NotiServices";
 const { Title } = Typography;
+
 export default function NotificationsComponents() {
   const [notification, setNotification] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,6 +25,7 @@ export default function NotificationsComponents() {
       <div className="input-area">
         <div style={{ flex: 1, textAlign: "left" }}>
           <Title level={2}>Notification</Title>
+          <p>Enter the text to send notification to every devices</p>
         </div>
         <input
           className="input-devices"

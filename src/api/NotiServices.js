@@ -4,7 +4,7 @@ const pushNotifications = async (notification) => {
   const token = JSON.parse(localStorage.getItem("token"));
   try {
     const response = await axios.post(
-      "http://14.245.68.58:9090/api/edu/v1/push-notification",
+      "http://14.245.65.138:9090/api/edu/v1/push-notification",
       {
         notification: notification,
       },

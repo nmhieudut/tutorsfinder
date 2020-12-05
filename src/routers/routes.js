@@ -5,6 +5,11 @@ const routes = [
     component: "dashboard",
   },
   {
+    path: "courses",
+    exact: true,
+    component: "courses",
+  },
+  {
     path: "users",
     exact: true,
     component: "users/UsersManagement/Users",

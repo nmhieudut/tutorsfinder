@@ -25,7 +25,7 @@ function Layouts() {
           <Sider
             className="sider-layout"
             breakpoint="lg"
-            theme="dark"
+            theme="light"
             collapsible
             collapsed={collapsed}
             onCollapse={onCollapse}
@@ -50,11 +50,13 @@ function Layouts() {
                 padding: 0,
                 width: "100%",
                 backgroundColor: "white",
+                position: "fixed",
+                zIndex: 999,
               }}
             >
               <HeaderNav />
             </Header>
-            <Content>
+            <Content style={{ marginTop: "64px" }}>
               <div className="site-layout-content">
                 <RouterPage match={match} />
               </div>
@@ -64,9 +66,7 @@ function Layouts() {
                 </div>
               </BackTop>
             </Content>
-            <Footer style={{ textAlign: "center" }}>
-              Created by Hieu Hoa Hong
-            </Footer>
+            <Footer>Created by Hieu Hoa Hong</Footer>
           </Layout>
         </Layout>
       </Router>

@@ -32,11 +32,13 @@ export default function SideBar(props) {
       ? 4
       : path === "/home/needs"
       ? 5
-      : path === "/home/feedback"
+      : path === "/home/feedbacks"
       ? 6
-      : 7
+      : path === "home/notifications"
+      ? 7
+      : path === "home/courses" && 8
   );
-  console.log("key",selectedKey)
+  console.log("key", selectedKey);
   const handleClick = (e) => {
     setSelectedKey(e.key);
   };
@@ -48,11 +50,16 @@ export default function SideBar(props) {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "#1a237e",
+          backgroundColor: "#b3e5fc",
         }}
       >
         <Link to="/" target="_top">
-          <div style={{ display: "flex", flexDirection: "row" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
             <img src={logo} height="50px" width="50px" border="0" alt="" />
           </div>
         </Link>
@@ -62,7 +69,6 @@ export default function SideBar(props) {
         style={{ marginTop: 60 }}
         className="sidebar-layout-content"
         mode="inline"
-        theme="dark"
         onClick={handleClick}
         defaultSelectedKeys={[selectedKey + ""]}
         defaultOpenKeys={["sub1"]}
@@ -83,11 +89,15 @@ export default function SideBar(props) {
           <Menu.Item key="5" icon={<BookOutlined />}>
             <Link to="/home/needs">Needs</Link>
           </Menu.Item>
+          <Menu.Item key="6" icon={<FormOutlined />}>
+            <Link to="/home/feedbacks">Feedback</Link>
+          </Menu.Item>
+          <Menu.Item key="7" icon={<FormOutlined />}>
+            <Link to="/home/courses">Courses</Link>
+          </Menu.Item>
         </SubMenu>
-        <Menu.Item key="6" icon={<FormOutlined />}>
-          <Link to="/home/feedbacks">Feedback</Link>
-        </Menu.Item>
-        <Menu.Item key="7" icon={<BellOutlined />}>
+
+        <Menu.Item key="8" icon={<BellOutlined />}>
           <Link to="/home/notifications">Notifications</Link>
         </Menu.Item>
       </Menu>

@@ -1,15 +1,15 @@
 .site-layout-content {
   min-height: 560px;
+  padding: 0 20px;
 }
-
 .header-layout {
-  width: 100%;
+  max-width: calc(100vw - 95px);
   display: flex;
+  justify-content: flex-end;
   flex-direction: row;
   height: 100%;
   box-shadow: 0px 0px 9px 3px rgba(41, 41, 41, 0.25);
 }
-
 .sider-layout {
   min-width: 100%;
   height: 100vh;
@@ -18,12 +18,10 @@
     0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05),
     0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
 }
-
 .sidebar-layout-content {
   min-width: 100%;
   height: 100vh;
 }
-
 .back-top-button {
   height: 40px;
   width: 40px;

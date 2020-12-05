@@ -4,7 +4,7 @@ function getUsers() {
   const token = JSON.parse(localStorage.getItem("token"));
   return new Promise((resolve, reject) => {
     axios
-      .get("http://14.245.68.58:9090/api/edu/v1/user", {
+      .get("http://14.245.65.138:9090/api/edu/v1/user", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -25,7 +25,7 @@ function getDetailUser(id) {
   const token = JSON.parse(localStorage.getItem("token"));
   return new Promise((resolve, reject) => {
     axios
-      .get(`http://14.245.68.58:9090/api/edu/v1/user/details/${id}`, {
+      .get(`http://14.245.65.138:9090/api/edu/v1/user/details/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -45,7 +45,7 @@ function getDetailUser(id) {
 function createUser(createdUser) {
   return new Promise((resolve, reject) => {
     axios
-      .post("http://14.245.68.58:9090/api/auth/v1/user/register", createdUser)
+      .post("http://14.245.65.138:9090/api/auth/v1/user/register", createdUser)
       .then((res) => {
         resolve(res);
       })
@@ -59,7 +59,7 @@ function updateUser(id, updatedUser) {
   const token = JSON.parse(localStorage.getItem("token"));
   return new Promise((resolve, reject) => {
     axios
-      .put(`http://14.245.68.58:9090/api/edu/v1/user/update`, updatedUser, {
+      .put(`http://14.245.65.138:9090/api/edu/v1/user/update`, updatedUser, {
         params: { idUser: id },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -78,7 +78,7 @@ function deleteUser(id) {
   const token = JSON.parse(localStorage.getItem("token"));
   return new Promise((resolve, reject) => {
     axios
-      .delete(`http://14.245.68.58:9090/api/edu/v1/user/delete`, {
+      .delete(`http://14.245.65.138:9090/api/edu/v1/user/delete`, {
         params: { idUser: id },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -99,7 +99,7 @@ function changeStatus(id, status) {
   return new Promise((resolve, reject) => {
     axios
       .put(
-        "http://14.245.68.58:9090/api/edu/v1/user/changestatus",
+        "http://14.245.65.138:9090/api/edu/v1/user/changestatus",
         { name_status: status },
         {
           params: { id: id },

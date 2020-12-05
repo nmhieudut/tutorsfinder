@@ -50,8 +50,7 @@ export default function NeedsComponents() {
     },
     {
       title: "User",
-      dataIndex: "nameUser",
-      key: "nameUser",
+      render: (record) => <p>{record.student.username}</p>,
     },
     {
       title: "Grade",

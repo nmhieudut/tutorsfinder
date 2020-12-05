@@ -67,11 +67,9 @@ export default function HeaderNav() {
     <div className="header-layout">
       <div
         style={{
-          flex: 1,
           display: "flex",
           justifyContent: "flex-end",
           alignItems: "center",
-          border: "1px solid #e0e0e0",
         }}
       >
         <div
@@ -93,11 +91,11 @@ export default function HeaderNav() {
             </Badge>
           </Dropdown>
         </div>
-        <div style={{}}>
+        <div style={{ margin: "0 5px" }}>
           <Dropdown overlay={profileOverlay}>
             <div style={{ cursor: "pointer" }}>
               <Avatar src={avatar} />
-              <span style={{ margin: 10 }}>Hieu Nguyen</span>
+              <span style={{ margin: "10px 10px 10px 20px" }}>Hieu Nguyen</span>
               <Link
                 target="_blank"
                 rel="noopener noreferrer"

@@ -56,6 +56,7 @@ export default function Auth() {
       })
       .catch((err) => {
         setIsAuth(false);
+        console.log({ err });
         setLoading(false);
         openNotificationWithIcon("error", "Error", err.response.data.message);
       });
@@ -64,110 +65,86 @@ export default function Auth() {
     return <Redirect to="/home" />;
   }
   return (
-    <div className="main-page">
+    <div className="root-login">
       <Progress isAnimating={loading} />
-      <div className="image_page">
-        <div className="layer"></div>
-        <div className="about_us">
-          <Title style={{ color: "white" }}> Welcome</Title>
-          <div className="space-line"></div>
-          <Paragraph style={{ color: "white" }}>
-            {" "}
-            Welcome to <strong>TutorsFinder</strong> administrator page.
-          </Paragraph>
-        </div>
-        <div className="footer">
-          <div className="social-contact">
-            <div className="social-icon">
-              <a
-                href="https://www.facebook.com/hieumaxnho"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={"fa" + " fa-facebook"}
-              >
-                <FontAwesomeIcon icon={faFacebook} />
-              </a>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://www.github.com/tuanconbu"
-                className={"fa " + "fa-twitter"}
-              >
-                <FontAwesomeIcon icon={faGithub} />
-              </a>
-              <a href="#" className="fa fa-google">
-                <FontAwesomeIcon icon={faGooglePlus} />
-              </a>
+      <div className="main-page">
+        <div className="main-page-content">
+          <div className="image_page">
+            <div className="layer"></div>
+            <div className="about_us">
+              <Title style={{ color: "white" }}> Welcome</Title>
+              <div className="space-line"></div>
+              <Paragraph style={{ color: "white" }}>
+                {" "}
+                Welcome to <strong>TutorsFinder</strong> administrator page.
+              </Paragraph>
             </div>
+            <div className="footer">
+              <div className="social-contact">
+                <div className="social-icon">
+                  <a
+                    href="https://www.facebook.com/hieumaxnho"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={"fa" + " fa-facebook"}
+                  >
+                    <FontAwesomeIcon icon={faFacebook} />
+                  </a>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.github.com/tuanconbu"
+                    className={"fa " + "fa-twitter"}
+                  >
+                    <FontAwesomeIcon icon={faGithub} />
+                  </a>
+                  <a href="#" className="fa fa-google">
+                    <FontAwesomeIcon icon={faGooglePlus} />
+                  </a>
+                </div>
 
-            <p style={{ color: "#424242" }}>
-              Telephone: (+84)123456789 / Hotline: 113
-            </p>
+                <p style={{ color: "#424242" }}>
+                  Telephone: (+84)123456789 / Hotline: 113
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div className="form_content">
-        <div className="logo">
-          <Image src={logo} width="60px" height="60px" />
-          <h1 className="title">TUTORS FINDER</h1>
-        </div>
-        <Form
-          {...layout}
-          name="basic"
-          size="large"
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-        >
-          <Form.Item
-            name="username"
-            // rules={[
-            //   {
-            //     required: true,
-            //     message: "Please input your username!",
-            //   },
-            // ]}
-          >
-            <Input placeholder="User Name" />
-          </Form.Item>
-
-          <Form.Item
-            name="password"
-            // rules={[
-            //   {
-            //     required: true,
-            //     message: "Please input your password!",
-            //   },
-            // ]}
-          >
-            <Input.Password placeholder="Password" />
-          </Form.Item>
-          <Form.Item {...tailLayout}>
-            <Button
-              type="primary"
-              htmlType="submit"
-              style={{ backgroundColor: "green" }}
-              loading={loading ? 1 : 0}
-              disabled={loading ? 1 : 0}
-              target="_top"
+          <div className="form_content">
+            <div className="logo">
+              <Image src={logo} width="60px" height="60px" />
+              <h1 className="title">TUTORS FINDER</h1>
+            </div>
+            <Form
+              {...layout}
+              name="basic"
+              size="large"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={onFinish}
             >
-              {loading ? "Checking..." : "Log In"}
-            </Button>
-          </Form.Item>
-        </Form>
-        <div className="powered-by">
-          <h2>
-            Powered by{" "}
-            <img
-              className="reactLogo"
-              src={reactLogo}
-              width="30px"
-              height="30px"
-            />{" "}
-            Hieu Nho
-          </h2>
+              <Form.Item name="username">
+                <Input placeholder="User Name" />
+              </Form.Item>
+
+              <Form.Item name="password">
+                <Input.Password placeholder="Password" />
+              </Form.Item>
+              <Form.Item {...tailLayout}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{ backgroundColor: "green" }}
+                  loading={loading ? 1 : 0}
+                  disabled={loading ? 1 : 0}
+                  target="_top"
+                >
+                  {loading ? "Checking..." : "Sign In"}
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ function login(username, password) {
   };
   return new Promise((resolve, reject) => {
     axios
-      .post("http://14.245.68.58:9090/api/auth/v1/admin/login", userConfig)
+      .post("http://14.245.65.138:9090/api/auth/v1/admin/login", userConfig)
       .then((res) => {
         localStorage.setItem("token", JSON.stringify(res.data.authToken));
         resolve(res);
