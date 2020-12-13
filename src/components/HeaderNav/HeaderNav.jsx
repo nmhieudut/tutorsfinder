@@ -2,12 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Avatar, Dropdown, Card, Button, Badge, List } from "antd";
 import {
-  DownOutlined,
+  CaretDownOutlined,
   LogoutOutlined,
   NotificationOutlined,
 } from "@ant-design/icons";
 import avatar from "../../assets/avatar.jpg";
 import "../../layouts/index.css";
+import "./HeaderNav.css";
 const { Meta } = Card;
 
 export default function HeaderNav() {
@@ -68,8 +69,9 @@ export default function HeaderNav() {
       <div
         style={{
           display: "flex",
-          justifyContent: "flex-end",
           alignItems: "center",
+          justifyContent: "flex-end",
+          width: "85%",
         }}
       >
         <div
@@ -91,10 +93,10 @@ export default function HeaderNav() {
             </Badge>
           </Dropdown>
         </div>
-        <div style={{ margin: "0 5px" }}>
+        <div className="user_container">
           <Dropdown overlay={profileOverlay}>
-            <div style={{ cursor: "pointer" }}>
-              <Avatar src={avatar} />
+            <div className="user_container_main">
+              <Avatar className="avatar" src={avatar} />
               <span style={{ margin: "10px 10px 10px 20px" }}>Hieu Nguyen</span>
               <Link
                 target="_blank"
@@ -102,7 +104,7 @@ export default function HeaderNav() {
                 to="/"
                 onClick={(e) => e.preventDefault()}
               >
-                <DownOutlined />
+                <CaretDownOutlined />
               </Link>
             </div>
           </Dropdown>

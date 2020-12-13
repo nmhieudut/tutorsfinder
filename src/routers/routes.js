@@ -40,6 +40,11 @@ const routes = [
     component: "feedback/Feedbacks",
   },
   {
+    path: "devices",
+    exact: true,
+    component: "devices/Devices",
+  },
+  {
     path: "notifications",
     exact: true,
     component: "notifications/Notifications",

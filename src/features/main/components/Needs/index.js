@@ -73,7 +73,6 @@ export default function NeedsComponents() {
       key: "schedule",
       render: (schedule) => (
         <div>
-          {" "}
           <a onClick={() => info(schedule)}>View schedule</a>
         </div>
       ),

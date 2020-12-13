@@ -8,6 +8,7 @@ import {
   BookOutlined,
   TeamOutlined,
   BellOutlined,
+  MobileOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { Menu } from "antd";
@@ -36,7 +37,9 @@ export default function SideBar(props) {
       ? 6
       : path === "home/notifications"
       ? 7
-      : path === "home/courses" && 8
+      : path === "home/courses"
+      ? 8
+      : path === "home/devices" && 9
   );
   console.log("key", selectedKey);
   const handleClick = (e) => {
@@ -95,9 +98,12 @@ export default function SideBar(props) {
           <Menu.Item key="7" icon={<FormOutlined />}>
             <Link to="/home/courses">Courses</Link>
           </Menu.Item>
+          <Menu.Item key="8" icon={<MobileOutlined />}>
+            <Link to="/home/devices">Devices</Link>
+          </Menu.Item>
         </SubMenu>
 
-        <Menu.Item key="8" icon={<BellOutlined />}>
+        <Menu.Item key="9" icon={<BellOutlined />}>
           <Link to="/home/notifications">Notifications</Link>
         </Menu.Item>
       </Menu>

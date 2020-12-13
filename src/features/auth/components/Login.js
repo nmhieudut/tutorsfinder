@@ -75,7 +75,6 @@ export default function Auth() {
               <Title style={{ color: "white" }}> Welcome</Title>
               <div className="space-line"></div>
               <Paragraph style={{ color: "white" }}>
-                {" "}
                 Welcome to <strong>TutorsFinder</strong> administrator page.
               </Paragraph>
             </div>

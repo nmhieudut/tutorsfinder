@@ -12,11 +12,18 @@ export default function NotificationsComponents() {
   const pushNotification = () => {
     setLoading(true);
     async function pushNoti() {
-      await NotiServices.pushNotifications(notification);
-      setLoading(false);
-      Modal.success({
-        content: "Sent to every devices",
-      });
+      if (notification.trim() !== "") {
+        await NotiServices.pushNotifications(notification);
+        setLoading(false);
+        Modal.success({
+          content: "Sent to every devices",
+        });
+      } else {
+        setLoading(false);
+        Modal.error({
+          content: "Say something",
+        });
+      }
     }
     pushNoti();
   };

@@ -1,16 +1,15 @@
 import React from "react";
-import CoursesComponent from "../../features/main/components/Courses";
+import DevicesComponents from "../../features/main/components/Devices";
 import { Typography } from "antd";
 
 const { Title } = Typography;
-
-export default function Courses() {
+export default function Devices() {
   return (
     <div>
       <div style={{ flex: 1, padding: "20px", textAlign: "left" }}>
-        <Title level={2}>Courses</Title>
+        <Title level={2}>Devices</Title>
       </div>
-      <CoursesComponent />
+      <DevicesComponents />
     </div>
   );
 }

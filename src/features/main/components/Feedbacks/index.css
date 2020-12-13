@@ -1,0 +1,26 @@
+.container {
+  padding: 0 5%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.feedback_card {
+  border: 1px solid rgb(209, 204, 204);
+  width: 45%;
+  margin: 1% 0;
+  background-color: #ffffff;
+}
+.feedback_tutor_things {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 0.5px solid #d2cccc;
+}
+.feedback_user_things {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
