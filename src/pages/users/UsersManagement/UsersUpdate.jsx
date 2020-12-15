@@ -71,7 +71,7 @@ function UsersUpdate(props) {
     return <div>Can't edit this user, try another one !</div>;
   }
   return (
-    <div>
+    <div style={{ marginTop: 50 }}>
       {data && (
         <Form
           {...layout}
