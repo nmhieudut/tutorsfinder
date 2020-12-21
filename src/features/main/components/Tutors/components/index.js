@@ -5,7 +5,7 @@ import "./tutors.modules.css";
 export default function TutorsComponents() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  console.log("tutors", data);
+
   useEffect(() => {
     const fetchTutors = async () => {
       setData(await TutorsServices.getAllTutors());

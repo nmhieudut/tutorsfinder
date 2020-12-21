@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const getAllFeedbacks = async () => {
+const getAllDevices = async () => {
   const token = JSON.parse(localStorage.getItem("token"));
   try {
     const response = await axios.get(
@@ -16,6 +16,7 @@ const getAllFeedbacks = async () => {
     console.log(e);
   }
 };
+
 export default {
-  getAllFeedbacks,
+  getAllDevices,
 };

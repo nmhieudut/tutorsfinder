@@ -1,0 +1,39 @@
+.container {
+  padding: 0 5%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.course_card {
+  width: 100%;
+  display: flex;
+  margin: 5% 0;
+  justify-content: center;
+  align-items: center;
+}
+.student-side {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 1px solid #a2a2a2;
+}
+.side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.img {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+.arrow-container {
+  display: flex;
+}
+.arrow-letter {
+  font-size: 60px;
+}
+.detail-modal {
+  border: 1px solid #e0e0e0;
+  box-shadow: 1px 1px 1px 1px rgba(41, 41, 41, 0.25);
+  padding: 20px;
+}

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  DashboardOutlined,
   UserOutlined,
   FormOutlined,
   UnorderedListOutlined,
@@ -18,30 +17,27 @@ import { useLocation } from "react-router-dom";
 
 const { SubMenu } = Menu;
 
-export default function SideBar(props) {
+export default function SideBar() {
   const location = useLocation();
   const path = location.pathname;
 
   const [selectedKey, setSelectedKey] = useState(
-    path === "/home/dashboard"
+    path === "/home/users"
       ? 1
-      : path === "/home/users"
-      ? 2
       : path === "/home/subjects"
-      ? 3
+      ? 2
       : path === "/home/tutors"
-      ? 4
+      ? 3
       : path === "/home/needs"
-      ? 5
+      ? 4
       : path === "/home/feedbacks"
-      ? 6
+      ? 5
       : path === "home/notifications"
-      ? 7
+      ? 6
       : path === "home/courses"
-      ? 8
-      : path === "home/devices" && 9
+      ? 7
+      : path === "home/devices" && 8
   );
-  console.log("key", selectedKey);
   const handleClick = (e) => {
     setSelectedKey(e.key);
   };
@@ -76,34 +72,31 @@ export default function SideBar(props) {
         defaultSelectedKeys={[selectedKey + ""]}
         defaultOpenKeys={["sub1"]}
       >
-        <Menu.Item key="1" icon={<DashboardOutlined />}>
-          <Link to="/home/dashboard">Dashboard</Link>
-        </Menu.Item>
         <SubMenu key="sub1" icon={<UnorderedListOutlined />} title="Management">
-          <Menu.Item key="2" icon={<UserOutlined />}>
+          <Menu.Item key="1" icon={<UserOutlined />}>
             <Link to="/home/users">Users</Link>
           </Menu.Item>
-          <Menu.Item key="3" icon={<SnippetsOutlined />}>
+          <Menu.Item key="2" icon={<SnippetsOutlined />}>
             <Link to="/home/subjects">Subjects</Link>
           </Menu.Item>
-          <Menu.Item key="4" icon={<TeamOutlined />}>
+          <Menu.Item key="3" icon={<TeamOutlined />}>
             <Link to="/home/tutors">Tutors</Link>
           </Menu.Item>
-          <Menu.Item key="5" icon={<BookOutlined />}>
+          <Menu.Item key="4" icon={<BookOutlined />}>
             <Link to="/home/needs">Needs</Link>
           </Menu.Item>
-          <Menu.Item key="6" icon={<FormOutlined />}>
+          <Menu.Item key="5" icon={<FormOutlined />}>
             <Link to="/home/feedbacks">Feedback</Link>
           </Menu.Item>
-          <Menu.Item key="7" icon={<FormOutlined />}>
+          <Menu.Item key="6" icon={<FormOutlined />}>
             <Link to="/home/courses">Courses</Link>
           </Menu.Item>
-          <Menu.Item key="8" icon={<MobileOutlined />}>
+          <Menu.Item key="7" icon={<MobileOutlined />}>
             <Link to="/home/devices">Devices</Link>
           </Menu.Item>
         </SubMenu>
 
-        <Menu.Item key="9" icon={<BellOutlined />}>
+        <Menu.Item key="8" icon={<BellOutlined />}>
           <Link to="/home/notifications">Notifications</Link>
         </Menu.Item>
       </Menu>

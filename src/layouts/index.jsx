@@ -7,7 +7,7 @@ import { BrowserRouter as Router, useRouteMatch } from "react-router-dom";
 import RouterPage from "../routers";
 import { VerticalAlignTopOutlined } from "@ant-design/icons";
 
-const { Header, Footer, Content, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 
 function Layouts() {
   const [collapsed, setCollapsed] = useState(false);
@@ -66,7 +66,6 @@ function Layouts() {
                 </div>
               </BackTop>
             </Content>
-            <Footer>Created by Hieu Hoa Hong</Footer>
           </Layout>
         </Layout>
       </Router>

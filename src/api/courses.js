@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const getAllFeedbacks = async () => {
+const getAllCourses = async () => {
   const token = JSON.parse(localStorage.getItem("token"));
   try {
     const response = await axios.get(
-      "http://14.245.65.138:9090/api/edu/v1/feedback",
+      "http://14.245.65.138:9090/api/edu/v1/course",
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -17,5 +17,5 @@ const getAllFeedbacks = async () => {
   }
 };
 export default {
-  getAllFeedbacks,
+  getAllCourses,
 };

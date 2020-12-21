@@ -6,7 +6,6 @@ import "./needs.css";
 export default function NeedsComponents() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  console.log("data", data);
 
   useEffect(() => {
     try {

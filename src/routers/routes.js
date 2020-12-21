@@ -1,10 +1,5 @@
 const routes = [
   {
-    path: "dashboard",
-    exact: true,
-    component: "dashboard",
-  },
-  {
     path: "courses",
     exact: true,
     component: "courses",

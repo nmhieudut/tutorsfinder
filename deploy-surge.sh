@@ -10,3 +10,5 @@ cp index.html 200.html
 # Start deploying via Surge
 # The command means deploy current folder to domain app-name.surge.sh
 surge . tutorsfinder.surge.sh
+
+cd ..
